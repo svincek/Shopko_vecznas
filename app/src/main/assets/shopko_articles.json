@@ -1,0 +1,2092 @@
+{
+  "articles": [
+    {
+      "article_id": 1,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.37
+    },
+    {
+      "article_id": 2,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.35
+    },
+    {
+      "article_id": 3,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.53
+    },
+    {
+      "article_id": 4,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.28
+    },
+    {
+      "article_id": 5,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.46
+    },
+    {
+      "article_id": 6,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.14
+    },
+    {
+      "article_id": 7,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 1.03
+    },
+    {
+      "article_id": 8,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.82
+    },
+    {
+      "article_id": 9,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.27
+    },
+    {
+      "article_id": 10,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.28
+    },
+    {
+      "article_id": 11,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.51
+    },
+    {
+      "article_id": 12,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.94
+    },
+    {
+      "article_id": 13,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.92
+    },
+    {
+      "article_id": 14,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.07
+    },
+    {
+      "article_id": 15,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.92
+    },
+    {
+      "article_id": 16,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.67
+    },
+    {
+      "article_id": 17,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.22
+    },
+    {
+      "article_id": 18,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.23
+    },
+    {
+      "article_id": 19,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.74
+    },
+    {
+      "article_id": 20,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.9
+    },
+    {
+      "article_id": 21,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.85
+    },
+    {
+      "article_id": 22,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.07
+    },
+    {
+      "article_id": 23,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 1.9
+    },
+    {
+      "article_id": 24,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.14
+    },
+    {
+      "article_id": 25,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.39
+    },
+    {
+      "article_id": 26,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.08
+    },
+    {
+      "article_id": 27,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.24
+    },
+    {
+      "article_id": 28,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.17
+    },
+    {
+      "article_id": 29,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.38
+    },
+    {
+      "article_id": 30,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.22
+    },
+    {
+      "article_id": 31,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.96
+    },
+    {
+      "article_id": 32,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.96
+    },
+    {
+      "article_id": 33,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.81
+    },
+    {
+      "article_id": 34,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.83
+    },
+    {
+      "article_id": 35,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.52
+    },
+    {
+      "article_id": 36,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.95
+    },
+    {
+      "article_id": 37,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.98
+    },
+    {
+      "article_id": 38,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.88
+    },
+    {
+      "article_id": 39,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.16
+    },
+    {
+      "article_id": 40,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.35
+    },
+    {
+      "article_id": 41,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.26
+    },
+    {
+      "article_id": 42,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.11
+    },
+    {
+      "article_id": 43,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.77
+    },
+    {
+      "article_id": 44,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.64
+    },
+    {
+      "article_id": 45,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.07
+    },
+    {
+      "article_id": 46,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.88
+    },
+    {
+      "article_id": 47,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 1.7
+    },
+    {
+      "article_id": 48,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.16
+    },
+    {
+      "article_id": 49,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.42
+    },
+    {
+      "article_id": 50,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.43
+    },
+    {
+      "article_id": 51,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.36
+    },
+    {
+      "article_id": 52,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.27
+    },
+    {
+      "article_id": 53,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.14
+    },
+    {
+      "article_id": 54,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.13
+    },
+    {
+      "article_id": 55,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.88
+    },
+    {
+      "article_id": 56,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.94
+    },
+    {
+      "article_id": 57,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.76
+    },
+    {
+      "article_id": 58,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.9
+    },
+    {
+      "article_id": 59,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.64
+    },
+    {
+      "article_id": 60,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.88
+    },
+    {
+      "article_id": 61,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.0
+    },
+    {
+      "article_id": 62,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.97
+    },
+    {
+      "article_id": 63,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.12
+    },
+    {
+      "article_id": 64,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.64
+    },
+    {
+      "article_id": 65,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.23
+    },
+    {
+      "article_id": 66,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.87
+    },
+    {
+      "article_id": 67,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 2.07
+    },
+    {
+      "article_id": 68,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.79
+    },
+    {
+      "article_id": 69,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.93
+    },
+    {
+      "article_id": 70,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.0
+    },
+    {
+      "article_id": 71,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.24
+    },
+    {
+      "article_id": 72,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.18
+    },
+    {
+      "article_id": 73,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.17
+    },
+    {
+      "article_id": 74,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.3
+    },
+    {
+      "article_id": 75,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.27
+    },
+    {
+      "article_id": 76,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.18
+    },
+    {
+      "article_id": 77,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.34
+    },
+    {
+      "article_id": 78,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.37
+    },
+    {
+      "article_id": 79,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.83
+    },
+    {
+      "article_id": 80,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.99
+    },
+    {
+      "article_id": 81,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.36
+    },
+    {
+      "article_id": 82,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.23
+    },
+    {
+      "article_id": 83,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.68
+    },
+    {
+      "article_id": 84,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.02
+    },
+    {
+      "article_id": 85,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.94
+    },
+    {
+      "article_id": 86,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.95
+    },
+    {
+      "article_id": 87,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.02
+    },
+    {
+      "article_id": 88,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.67
+    },
+    {
+      "article_id": 89,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.37
+    },
+    {
+      "article_id": 90,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.0
+    },
+    {
+      "article_id": 91,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 2.11
+    },
+    {
+      "article_id": 92,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.87
+    },
+    {
+      "article_id": 93,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.9
+    },
+    {
+      "article_id": 94,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.82
+    },
+    {
+      "article_id": 95,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.09
+    },
+    {
+      "article_id": 96,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.09
+    },
+    {
+      "article_id": 97,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.45
+    },
+    {
+      "article_id": 98,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.21
+    },
+    {
+      "article_id": 99,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.18
+    },
+    {
+      "article_id": 100,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.07
+    },
+    {
+      "article_id": 101,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.18
+    },
+    {
+      "article_id": 102,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.27
+    },
+    {
+      "article_id": 103,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.77
+    },
+    {
+      "article_id": 104,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.84
+    },
+    {
+      "article_id": 105,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.18
+    },
+    {
+      "article_id": 106,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.98
+    },
+    {
+      "article_id": 107,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.31
+    },
+    {
+      "article_id": 108,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.11
+    },
+    {
+      "article_id": 109,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.15
+    },
+    {
+      "article_id": 110,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.03
+    },
+    {
+      "article_id": 111,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.98
+    },
+    {
+      "article_id": 112,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.68
+    },
+    {
+      "article_id": 113,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.2
+    },
+    {
+      "article_id": 114,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.25
+    },
+    {
+      "article_id": 115,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.67
+    },
+    {
+      "article_id": 116,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.71
+    },
+    {
+      "article_id": 117,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.89
+    },
+    {
+      "article_id": 118,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.98
+    },
+    {
+      "article_id": 119,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.09
+    },
+    {
+      "article_id": 120,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.17
+    },
+    {
+      "article_id": 121,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.25
+    },
+    {
+      "article_id": 122,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.17
+    },
+    {
+      "article_id": 123,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.22
+    },
+    {
+      "article_id": 124,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.35
+    },
+    {
+      "article_id": 125,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.32
+    },
+    {
+      "article_id": 126,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.31
+    },
+    {
+      "article_id": 127,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.88
+    },
+    {
+      "article_id": 128,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 1.0
+    },
+    {
+      "article_id": 129,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.54
+    },
+    {
+      "article_id": 130,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.69
+    },
+    {
+      "article_id": 131,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.46
+    },
+    {
+      "article_id": 132,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.12
+    },
+    {
+      "article_id": 133,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.94
+    },
+    {
+      "article_id": 134,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.04
+    },
+    {
+      "article_id": 135,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.02
+    },
+    {
+      "article_id": 136,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.37
+    },
+    {
+      "article_id": 137,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.39
+    },
+    {
+      "article_id": 138,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.82
+    },
+    {
+      "article_id": 139,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.92
+    },
+    {
+      "article_id": 140,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.81
+    },
+    {
+      "article_id": 141,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.06
+    },
+    {
+      "article_id": 142,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.08
+    },
+    {
+      "article_id": 143,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.17
+    },
+    {
+      "article_id": 144,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.18
+    },
+    {
+      "article_id": 145,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.45
+    },
+    {
+      "article_id": 146,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.42
+    },
+    {
+      "article_id": 147,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.3
+    },
+    {
+      "article_id": 148,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.14
+    },
+    {
+      "article_id": 149,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.19
+    },
+    {
+      "article_id": 150,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.21
+    },
+    {
+      "article_id": 151,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.92
+    },
+    {
+      "article_id": 152,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.97
+    },
+    {
+      "article_id": 153,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.68
+    },
+    {
+      "article_id": 154,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.38
+    },
+    {
+      "article_id": 155,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.7
+    },
+    {
+      "article_id": 156,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.95
+    },
+    {
+      "article_id": 157,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.1
+    },
+    {
+      "article_id": 158,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.94
+    },
+    {
+      "article_id": 159,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.14
+    },
+    {
+      "article_id": 160,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.56
+    },
+    {
+      "article_id": 161,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.48
+    },
+    {
+      "article_id": 162,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.1
+    },
+    {
+      "article_id": 163,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 2.06
+    },
+    {
+      "article_id": 164,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 2.05
+    },
+    {
+      "article_id": 165,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.0
+    },
+    {
+      "article_id": 166,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.91
+    },
+    {
+      "article_id": 167,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.1
+    },
+    {
+      "article_id": 168,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.02
+    },
+    {
+      "article_id": 169,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.43
+    },
+    {
+      "article_id": 170,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.07
+    },
+    {
+      "article_id": 171,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.23
+    },
+    {
+      "article_id": 172,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.18
+    },
+    {
+      "article_id": 173,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.23
+    },
+    {
+      "article_id": 174,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.13
+    },
+    {
+      "article_id": 175,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.88
+    },
+    {
+      "article_id": 176,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.9
+    },
+    {
+      "article_id": 177,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.39
+    },
+    {
+      "article_id": 178,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.55
+    },
+    {
+      "article_id": 179,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.33
+    },
+    {
+      "article_id": 180,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.02
+    },
+    {
+      "article_id": 181,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.01
+    },
+    {
+      "article_id": 182,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.1
+    },
+    {
+      "article_id": 183,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.04
+    },
+    {
+      "article_id": 184,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.41
+    },
+    {
+      "article_id": 185,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.39
+    },
+    {
+      "article_id": 186,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.17
+    },
+    {
+      "article_id": 187,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.92
+    },
+    {
+      "article_id": 188,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.84
+    },
+    {
+      "article_id": 189,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.9
+    },
+    {
+      "article_id": 190,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.98
+    },
+    {
+      "article_id": 191,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 1.77
+    },
+    {
+      "article_id": 192,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 1.75
+    },
+    {
+      "article_id": 193,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.49
+    },
+    {
+      "article_id": 194,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.27
+    },
+    {
+      "article_id": 195,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.24
+    },
+    {
+      "article_id": 196,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.35
+    },
+    {
+      "article_id": 197,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.37
+    },
+    {
+      "article_id": 198,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.12
+    },
+    {
+      "article_id": 199,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.77
+    },
+    {
+      "article_id": 200,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 1.0
+    },
+    {
+      "article_id": 201,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.34
+    },
+    {
+      "article_id": 202,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.43
+    },
+    {
+      "article_id": 203,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.9
+    },
+    {
+      "article_id": 204,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.13
+    },
+    {
+      "article_id": 205,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.2
+    },
+    {
+      "article_id": 206,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.98
+    },
+    {
+      "article_id": 207,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 1.16
+    },
+    {
+      "article_id": 208,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.51
+    },
+    {
+      "article_id": 209,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.47
+    },
+    {
+      "article_id": 210,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 2.19
+    },
+    {
+      "article_id": 211,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.68
+    },
+    {
+      "article_id": 212,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.66
+    },
+    {
+      "article_id": 213,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 1.13
+    },
+    {
+      "article_id": 214,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.97
+    },
+    {
+      "article_id": 215,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.02
+    },
+    {
+      "article_id": 216,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 1.99
+    },
+    {
+      "article_id": 217,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.2
+    },
+    {
+      "article_id": 218,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.07
+    },
+    {
+      "article_id": 219,
+      "type": "MLIJEKO - SVJEŽE",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "1L",
+      "price": 1.32
+    },
+    {
+      "article_id": 220,
+      "type": "SIR GAUDA",
+      "brand": "PODRAVKA",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.13
+    },
+    {
+      "article_id": 221,
+      "type": "SIR GAUDA",
+      "brand": "MEGGLE",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.26
+    },
+    {
+      "article_id": 222,
+      "type": "SIR GAUDA",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "100g",
+      "price": 1.21
+    },
+    {
+      "article_id": 223,
+      "type": "JOGURT",
+      "brand": "DUKAT",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 0.86
+    },
+    {
+      "article_id": 224,
+      "type": "JOGURT",
+      "brand": "Z BREGOV",
+      "category": "MLIJEČNI PROIZVODI",
+      "unit_size": "500ml",
+      "price": 1.03
+    },
+    {
+      "article_id": 225,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "ČEPIN",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.41
+    },
+    {
+      "article_id": 226,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "TAMOIL",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.94
+    },
+    {
+      "article_id": 227,
+      "type": "ULJE SUNCOKRETOVO",
+      "brand": "KONZUM",
+      "category": "ULJA I MASTI",
+      "unit_size": "1L",
+      "price": 2.69
+    },
+    {
+      "article_id": 228,
+      "type": "BRAŠNO TIP 550",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.02
+    },
+    {
+      "article_id": 229,
+      "type": "BRAŠNO TIP 550",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 0.92
+    },
+    {
+      "article_id": 230,
+      "type": "KRUH BIJELI",
+      "brand": "MLINAR",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.92
+    },
+    {
+      "article_id": 231,
+      "type": "KRUH BIJELI",
+      "brand": "PAN-PEK",
+      "category": "PEKARSKI PROIZVODI",
+      "unit_size": "500g",
+      "price": 0.93
+    },
+    {
+      "article_id": 232,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "MILKA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.54
+    },
+    {
+      "article_id": 233,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.38
+    },
+    {
+      "article_id": 234,
+      "type": "ČOKOLADA MLIJEČNA",
+      "brand": "LINDT",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "100g",
+      "price": 1.87
+    },
+    {
+      "article_id": 235,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "DOMAĆICA",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.96
+    },
+    {
+      "article_id": 236,
+      "type": "KEKS PETIT BEURRE",
+      "brand": "KRAŠ",
+      "category": "SLATKIŠI I GRICKALICE",
+      "unit_size": "200g",
+      "price": 1.74
+    },
+    {
+      "article_id": 237,
+      "type": "VODA MINERALNA",
+      "brand": "JANA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.89
+    },
+    {
+      "article_id": 238,
+      "type": "VODA MINERALNA",
+      "brand": "ROSA",
+      "category": "PIĆA",
+      "unit_size": "1.5L",
+      "price": 0.95
+    },
+    {
+      "article_id": 239,
+      "type": "GAZIRANI SOK",
+      "brand": "COCA-COLA",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 2.01
+    },
+    {
+      "article_id": 240,
+      "type": "GAZIRANI SOK",
+      "brand": "PEPSI",
+      "category": "PIĆA",
+      "unit_size": "2L",
+      "price": 1.65
+    },
+    {
+      "article_id": 241,
+      "type": "RIŽA",
+      "brand": "ZLATO POLJE",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.64
+    },
+    {
+      "article_id": 242,
+      "type": "RIŽA",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.6
+    },
+    {
+      "article_id": 243,
+      "type": "RIŽA",
+      "brand": "KONZUM",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "1kg",
+      "price": 1.34
+    },
+    {
+      "article_id": 244,
+      "type": "TJESTENINA",
+      "brand": "BARILLA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "500g",
+      "price": 1.48
+    },
+    {
+      "article_id": 245,
+      "type": "TJESTENINA",
+      "brand": "PODRAVKA",
+      "category": "OSNOVNE NAMIRNICE",
+      "unit_size": "500g",
+      "price": 1.02
+    },
+    {
+      "article_id": 246,
+      "type": "KAVA",
+      "brand": "JACOBS",
+      "category": "PIĆA",
+      "unit_size": "200g",
+      "price": 3.34
+    },
+    {
+      "article_id": 247,
+      "type": "KAVA",
+      "brand": "FRANCK",
+      "category": "PIĆA",
+      "unit_size": "200g",
+      "price": 3.03
+    },
+    {
+      "article_id": 248,
+      "type": "KAVA",
+      "brand": "ANKER",
+      "category": "PIĆA",
+      "unit_size": "200g",
+      "price": 3.48
+    },
+    {
+      "article_id": 249,
+      "type": "ČAJ",
+      "brand": "CELESTIAL",
+      "category": "PIĆA",
+      "unit_size": "20 vrećica",
+      "price": 2.3
+    },
+    {
+      "article_id": 250,
+      "type": "ČAJ",
+      "brand": "FRANCK",
+      "category": "PIĆA",
+      "unit_size": "20 vrećica",
+      "price": 1.88
+    },
+    {
+      "article_id": 251,
+      "type": "ČAJ",
+      "brand": "TWININGS",
+      "category": "PIĆA",
+      "unit_size": "20 vrećica",
+      "price": 2.52
+    },
+    {
+      "article_id": 252,
+      "type": "PASTA ZA ZUBE",
+      "brand": "COLGATE",
+      "category": "OSOBNA HIGIJENA",
+      "unit_size": "75ml",
+      "price": 1.94
+    },
+    {
+      "article_id": 253,
+      "type": "PASTA ZA ZUBE",
+      "brand": "SENSODYNE",
+      "category": "OSOBNA HIGIJENA",
+      "unit_size": "75ml",
+      "price": 2.11
+    },
+    {
+      "article_id": 254,
+      "type": "ŠAMPON",
+      "brand": "HEAD & SHOULDERS",
+      "category": "OSOBNA HIGIJENA",
+      "unit_size": "400ml",
+      "price": 3.24
+    },
+    {
+      "article_id": 255,
+      "type": "ŠAMPON",
+      "brand": "PANTENE",
+      "category": "OSOBNA HIGIJENA",
+      "unit_size": "400ml",
+      "price": 3.55
+    },
+    {
+      "article_id": 256,
+      "type": "ŠAMPON",
+      "brand": "GARNIER",
+      "category": "OSOBNA HIGIJENA",
+      "unit_size": "400ml",
+      "price": 3.17
+    },
+    {
+      "article_id": 257,
+      "type": "WC PAPIR",
+      "brand": "ZEWA",
+      "category": "HIGIJENA DOMA",
+      "unit_size": "10 rola",
+      "price": 3.53
+    },
+    {
+      "article_id": 258,
+      "type": "WC PAPIR",
+      "brand": "VIOLETA",
+      "category": "HIGIJENA DOMA",
+      "unit_size": "10 rola",
+      "price": 4.11
+    },
+    {
+      "article_id": 259,
+      "type": "WC PAPIR",
+      "brand": "KONZUM",
+      "category": "HIGIJENA DOMA",
+      "unit_size": "10 rola",
+      "price": 3.26
+    },
+    {
+      "article_id": 260,
+      "type": "DEZINFEKCIJSKO SREDSTVO",
+      "brand": "LYSOL",
+      "category": "HIGIJENA DOMA",
+      "unit_size": "500ml",
+      "price": 2.49
+    },
+    {
+      "article_id": 261,
+      "type": "DEZINFEKCIJSKO SREDSTVO",
+      "brand": "DOMESTOS",
+      "category": "HIGIJENA DOMA",
+      "unit_size": "500ml",
+      "price": 2.67
+    }
+  ]
+}
