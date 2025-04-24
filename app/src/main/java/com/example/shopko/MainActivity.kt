@@ -15,7 +15,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.shopko.entitys.StoreComboMatchResult
-import com.example.shopko.utils.dataFunctions.cheapestStoreCombo
+import com.example.shopko.enums.Filters
+import com.example.shopko.utils.dataFunctions.sortStoreCombo
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -64,12 +65,10 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
         mapFragment.getMapAsync(this)
 
         lifecycleScope.launch{
-            val stores: List<StoreComboMatchResult> = cheapestStoreCombo(popisExample, 2)
+            val stores: List<StoreComboMatchResult> = sortStoreCombo(popisExample, 2, Filters.BYDISTANCE)
 
             articles.add(stores.first().toString())
             articles.add(stores.last().toString())
-
-
 
             poveznica.notifyDataSetChanged()
         }
