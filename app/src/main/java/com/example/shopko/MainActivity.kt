@@ -69,6 +69,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             articles.add(stores.first().toString())
             articles.add(stores.last().toString())
 
+
+
             poveznica.notifyDataSetChanged()
         }
 
