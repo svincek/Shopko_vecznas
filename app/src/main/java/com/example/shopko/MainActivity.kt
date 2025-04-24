@@ -2,8 +2,6 @@ package com.example.shopko
 
 import android.Manifest
 import android.content.pm.PackageManager
-import android.util.Log
-import com.example.shopko.utils.location.DistanceUtil
 import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
@@ -16,23 +14,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.shopko.entitys.Article
-import com.example.shopko.entitys.Store
 import com.example.shopko.entitys.StoreComboMatchResult
-import com.example.shopko.entitys.StoreMatchResult
-import com.example.shopko.utils.dataFunctions.cheapestStore
 import com.example.shopko.utils.dataFunctions.cheapestStoreCombo
-import com.example.shopko.utils.dataFunctions.closestStore
-import com.example.shopko.utils.location.LatLngFromAddress
 import com.example.shopko.utils.location.LocationHelper
-import com.example.shopko.utils.repository.getArticles
-import com.example.shopko.utils.repository.getStores
-import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), OnMapReadyCallback {
@@ -81,6 +68,8 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
 
             articles.add(stores.first().toString())
             articles.add(stores.last().toString())
+
+            articles.add(popisExample.toString())
 
             poveznica.notifyDataSetChanged()
         }

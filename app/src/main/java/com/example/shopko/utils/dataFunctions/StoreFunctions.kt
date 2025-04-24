@@ -10,7 +10,6 @@ import com.example.shopko.utils.location.DistanceUtil
 import com.example.shopko.utils.location.LocationHelper
 import com.example.shopko.utils.repository.getStores
 import com.google.android.gms.maps.model.LatLng
-import kotlin.collections.isNotEmpty
 
 suspend fun cheapestStore(articleList: List<String>): List<StoreMatchResult> {
     val stores: List<StoreMatchResult> = getStores().map { store ->
