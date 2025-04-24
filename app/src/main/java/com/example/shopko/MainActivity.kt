@@ -69,8 +69,6 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             articles.add(stores.first().toString())
             articles.add(stores.last().toString())
 
-            //moj deda je bil github pa znam delat s tim
-
             poveznica.notifyDataSetChanged()
         }
 
