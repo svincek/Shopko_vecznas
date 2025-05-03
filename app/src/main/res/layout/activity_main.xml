@@ -22,11 +22,33 @@
 
         />
 
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="376dp"
+        android:layout_height="200dp">
+
+        <androidx.camera.view.PreviewView
+            android:id="@+id/previewView"
+            android:layout_width="match_parent"
+            android:layout_height="376dp" />
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/captureButton"
+        android:text="Capture"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="32dp"
+        android:backgroundTint="@android:color/holo_blue_light"
+        android:textColor="@android:color/white" />
+
     <fragment
         android:id="@+id/mapFragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-        android:layout_width="match_parent"
-        android:layout_height="257dp" />
+        android:layout_width="387dp"
+        android:layout_height="162dp" />
 
 
     <!-- Horizontal Layout for EditText and Button -->
@@ -67,5 +89,6 @@
         android:layout_weight="1"
         android:divider="@android:color/darker_gray"
         android:dividerHeight="1dp" />
+
 
 </LinearLayout>
