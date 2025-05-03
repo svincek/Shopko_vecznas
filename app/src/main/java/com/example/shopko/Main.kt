@@ -1,22 +1,22 @@
 package com.example.shopko
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.example.shopko.fragments.PocetnaFragment
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import androidx.fragment.app.Fragment
-
+import com.example.shopko.fragments.ProfilFragment
 
 
 class Main : AppCompatActivity(), OnMapReadyCallback {
@@ -52,6 +52,8 @@ class Main : AppCompatActivity(), OnMapReadyCallback {
             insets
         }
 
+
+
         locationHelper = LocationHelper(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav) { view, insets ->
@@ -69,8 +71,7 @@ class Main : AppCompatActivity(), OnMapReadyCallback {
         bottomNav.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.menu_home-> PocetnaFragment()
-                R.id.menu_preferences -> PreferenceFragment()
-                R.id.menu_my_list -> PopisFragment()
+                R.id.menu_profil -> ProfilFragment()
                 else -> null
             }
 

@@ -2,67 +2,205 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="20dp"
-    android:background="@color/white">
+    android:background="@color/glavna"
+    tools:context=".PocetnaFragment">
 
-    <TextView
-        android:id="@+id/textShopko"
-        android:layout_width="300dp"
+    <!-- Glavni pozadinski CardView -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="450dp"
+        android:layout_marginBottom="-50dp"
+        app:cardCornerRadius="30sp"
+        app:cardElevation="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView pri dnu -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView2"
+        android:layout_width="160dp"
         android:layout_height="50dp"
-        android:background="@color/shopko"
-        android:fontFamily="sans-serif-condensed-light"
-        android:gravity="center"
-        android:text="SHOPKO"
-        android:textAlignment="center"
-        android:textSize="30dp"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" >
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <Button
+                android:id="@+id/nastavi"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginStart="-20dp"
+                android:layout_marginTop="-6dp"
+                android:backgroundTint="@color/glavna"
+                android:fontFamily="@font/teriyake_medium"
+                android:text="Nastavi na trgovine"
+                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+                app:cornerRadius="100dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- CardView za popis artikala -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="350dp"
+        android:layout_height="460dp"
+        android:layout_marginBottom="30dp"
+        app:cardCornerRadius="25dp"
+        app:cardElevation="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/cardView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- RecyclerView za prikazivanje artikala -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/popis"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clipToPadding="false"
+                android:padding="16dp"
+                tools:layout_editor_absoluteX="121dp"
+                tools:layout_editor_absoluteY="-93dp"
+                tools:listitem="@layout/item_artikl" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Tekst na vrhu -->
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="60dp"
+        android:fontFamily="@font/teriyake_medium"
+        android:text="Stvori svoj popis za kupovinu!"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <fragment
-        android:id="@+id/mapFragment"
-        android:name="com.google.android.gms.maps.SupportMapFragment"
+    <!-- Skeniraj gumb -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <ImageButton
+            android:id="@+id/gumb_skeniraj"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:tint="@color/glavna"
+            app:srcCompat="@drawable/kamera" />
+
+    </androidx.cardview.widget.CardView>
+
+    <!-- Dodaj gumb -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/textShopko"
-        android:layout_width="0dp"
-        android:layout_height="257dp" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-    <EditText
-        android:id="@+id/articleInput"
-        app:layout_constraintEnd_toStartOf="@id/addButton"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/mapFragment"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="@android:drawable/editbox_background"
-        android:hint="Upiši namirnicu"
-        android:inputType="text"
-        android:padding="8dp" />
+        <ImageButton
+            android:id="@+id/gumb_dodaj"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:tint="@color/glavna"
+            app:srcCompat="@drawable/plus" />
+    </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/addButton"
+    <!-- Traži gumb -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView6"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="65dp"
+        app:cardCornerRadius="50dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/articleInput"
-        app:layout_constraintTop_toTopOf="@id/articleInput"
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+        <ImageButton
+            android:id="@+id/gumb_trazi"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFFFFF"
+            android:scaleX="1.4"
+            android:scaleY="1.4"
+            android:tint="@color/glavna"
+            app:srcCompat="@drawable/povecalo" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Opisi za gumbe -->
+    <TextView
+        android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/black"
-        android:text="Dodaj na listu"
-        android:textColor="@color/white" />
-
-    <ListView
-        android:id="@+id/articleList"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="16dp"
-        android:divider="@android:color/darker_gray"
-        android:dividerHeight="1dp"
-        app:layout_constraintTop_toBottomOf="@id/articleInput"
+        android:layout_marginStart="68dp"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/teriyake_medium"
+        android:text="Skeniraj"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView4" />
+
+    <TextView
+        android:id="@+id/textView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/teriyake_medium"
+        android:text="Dodaj"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView5" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="79dp"
+        android:fontFamily="@font/teriyake_medium"
+        android:text="Traži"
+        android:textColor="@color/white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView6" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
