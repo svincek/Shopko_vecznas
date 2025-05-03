@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="8dp"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <!-- Naziv artikla -->
+        <TextView
+            android:id="@+id/naziv_artikla"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="4"
+            android:textColor="@android:color/black"
+            android:textSize="16sp"
+            android:text="Naziv artikla" />
+
+        <!-- Gumb za smanjenje -->
+        <ImageButton
+            android:id="@+id/gumb_minus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/plus"
+            android:contentDescription="Oduzmi"
+            android:tint="@color/black" />
+
+        <!-- Prikaz količine -->
+        <TextView
+            android:id="@+id/kolicina"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="0"
+            android:textColor="@android:color/black"
+            android:textSize="16sp" />
+
+        <!-- Gumb za povećanje -->
+        <ImageButton
+            android:id="@+id/gumb_plus"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@android:color/transparent"
+            android:src="@drawable/plus"
+            android:contentDescription="Dodaj"
+            android:tint="@color/black" />
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
