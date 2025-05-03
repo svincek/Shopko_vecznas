@@ -1921,30 +1921,6 @@
       "price": 1.65
     },
     {
-      "article_id": 241,
-      "type": "RIŽA",
-      "brand": "ZLATO POLJE",
-      "category": "OSNOVNE NAMIRNICE",
-      "unit_size": "1kg",
-      "price": 1.64
-    },
-    {
-      "article_id": 242,
-      "type": "RIŽA",
-      "brand": "PODRAVKA",
-      "category": "OSNOVNE NAMIRNICE",
-      "unit_size": "1kg",
-      "price": 1.6
-    },
-    {
-      "article_id": 243,
-      "type": "RIŽA",
-      "brand": "KONZUM",
-      "category": "OSNOVNE NAMIRNICE",
-      "unit_size": "1kg",
-      "price": 1.34
-    },
-    {
       "article_id": 244,
       "type": "TJESTENINA",
       "brand": "BARILLA",
@@ -1959,54 +1935,6 @@
       "category": "OSNOVNE NAMIRNICE",
       "unit_size": "500g",
       "price": 1.02
-    },
-    {
-      "article_id": 246,
-      "type": "KAVA",
-      "brand": "JACOBS",
-      "category": "PIĆA",
-      "unit_size": "200g",
-      "price": 3.34
-    },
-    {
-      "article_id": 247,
-      "type": "KAVA",
-      "brand": "FRANCK",
-      "category": "PIĆA",
-      "unit_size": "200g",
-      "price": 3.03
-    },
-    {
-      "article_id": 248,
-      "type": "KAVA",
-      "brand": "ANKER",
-      "category": "PIĆA",
-      "unit_size": "200g",
-      "price": 3.48
-    },
-    {
-      "article_id": 249,
-      "type": "ČAJ",
-      "brand": "CELESTIAL",
-      "category": "PIĆA",
-      "unit_size": "20 vrećica",
-      "price": 2.3
-    },
-    {
-      "article_id": 250,
-      "type": "ČAJ",
-      "brand": "FRANCK",
-      "category": "PIĆA",
-      "unit_size": "20 vrećica",
-      "price": 1.88
-    },
-    {
-      "article_id": 251,
-      "type": "ČAJ",
-      "brand": "TWININGS",
-      "category": "PIĆA",
-      "unit_size": "20 vrećica",
-      "price": 2.52
     },
     {
       "article_id": 252,
