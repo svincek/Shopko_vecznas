@@ -154,9 +154,9 @@ class MainActivity : AppCompatActivity(), OnMapReadyCallback {
             val cameraProvider = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 cameraProviderFuture.get()
             } else {
-                TODO("VERSION.SDK_INT < O")
+                Toast.makeText(this@MainActivity, "Potrebna je unaprijeđena verzija aplikacije za funkciju kamere", Toast.LENGTH_SHORT)
             }
-            bindCameraUseCases(cameraProvider)
+            bindCameraUseCases(cameraProvider as ProcessCameraProvider)
         }, ContextCompat.getMainExecutor(this))
     }
 
