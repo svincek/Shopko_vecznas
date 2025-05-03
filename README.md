@@ -12,7 +12,7 @@
 
 ---
 
-## 🧱 Tehnologije i alati
+## Tehnologije i alati
 
 - **Jezik:** Kotlin
 - **IDE:** Android Studio
@@ -22,7 +22,7 @@
 
 ---
 
-## 🛠️ Kako pokrenuti projekt lokalno
+## Kako pokrenuti projekt lokalno
 
 1. Kloniraj repozitorij:
    ```bash
@@ -41,7 +41,7 @@
 
 ---
 
-## 📌 Napomena o commit porukama
+## Napomena o commit porukama
 
 Napomena: Stariji commitovi nisu u potpunosti dokumentirani jer je projekt prvotno razvijan bez formalnih commit pravila. Od 1.5.2025. commit poruke prate preporučenu praksu.
 Od 1.5.2025., commit poruke prate standardizirani format:
@@ -52,7 +52,7 @@ fix: Ispravljen bug pri skeniranju bar koda
 
 ---
 
-## 📫 Kontakt
+## Kontakt
 
 Autor: [Simon Vincek]  
 Email: [simon.vincek@email.com]  
