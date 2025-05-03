@@ -5,6 +5,8 @@ plugins {
     kotlin("plugin.serialization") version "1.9.0"
 }
 
+val apiKey = project.findProperty("API_KEY") as? String ?: ""
+
 android {
     namespace = "com.example.shopko"
     compileSdk = 35
@@ -17,6 +19,8 @@ android {
         versionName = "1.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+
+        manifestPlaceholders["apiKey"] = apiKey
     }
 
     buildTypes {
