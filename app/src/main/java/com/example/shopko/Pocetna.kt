@@ -2,6 +2,7 @@ package com.example.shopko
 
 import Artikl
 import ArtikliAdapter
+import MyCustomDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,6 +14,10 @@ import android.widget.ImageButton
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.cardview.widget.CardView
+import androidx.fragment.app.DialogFragment
+import com.example.shopko.R
+
 
 class PocetnaFragment : Fragment() {
 
@@ -30,6 +35,16 @@ class PocetnaFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pocetna, container, false)
+
+
+
+        val scanButton = view.findViewById<View>(R.id.gumb_skeniraj)
+
+        scanButton.setOnClickListener {
+            MyCustomDialog().show(childFragmentManager, "MyCustomDialog")
+        }
+
+
 
         // Inicijalizacija pogleda
         popisRecyclerView = view.findViewById(R.id.popis)
