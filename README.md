@@ -34,7 +34,7 @@
 3. Dodaj `local.properties` datoteku u root projekta:
    ```properties
    sdk.dir=/Users/korisnik/Library/Android/sdk
-   API_KEY=xxx123
+   API_KEY=AIzaSyD_ZxfRa5P9FRCicjNg-z9SPtp_WxCc-14
    ```
 
 4. Pokreni `Build > Make Project` ili `./gradlew build`
