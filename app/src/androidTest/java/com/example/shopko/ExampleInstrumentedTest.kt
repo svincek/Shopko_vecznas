@@ -1,8 +1,8 @@
 package com.example.shopko
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.shopko.utils.repository.getArticles
-import com.example.shopko.utils.repository.getStores
+import com.example.shopko.data.repository.getArticles
+import com.example.shopko.data.repository.getStores
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertTrue

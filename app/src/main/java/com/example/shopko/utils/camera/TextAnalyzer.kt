@@ -1,16 +1,34 @@
 package com.example.shopko.utils.camera
 import android.net.Uri
 import android.util.Log
-import com.example.shopko.entitys.Article
-import com.example.shopko.entitys.ShopkoApp
+import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.ShopkoApp
+import com.example.shopko.data.repository.getArticles
 import com.example.shopko.utils.general.levenshtein
-import com.example.shopko.utils.repository.getArticles
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.io.File
 import java.io.IOException
 import java.util.Locale
+
+/**
+ * Pokreće prepoznavanje teksta iz slike koristeći Google ML Kit te pokušava prepoznati artikle iz baze podataka
+ * uspoređujući prepoznati tekst s poznatim tipovima artikala.
+ *
+ * @param imageFile Datoteka slike iz koje će se čitati tekst.
+ * @param onResult Povratni rezultat u obliku lambda funkcije koja prima listu prepoznatih artikala.
+ *
+ * Funkcija koristi:
+ * - ML Kit za optičko prepoznavanje teksta (OCR)
+ * - Levenshteinovu udaljenost za usporedbu sličnosti između prepoznatog teksta i tipova artikala
+ *
+ * Prepoznati tekst se normalizira (uklanjaju se praznine i pretvara se u velika slova), a zatim se
+ * uspoređuje s nazivima tipova artikala iz baze. Ako je Levenshteinova udaljenost manja ili jednaka 3,
+ * artikl se smatra prepoznatim.
+ *
+ * U slučaju greške pri učitavanju slike ili neuspjeha prepoznavanja, vraća se prazna lista.
+ */
 
 fun runTextRecognitionOnImage(imageFile: File, onResult: (List<Article>) -> Unit) {
     val context = ShopkoApp.getAppContext()
@@ -25,7 +43,6 @@ fun runTextRecognitionOnImage(imageFile: File, onResult: (List<Article>) -> Unit
                     .map {it.replace("\\s+".toRegex(), "")}
                     .map { it.uppercase(Locale.getDefault()) }
                     .filter { it.isNotBlank() }
-                Log.d("CapturedText", "Recognized text: $textList")
 
                 val products: List<Article> = getArticles()
 

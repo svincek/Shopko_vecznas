@@ -1,8 +1,8 @@
 package com.example.shopko
 
-import com.example.shopko.entitys.Article
-import com.example.shopko.entitys.Store
-import com.example.shopko.enums.Filters
+import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.Store
+import com.example.shopko.utils.enums.Filters
 import com.google.android.gms.maps.model.LatLng
 import junit.framework.TestCase.assertEquals
 import org.junit.Assert.assertTrue
@@ -22,7 +22,7 @@ class ExampleUnitTest {
         id = 1,
         brand = "KONZUM",
         name = "Konzum - Trešnjevka",
-        opening_hours = "7:00-21:00",
+        openingHours = "7:00-21:00",
         location = "Trešnjevački trg 1",
         articles = listOf(
             articleMilk.copy(price = 1.30),  // cheaper milk
@@ -35,7 +35,7 @@ class ExampleUnitTest {
         id = 2,
         brand = "LIDL",
         name = "Lidl - Ljubljanica",
-        opening_hours = "7:00-21:00",
+        openingHours = "7:00-21:00",
         location = "Ozaljska 148",
         articles = listOf(
             articleMilk.copy(price = 1.50),
@@ -43,8 +43,6 @@ class ExampleUnitTest {
         ),
         latLngLoc = LatLng(45.81, 15.91)
     )
-
-    private val userLatLng = LatLng(45.79, 15.88)
 
     @Test
     fun `test combo sorted by price correctly`() {
@@ -64,7 +62,6 @@ class ExampleUnitTest {
 
     @Test
     fun `test combo sorted by distance correctly`() {
-        val userLatLng = LatLng(45.1, 16.1)
         val fakeDistanceCalculator = DistanceCalculator { _, _ -> 10f }
         val results = sortStoreComboTestable(
             articleList = listOf(articleMilk, articleCheese),

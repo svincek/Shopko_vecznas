@@ -1,6 +1,6 @@
-package com.example.shopko.entitys
+package com.example.shopko.data.model
 
-data class StoreComboMatchResult (
+data class StoreComboResult (
     val store: List<Store>,
     val matchedArticles: List<Article>,
     val missingTypes: List<String>,
