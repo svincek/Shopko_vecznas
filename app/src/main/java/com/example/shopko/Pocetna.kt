@@ -1,8 +1,8 @@
 package com.example.shopko
 
-import Artikl
 import ArtikliAdapter
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,21 +10,25 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shopko.entitys.Article
+import com.example.shopko.entitys.ShopkoApp
+import com.example.shopko.entitys.UserArticleList.articleList
+import com.example.shopko.utils.repository.getArticles
 
 
 class PocetnaFragment : Fragment() {
 
     private lateinit var popisRecyclerView: RecyclerView
     private lateinit var artikliAdapter: ArtikliAdapter
-
-    private val artikliList = mutableListOf(
-        Artikl("Jabuka", 0),
-        Artikl("Kruh", 0),
-        Artikl("Mlijeko", 0)
-    )
+    private val context = ShopkoApp.getAppContext()
+    private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -32,22 +36,33 @@ class PocetnaFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pocetna, container, false)
 
-
-
         val scanButton = view.findViewById<View>(R.id.gumb_skeniraj)
 
-        scanButton.setOnClickListener {
-            MyCustomDialog().show(childFragmentManager, "MyCustomDialog")
+        requestPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestPermission()
+        ) { isGranted: Boolean ->
+            if (isGranted) {
+                val intent = Intent(requireContext(), StoresActivity::class.java)
+                startActivity(intent)
+            } else {
+                Toast.makeText(requireContext(), "Lokacijska dozvola odbijena!", Toast.LENGTH_SHORT).show()
+            }
         }
 
-
+        scanButton.setOnClickListener {
+            if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+            } else{
+                MyCustomDialog{artikliAdapter.notifyDataSetChanged()}.show(childFragmentManager, "MyCustomDialog")
+            }
+        }
 
         // Inicijalizacija pogleda
         popisRecyclerView = view.findViewById(R.id.popis)
         val gumbDodaj: ImageButton = view.findViewById(R.id.gumb_dodaj)
 
         // Postavljanje RecyclerViewa
-        artikliAdapter = ArtikliAdapter(artikliList)
+        artikliAdapter = ArtikliAdapter(articleList)
         popisRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         popisRecyclerView.adapter = artikliAdapter
 
@@ -57,8 +72,17 @@ class PocetnaFragment : Fragment() {
         }
         val nastaviButton = view.findViewById<Button>(R.id.nastavi)
         nastaviButton.setOnClickListener {
-            val intent = Intent(requireContext(), StoresActivity::class.java)
-            startActivity(intent)
+            if(articleList.isNotEmpty()){
+                if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                } else {
+                    val intent = Intent(requireContext(), StoresActivity::class.java)
+                    startActivity(intent)
+                }
+            }
+            else{
+                Toast.makeText(activity, "Popis je prazan!", Toast.LENGTH_SHORT).show()
+            }
         }
         return view
     }
@@ -75,8 +99,14 @@ class PocetnaFragment : Fragment() {
             .setPositiveButton("Dodaj") { _, _ ->
                 val noviArtikl = input.text.toString().trim()
                 if (noviArtikl.isNotEmpty()) {
-                    artikliList.add(Artikl(noviArtikl, 0)) // Add with default quantity
-                    artikliAdapter.notifyDataSetChanged()
+                    val artikl: Article? = getArticles().firstOrNull { it.type == noviArtikl }
+                    if(artikl != null){
+                        articleList.add(artikl)
+                        artikliAdapter.notifyDataSetChanged()
+                    }
+                    else{
+                        Toast.makeText(activity, "Nije pronađen artikl: $noviArtikl", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             .setNegativeButton("Odustani", null)

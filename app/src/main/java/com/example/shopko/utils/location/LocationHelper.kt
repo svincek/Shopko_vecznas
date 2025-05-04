@@ -1,9 +1,10 @@
 package com.example.shopko.utils.location
 
 import android.Manifest
+import android.app.Activity
 import android.content.Context
-import android.location.Location
 import android.content.pm.PackageManager
+import android.location.Location
 import android.os.Looper
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.LocationCallback
@@ -20,9 +21,12 @@ class LocationHelper(private val context: Context) {
 
     @OptIn(ExperimentalCoroutinesApi::class)
     suspend fun getLastLocationSuspend(): Location? = suspendCancellableCoroutine { cont ->
-        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            cont.resume(null) {}
-            return@suspendCancellableCoroutine
+        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(
+                context as Activity,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                1001
+            )
         }
 
         val locationRequest = LocationRequest.Builder(Priority.PRIORITY_HIGH_ACCURACY, 10000L)
