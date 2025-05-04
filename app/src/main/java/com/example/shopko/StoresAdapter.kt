@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.entitys.StoreComboMatchResult
 
@@ -35,28 +34,4 @@ class StoresAdapter(private var storeList: List<StoreComboMatchResult>) :
 
     override fun getItemCount(): Int = storeList.size
 
-    // Updates the dataset using DiffUtil for efficient UI updates
-    fun updateData(newStoreList: List<StoreComboMatchResult>) {
-        this.storeList = newStoreList
-        notifyDataSetChanged()
-    }
-
-    // A utility class for DiffUtil to calculate dataset changes
-    private class StoreDiffCallback(
-        private val oldList: List<StoreComboMatchResult>,
-        private val newList: List<StoreComboMatchResult>
-    ) : DiffUtil.Callback() {
-
-        override fun getOldListSize(): Int = oldList.size
-
-        override fun getNewListSize(): Int = newList.size
-
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].store == newList[newItemPosition].store
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition]
-        }
-    }
 }

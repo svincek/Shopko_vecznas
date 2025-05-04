@@ -1,6 +1,5 @@
 package com.example.shopko
 
-import Artikl
 import ArtikliAdapter
 import MyCustomDialog
 import android.content.Intent
@@ -18,9 +17,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.entitys.Article
 import com.example.shopko.entitys.UserArticleList.articleList
 import com.example.shopko.utils.repository.getArticles
-import androidx.cardview.widget.CardView
-import androidx.fragment.app.DialogFragment
-import com.example.shopko.R
 
 
 class PocetnaFragment : Fragment() {
@@ -28,27 +24,17 @@ class PocetnaFragment : Fragment() {
     private lateinit var popisRecyclerView: RecyclerView
     private lateinit var artikliAdapter: ArtikliAdapter
 
-    private val artikliList = mutableListOf(
-        Artikl("Jabuka", 0),
-        Artikl("Kruh", 0),
-        Artikl("Mlijeko", 0)
-    )
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_pocetna, container, false)
 
-
-
         val scanButton = view.findViewById<View>(R.id.gumb_skeniraj)
 
         scanButton.setOnClickListener {
             MyCustomDialog().show(childFragmentManager, "MyCustomDialog")
         }
-
-
 
         // Inicijalizacija pogleda
         popisRecyclerView = view.findViewById(R.id.popis)
