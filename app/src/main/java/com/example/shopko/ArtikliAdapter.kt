@@ -1,3 +1,4 @@
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -5,10 +6,9 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
+import com.example.shopko.entitys.Article
 
-data class Artikl(val naziv: String, var kolicina: Int)
-
-class ArtikliAdapter(private val artikli: MutableList<Artikl>) :
+class ArtikliAdapter(private val artikli: MutableList<Article>) :
     RecyclerView.Adapter<ArtikliAdapter.ArtiklViewHolder>() {
 
     inner class ArtiklViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -26,26 +26,26 @@ class ArtikliAdapter(private val artikli: MutableList<Artikl>) :
 
     override fun onBindViewHolder(holder: ArtiklViewHolder, position: Int) {
         val trenutniArtikl = artikli[position]
-        holder.nazivArtikla.text = trenutniArtikl.naziv
-        holder.kolicina.text = trenutniArtikl.kolicina.toString()
+        holder.nazivArtikla.text = trenutniArtikl.type
+        holder.kolicina.text = trenutniArtikl.quantity.toString()
 
         // Postavljanje funkcionalnosti za gumbove plus/minus
         holder.gumbMinus.setOnClickListener {
-            if (trenutniArtikl.kolicina > 0) {
-                trenutniArtikl.kolicina--
+            if (trenutniArtikl.quantity > 0) {
+                trenutniArtikl.quantity--
                 notifyItemChanged(position)
             }
         }
 
         holder.gumbPlus.setOnClickListener {
-            trenutniArtikl.kolicina++
+            trenutniArtikl.quantity++
             notifyItemChanged(position)
         }
     }
 
     override fun getItemCount(): Int = artikli.size
 
-    fun updatePopis(noviArtikli: List<Artikl>) {
+    fun updatePopis(noviArtikli: List<Article>) {
         artikli.clear()
         artikli.addAll(noviArtikli)
         notifyDataSetChanged()

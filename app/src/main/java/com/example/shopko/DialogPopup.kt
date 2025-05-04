@@ -1,5 +1,6 @@
 package com.example.shopko
 
+import ArtikliAdapter
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -16,22 +17,22 @@ import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
+import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import androidx.lifecycle.lifecycleScope
-import com.example.shopko.entitys.StoreComboMatchResult
-import com.example.shopko.enums.Filters
+import com.example.shopko.entitys.ShopkoApp
+import com.example.shopko.entitys.UserArticleList.articleList
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
-import com.example.shopko.utils.dataFunctions.sortStoreCombo
-import kotlinx.coroutines.launch
 import java.io.File
 
 
-class MyCustomDialog : DialogFragment() {
+class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment() {
 
     private lateinit var imageCapture: ImageCapture
     private lateinit var previewView: PreviewView
     private lateinit var takePhotoButton: Button
+    private val context = ShopkoApp.getAppContext()
+    private var artikliAdapter = ArtikliAdapter(articleList)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -65,7 +66,7 @@ class MyCustomDialog : DialogFragment() {
     }
 
     private fun startCamera() {
-        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
             val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
             cameraProviderFuture.addListener({
                 try {
@@ -92,7 +93,6 @@ class MyCustomDialog : DialogFragment() {
                 }
             }, ContextCompat.getMainExecutor(requireContext()))
         } else {
-            requestPermissions(arrayOf(Manifest.permission.CAMERA), 1001)
             Toast.makeText(requireContext(), "Camera permission is required", Toast.LENGTH_SHORT).show()
         }
     }
@@ -113,24 +113,20 @@ class MyCustomDialog : DialogFragment() {
                     Toast.makeText(requireContext(), "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
                     Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
 
-                    runTextRecognitionOnImage(photoFile) { textList ->
-                        for (text in textList) {
+                    runTextRecognitionOnImage(photoFile) { scannedArticlesList ->
+                        for (text in scannedArticlesList) {
                             Log.d("TextRecognition", "Recognized text: $text")
                         }
 
-                        lifecycleScope.launch {
-                            val stores: List<StoreComboMatchResult> =
-                                sortStoreCombo(textList, 2, Filters.BYDISTANCE)
-
-                            if (stores.isNotEmpty()) {
-                                val recognizedStores = stores.map { combo ->
-                                    combo.store.joinToString(" + ") { it.name }
-                                }
-                                Log.d("Stores", "Matched stores: $recognizedStores")
-                            } else {
+                        Log.d("SKEN", "$scannedArticlesList")
+                        if (scannedArticlesList.isNotEmpty()) {
+                                articleList.addAll(scannedArticlesList)
+                                onArticlesAdded()
+                                Log.d("ARTIKLI", "$articleList")
+                            }
+                            else {
                                 Toast.makeText(requireContext(), "No store results found", Toast.LENGTH_SHORT).show()
                             }
-                        }
                     }
                 }
 
@@ -142,6 +138,7 @@ class MyCustomDialog : DialogFragment() {
         )
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             startCamera()
