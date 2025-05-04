@@ -45,7 +45,7 @@ class PocetnaFragment : Fragment() {
                 val intent = Intent(requireContext(), StoresActivity::class.java)
                 startActivity(intent)
             } else {
-                Toast.makeText(requireContext(), "Lokacijska dozvola odbijena!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Dozvola odbijena!", Toast.LENGTH_SHORT).show()
             }
         }
 

@@ -7,6 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
 import com.example.shopko.entitys.Article
+import com.example.shopko.entitys.UserArticleList.articleList
 
 class ArtikliAdapter(private val artikli: MutableList<Article>) :
     RecyclerView.Adapter<ArtikliAdapter.ArtiklViewHolder>() {
@@ -40,6 +41,9 @@ class ArtikliAdapter(private val artikli: MutableList<Article>) :
         holder.gumbPlus.setOnClickListener {
             trenutniArtikl.quantity++
             notifyItemChanged(position)
+            articleList.filter { trenutniArtikl.type==it.type }.forEach{
+                it.quantity=trenutniArtikl.quantity
+            }
         }
     }
 
