@@ -14,7 +14,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
 
     <application
-        android:name=".entitys.ShopkoApp"
+        android:name=".data.model.ShopkoApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -25,13 +25,13 @@
         android:theme="@style/Theme.Shopko"
         tools:targetApi="31">
         <activity
-            android:name=".StoresActivity"
+            android:name=".ui.screens.StoresScreen"
             android:exported="true" />
         <activity
-            android:name=".Main"
+            android:name=".ui.MainApp"
             android:exported="true" />
         <activity
-            android:name=".Login"
+            android:name=".ui.screens.LoginScreen"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

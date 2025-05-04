@@ -1,17 +1,16 @@
-package com.example.shopko
+package com.example.shopko.ui.screens
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import android.content.Intent
-import android.widget.Button
-import android.widget.LinearLayout
-import androidx.core.view.setPadding
-import kotlin.jvm.java
+import com.example.shopko.R
+import com.example.shopko.ui.MainApp
 
-class Login : AppCompatActivity() {
+class LoginScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -22,12 +21,9 @@ class Login : AppCompatActivity() {
             insets
         }
 
-        //val login_layout : LinearLayout = findViewById<LinearLayout>(R.id.main)
-        //login_layout.setPadding(40,40,40,40)
-
         val goToSecondButton: Button = findViewById(R.id.login_button)
         goToSecondButton.setOnClickListener {
-            val intent = Intent(this, Main::class.java)
+            val intent = Intent(this, MainApp::class.java)
             startActivity(intent)
             finish()
     }

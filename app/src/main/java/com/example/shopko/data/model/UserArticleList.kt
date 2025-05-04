@@ -1,4 +1,4 @@
-package com.example.shopko.entitys
+package com.example.shopko.data.model
 
 object UserArticleList {
     val articleList = mutableListOf<Article>()

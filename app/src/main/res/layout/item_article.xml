@@ -19,7 +19,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
-            android:text="Naziv artikla"
+            android:text="@string/naziv_artikla"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:fontFamily="@font/teriyake_medium"/>
@@ -29,7 +29,7 @@
             android:layout_width="48dp"
              android:layout_height="48dp"
             android:background="@android:color/transparent"
-            android:contentDescription="Oduzmi"
+            android:contentDescription="@string/oduzmi"
             android:src="@drawable/icon_minus"
             app:tint="@color/black" />
         <TextView
@@ -37,7 +37,7 @@
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="0"
+            android:text="@string/_0"
             android:textColor="@android:color/black"
             android:textSize="16sp"
             android:fontFamily="@font/teriyake_medium"/>
@@ -47,7 +47,7 @@
             android:layout_width="48dp"
             android:layout_height="48dp"
             android:background="@android:color/transparent"
-            android:contentDescription="Dodaj"
+            android:contentDescription="@string/dodaj"
             android:src="@drawable/icon_plus"
             app:tint="@color/black" />
 

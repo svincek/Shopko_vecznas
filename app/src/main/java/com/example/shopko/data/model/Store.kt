@@ -1,13 +1,13 @@
-package com.example.shopko.entitys;
+package com.example.shopko.data.model
 import com.google.android.gms.maps.model.LatLng
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 data class Store(
     var id: Int,
     var brand: String,
     var name: String,
-    var opening_hours: String,
+    var openingHours: String,
     var location: String,
     var articles: List<Article>,
     var latLngLoc: LatLng
@@ -23,7 +23,7 @@ data class StoreJSON(
     @SerialName("store_id") var id: Int,
     var brand: String,
     var name: String,
-    var opening_hours: String,
+    @SerialName("opening_hours") var openingHours: String,
     var location: String,
-    var article_ids: List<Int>
+    @SerialName("article_ids") var articleIds: List<Int>
 )

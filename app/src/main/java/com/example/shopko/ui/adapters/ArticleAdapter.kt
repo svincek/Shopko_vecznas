@@ -1,5 +1,4 @@
-
-import android.util.Log
+package com.example.shopko.ui.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -7,8 +6,8 @@ import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.entitys.Article
-import com.example.shopko.entitys.UserArticleList.articleList
+import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.UserArticleList.articleList
 
 class ArticleAdapter(private val article: MutableList<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {

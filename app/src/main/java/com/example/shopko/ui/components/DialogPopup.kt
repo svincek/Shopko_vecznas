@@ -1,6 +1,5 @@
-package com.example.shopko
+package com.example.shopko.ui.components
 
-import ArticleAdapter
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -20,8 +19,9 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.example.shopko.entitys.ShopkoApp
-import com.example.shopko.entitys.UserArticleList.articleList
+import com.example.shopko.R
+import com.example.shopko.data.model.ShopkoApp
+import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
 import java.io.File
 
@@ -32,7 +32,6 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
     private lateinit var previewView: PreviewView
     private lateinit var takePhotoButton: Button
     private val context = ShopkoApp.getAppContext()
-    private var articleAdapter = ArticleAdapter(articleList)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -107,7 +106,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    context?.let {
+                    context.let {
                         Toast.makeText(it, "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
                     }
                     Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
@@ -124,7 +123,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                                 Log.d("ARTIKLI", "$articleList")
                             }
                             else {
-                                context?.let {
+                                context.let {
                                     Toast.makeText(it, "No store results found", Toast.LENGTH_SHORT).show()
                                 }
                             }
