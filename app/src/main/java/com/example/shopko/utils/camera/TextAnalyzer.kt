@@ -29,18 +29,19 @@ fun runTextRecognitionOnImage(imageFile: File, onResult: (List<Article>) -> Unit
 
                 val products: List<Article> = getArticles()
 
-                val cleanedTextList = mutableListOf<Article>()
+                val cleanedArticleList = mutableListOf<Article>()
 
                 for(text in textList) {
                     for(product in products) {
                         val distance = levenshtein(text, product.type.replace("\\s+".toRegex(), ""))
 
                         if (distance <= 3) {
-                            cleanedTextList.add(product)
+                            cleanedArticleList.add(product)
+                            break
                         }
                     }
                 }
-                onResult(cleanedTextList.distinct())
+                onResult(cleanedArticleList.distinct())
             }
             .addOnFailureListener { e ->
                 Log.e("CapturedText", "Text recognition failed", e)
