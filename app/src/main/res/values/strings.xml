@@ -1,4 +1,15 @@
 <resources>
     <string name="app_name">Shopko</string>
     <string name="title_activity_login">Login</string>
+    <string name="filter">Filter</string>
+    <string name="apply">Apply</string>
+    <string name="broj_trgovina">Max. broj trgovina:</string>
+    <string name="soritiraj_po">Sortiraj po:</string>
+    <string name="udaljenosti">Udaljenosti</string>
+    <string name="cijeni">Cijeni</string>
+    <string-array name="store_count_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>

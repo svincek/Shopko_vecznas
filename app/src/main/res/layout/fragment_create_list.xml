@@ -7,8 +7,7 @@
     android:layout_height="match_parent"
     android:background="@color/glavna"
     tools:context=".PocetnaFragment">
-
-    <!-- Glavni pozadinski CardView -->
+    
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="450dp"
@@ -19,8 +18,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
     </androidx.cardview.widget.CardView>
-
-    <!-- CardView pri dnu -->
+    
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView2"
         android:layout_width="160dp"
@@ -37,7 +35,7 @@
             android:layout_height="match_parent">
 
             <Button
-                android:id="@+id/nastavi"
+                android:id="@+id/advance"
                 android:layout_width="200dp"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
@@ -53,8 +51,7 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <!-- CardView za popis artikala -->
+    
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="350dp"
@@ -70,21 +67,36 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <!-- RecyclerView za prikazivanje artikala -->
+            <TextView
+                android:id="@+id/empty_list_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/teriyake_medium"
+                android:gravity="center"
+                android:text="Ups! Tvoj popis je prazan..."
+                android:textAlignment="center"
+                android:textColor="@color/glavna"
+                android:textSize="18sp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/list"
+                app:layout_constraintEnd_toEndOf="@+id/list"
+                app:layout_constraintStart_toStartOf="@+id/list"
+                app:layout_constraintTop_toTopOf="@+id/list" />
+
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/popis"
+                android:id="@+id/list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:clipToPadding="false"
                 android:padding="16dp"
                 tools:layout_editor_absoluteX="121dp"
                 tools:layout_editor_absoluteY="-93dp"
-                tools:listitem="@layout/item_artikl" />
+                tools:listitem="@layout/item_article" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.cardview.widget.CardView>
 
-    <!-- Tekst na vrhu -->
+    </androidx.cardview.widget.CardView>
+    
     <TextView
         android:id="@+id/textView2"
         android:layout_width="250dp"
@@ -98,8 +110,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <!-- Skeniraj gumb -->
+    
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView4"
         android:layout_width="60dp"
@@ -111,18 +122,17 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <ImageButton
-            android:id="@+id/gumb_skeniraj"
+            android:id="@+id/btnScan"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             android:scaleX="1.4"
             android:scaleY="1.4"
-            android:tint="@color/glavna"
-            app:srcCompat="@drawable/kamera" />
+            app:tint="@color/glavna"
+            app:srcCompat="@drawable/icon_camera" />
 
     </androidx.cardview.widget.CardView>
-
-    <!-- Dodaj gumb -->
+    
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView5"
         android:layout_width="60dp"
@@ -134,17 +144,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <ImageButton
-            android:id="@+id/gumb_dodaj"
+            android:id="@+id/btnAdd"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             android:scaleX="1.4"
             android:scaleY="1.4"
-            android:tint="@color/glavna"
-            app:srcCompat="@drawable/plus" />
+            app:tint="@color/glavna"
+            app:srcCompat="@drawable/icon_plus" />
     </androidx.cardview.widget.CardView>
-
-    <!-- Traži gumb -->
+    
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView6"
         android:layout_width="60dp"
@@ -156,17 +165,16 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2">
 
         <ImageButton
-            android:id="@+id/gumb_trazi"
+            android:id="@+id/btnSearch"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#FFFFFF"
             android:scaleX="1.4"
             android:scaleY="1.4"
-            android:tint="@color/glavna"
-            app:srcCompat="@drawable/povecalo" />
+            app:tint="@color/glavna"
+            app:srcCompat="@drawable/icon_search" />
     </androidx.cardview.widget.CardView>
-
-    <!-- Opisi za gumbe -->
+    
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"

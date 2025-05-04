@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.example.shopko.fragments.ProfilFragment
+import com.example.shopko.fragments.ProfileFragment
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
@@ -65,7 +65,6 @@ class Main : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.menu_home-> PocetnaFragment()
-                R.id.menu_profil -> ProfilFragment()
                 else -> null
             }
 

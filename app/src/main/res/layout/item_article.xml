@@ -14,45 +14,42 @@
         android:orientation="horizontal"
         android:padding="16dp">
 
-        <!-- Naziv artikla -->
         <TextView
-            android:id="@+id/naziv_artikla"
+            android:id="@+id/article_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="4"
             android:text="Naziv artikla"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="@font/teriyake_medium"/>
 
-        <!-- Gumb za smanjenje -->
         <ImageButton
-            android:id="@+id/gumb_minus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:id="@+id/button_minus"
+            android:layout_width="48dp"
+             android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:contentDescription="Oduzmi"
-            android:src="@drawable/plus"
-            android:tint="@color/black" />
-
-        <!-- Prikaz količine -->
+            android:src="@drawable/icon_minus"
+            app:tint="@color/black" />
         <TextView
-            android:id="@+id/kolicina"
+            android:id="@+id/quantity"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="0"
             android:textColor="@android:color/black"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:fontFamily="@font/teriyake_medium"/>
 
-        <!-- Gumb za povećanje -->
-        <ImageButton
-            android:id="@+id/gumb_plus"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+         <ImageButton
+            android:id="@+id/button_plus"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:background="@android:color/transparent"
             android:contentDescription="Dodaj"
-            android:src="@drawable/plus"
-            android:tint="@color/black" />
+            android:src="@drawable/icon_plus"
+            app:tint="@color/black" />
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

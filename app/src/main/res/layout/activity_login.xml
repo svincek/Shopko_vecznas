@@ -21,22 +21,24 @@
             android:layout_width="150dp"
             android:layout_height="150dp"
             android:layout_marginTop="40dp"
-            android:src="@drawable/kosarica"
+            android:src="@drawable/icon_shopping_cart"
             app:layout_constraintBottom_toTopOf="@+id/textView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/glavna" />
 
         <TextView
             android:id="@+id/welcome_text"
-            android:layout_width="0dp"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
             android:fontFamily="@font/teriyake_medium"
             android:gravity="center"
-            android:text="Hello there, welcome back!"
-            android:textSize="40sp"
+            android:text="Dobrodošli natrag!"
+            android:textColor="@color/glavna"
+            android:textSize="30sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -47,16 +49,16 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
             android:hint="Username"
-            app:layout_constraintTop_toBottomOf="@id/welcome_text"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="24dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/welcome_text">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/teriyake_medium"/>
+                android:fontFamily="@font/teriyake_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -64,16 +66,16 @@
             style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
             android:hint="Password"
-            app:layout_constraintTop_toBottomOf="@id/username"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginTop="12dp">
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/username">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:fontFamily="@font/teriyake_medium"/>
+                android:fontFamily="@font/teriyake_medium" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -82,28 +84,27 @@
             android:layout_height="60dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/login_button"
-            android:textColor="@color/white"
+            android:fontFamily="@font/teriyake_medium"
             android:text="Log In"
+            android:textColor="@color/white"
             android:textSize="20dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/password"
-            android:fontFamily="@font/teriyake_medium"
-            />
+            app:layout_constraintTop_toBottomOf="@id/password" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/teriyake_medium"
             android:text="SHOPKO"
+            android:textColor="@color/glavna"
             android:textSize="55dp"
             app:layout_constraintBottom_toTopOf="@+id/welcome_text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/logo_image"
-            android:fontFamily="@font/teriyake_medium"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/logo_image" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>
