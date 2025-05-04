@@ -1,6 +1,5 @@
 package com.example.shopko
 
-import Artikl
 import ArtikliAdapter
 import android.content.Intent
 import android.os.Bundle
@@ -10,20 +9,18 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.shopko.entitys.Article
+import com.example.shopko.entitys.UserArticleList.articleList
+import com.example.shopko.utils.repository.getArticles
 
 class PocetnaFragment : Fragment() {
 
     private lateinit var popisRecyclerView: RecyclerView
     private lateinit var artikliAdapter: ArtikliAdapter
-
-    private val artikliList = mutableListOf(
-        Artikl("Jabuka", 0),
-        Artikl("Kruh", 0),
-        Artikl("Mlijeko", 0)
-    )
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,7 +33,7 @@ class PocetnaFragment : Fragment() {
         val gumbDodaj: ImageButton = view.findViewById(R.id.gumb_dodaj)
 
         // Postavljanje RecyclerViewa
-        artikliAdapter = ArtikliAdapter(artikliList)
+        artikliAdapter = ArtikliAdapter(articleList)
         popisRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         popisRecyclerView.adapter = artikliAdapter
 
@@ -46,8 +43,13 @@ class PocetnaFragment : Fragment() {
         }
         val nastaviButton = view.findViewById<Button>(R.id.nastavi)
         nastaviButton.setOnClickListener {
-            val intent = Intent(requireContext(), StoresActivity::class.java)
-            startActivity(intent)
+            if(articleList.isNotEmpty()){
+                val intent = Intent(requireContext(), StoresActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(activity, "Popis je prazan!", Toast.LENGTH_SHORT).show()
+            }
         }
         return view
     }
@@ -64,8 +66,14 @@ class PocetnaFragment : Fragment() {
             .setPositiveButton("Dodaj") { _, _ ->
                 val noviArtikl = input.text.toString().trim()
                 if (noviArtikl.isNotEmpty()) {
-                    artikliList.add(Artikl(noviArtikl, 0)) // Add with default quantity
-                    artikliAdapter.notifyDataSetChanged()
+                    val artikl: Article? = getArticles().firstOrNull { it.type == noviArtikl }
+                    if(artikl != null){
+                        articleList.add(artikl)
+                        artikliAdapter.notifyDataSetChanged()
+                    }
+                    else{
+                        Toast.makeText(activity, "Nije pronađen artikl: $noviArtikl", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
             .setNegativeButton("Odustani", null)

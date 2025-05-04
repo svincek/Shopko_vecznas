@@ -1,27 +1,22 @@
 package com.example.shopko
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import android.widget.ImageButton
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import com.example.shopko.utils.location.LocationHelper
-import com.google.android.gms.maps.GoogleMap
-import com.google.android.gms.maps.OnMapReadyCallback
-import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.example.shopko.fragments.ProfilFragment
+import com.example.shopko.utils.location.LocationHelper
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 
-class Main : AppCompatActivity(), OnMapReadyCallback {
+class Main : AppCompatActivity() {
 
-    private lateinit var googleMap: GoogleMap
     private lateinit var locationHelper: LocationHelper
 
     @RequiresApi(Build.VERSION_CODES.R)
@@ -40,7 +35,6 @@ class Main : AppCompatActivity(), OnMapReadyCallback {
         val mainLayout = findViewById<android.view.View>(R.id.main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
-        // Adjust padding for gesture navigation
         ViewCompat.setOnApplyWindowInsetsListener(mainLayout) { view, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             view.updatePadding(
@@ -80,16 +74,7 @@ class Main : AppCompatActivity(), OnMapReadyCallback {
                     .replace(R.id.fragment_container, it)
                     .commit()
                 true
-            } ?: false
+            } == true
         }
-    }
-
-    override fun onMapReady(map: GoogleMap) {
-        googleMap = map
-        // Optional shared map initialization logic
-    }
-
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
     }
 }

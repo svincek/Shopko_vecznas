@@ -1,6 +1,6 @@
 package com.example.shopko.entitys;
-import kotlinx.serialization.Serializable
 import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
 @Serializable
 data class Article(
@@ -9,7 +9,8 @@ data class Article(
     var brand: String,
     var category: String,
     var unit_size: String,
-    var price: Double
+    var price: Double,
+    var quantity: Int = 1
 )
 
 @Serializable
