@@ -29,6 +29,7 @@ class Login : AppCompatActivity() {
         goToSecondButton.setOnClickListener {
             val intent = Intent(this, Main::class.java)
             startActivity(intent)
+            finish()
     }
 }
 }

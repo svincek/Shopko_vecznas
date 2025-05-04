@@ -57,10 +57,7 @@ class MyCustomDialog : DialogFragment() {
     override fun onStart() {
         super.onStart()
 
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-        )
+        dialog?.window?.setLayout(900, 2200)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
