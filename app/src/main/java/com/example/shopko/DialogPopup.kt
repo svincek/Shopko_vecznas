@@ -1,28 +1,56 @@
+package com.example.shopko
+
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.Toast
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.camera.view.PreviewView
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
-import com.example.shopko.R
+import androidx.lifecycle.lifecycleScope
+import com.example.shopko.entitys.StoreComboMatchResult
+import com.example.shopko.enums.Filters
+import com.example.shopko.utils.camera.runTextRecognitionOnImage
+import com.example.shopko.utils.dataFunctions.sortStoreCombo
+import kotlinx.coroutines.launch
+import java.io.File
+
 
 class MyCustomDialog : DialogFragment() {
+
+    private lateinit var imageCapture: ImageCapture
+    private lateinit var previewView: PreviewView
+    private lateinit var takePhotoButton: Button
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.dialog_popup, container, false)
+        val view = inflater.inflate(R.layout.dialog_popup, container, false)
+        previewView = view.findViewById(R.id.previewView)
+        takePhotoButton = view.findViewById(R.id.captureButton)
+        return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        startCamera()
 
-        val closeButton = view.findViewById<Button>(R.id.closeButton)
-        closeButton.setOnClickListener {
-            dismiss()
+        takePhotoButton.setOnClickListener {
+            takePhoto()
         }
     }
 
@@ -34,5 +62,91 @@ class MyCustomDialog : DialogFragment() {
             ViewGroup.LayoutParams.MATCH_PARENT,
         )
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
+    private fun startCamera() {
+        if (ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
+            val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
+            cameraProviderFuture.addListener({
+                try {
+                    val cameraProvider = cameraProviderFuture.get()
+
+                    val preview = Preview.Builder()
+                        .build()
+                        .also { it.setSurfaceProvider(previewView.surfaceProvider) }
+
+                    imageCapture = ImageCapture.Builder()
+                        .setCaptureMode(ImageCapture.CAPTURE_MODE_MINIMIZE_LATENCY)
+                        .build()
+
+                    val imageAnalyzer = ImageAnalysis.Builder()
+                        .setBackpressureStrategy(ImageAnalysis.STRATEGY_KEEP_ONLY_LATEST)
+                        .build()
+
+                    val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+                    cameraProvider.unbindAll()
+                    cameraProvider.bindToLifecycle(this, cameraSelector, preview, imageAnalyzer, imageCapture)
+                } catch (exc: Exception) {
+                    Log.e("CameraX", "Failed to bind camera use cases", exc)
+                }
+            }, ContextCompat.getMainExecutor(requireContext()))
+        } else {
+            requestPermissions(arrayOf(Manifest.permission.CAMERA), 1001)
+            Toast.makeText(requireContext(), "Camera permission is required", Toast.LENGTH_SHORT).show()
+        }
+    }
+
+    private fun takePhoto() {
+        val photoFile = File(
+            requireContext().getExternalFilesDir(null),
+            "captured-${System.currentTimeMillis()}.jpg"
+        )
+
+        val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+
+        imageCapture.takePicture(
+            outputOptions,
+            ContextCompat.getMainExecutor(requireContext()),
+            object : ImageCapture.OnImageSavedCallback {
+                override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
+                    Toast.makeText(requireContext(), "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
+                    Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
+
+                    runTextRecognitionOnImage(photoFile) { textList ->
+                        for (text in textList) {
+                            Log.d("TextRecognition", "Recognized text: $text")
+                        }
+
+                        lifecycleScope.launch {
+                            val stores: List<StoreComboMatchResult> =
+                                sortStoreCombo(textList, 2, Filters.BYDISTANCE)
+
+                            if (stores.isNotEmpty()) {
+                                val recognizedStores = stores.map { combo ->
+                                    combo.store.joinToString(" + ") { it.name }
+                                }
+                                Log.d("Stores", "Matched stores: $recognizedStores")
+                            } else {
+                                Toast.makeText(requireContext(), "No store results found", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                    }
+                }
+
+                override fun onError(exception: ImageCaptureException) {
+                    Toast.makeText(requireContext(), "Capture failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    Log.e("CameraX", "Photo capture failed", exception)
+                }
+            }
+        )
+    }
+
+    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
+        if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            startCamera()
+        } else {
+            Toast.makeText(requireContext(), "Permission denied for camera", Toast.LENGTH_SHORT).show()
+        }
     }
 }
