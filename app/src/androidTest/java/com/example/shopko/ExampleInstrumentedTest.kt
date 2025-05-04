@@ -1,12 +1,13 @@
 package com.example.shopko
 
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-
+import com.example.shopko.utils.repository.getArticles
+import com.example.shopko.utils.repository.getStores
+import kotlinx.coroutines.runBlocking
+import org.junit.Assert.assertNotNull
+import org.junit.Assert.assertTrue
 import org.junit.Test
 import org.junit.runner.RunWith
-
-import org.junit.Assert.*
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -16,9 +17,18 @@ import org.junit.Assert.*
 @RunWith(AndroidJUnit4::class)
 class ExampleInstrumentedTest {
     @Test
-    fun useAppContext() {
-        // Context of the app under test.
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.shopko", appContext.packageName)
+    fun getArticles_readsAndParsesJsonCorrectly() {
+        val articles = getArticles()
+        assertTrue(articles.isNotEmpty())
+        assertTrue(articles.any { it.type.contains("MLIJEKO") })
+    }
+
+    @Test
+    fun getStores_parsesStoresAndMapsArticles() = runBlocking {
+        val stores = getStores()
+        assertTrue(stores.isNotEmpty())
+        val first = stores.first()
+        assertTrue(first.articles.isNotEmpty())
+        assertNotNull(first.latLngLoc)
     }
 }
