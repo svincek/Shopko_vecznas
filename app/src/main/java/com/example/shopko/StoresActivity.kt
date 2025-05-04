@@ -5,10 +5,12 @@ import android.os.Build
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import android.widget.EditText
 import android.widget.ImageButton
+import android.widget.ProgressBar
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
@@ -29,11 +31,12 @@ class StoresActivity : AppCompatActivity() {
     private lateinit var adapter: StoresAdapter
     private lateinit var storeList: List<StoreComboMatchResult>
     private lateinit var originalList: List<StoreComboMatchResult>
+    private lateinit var loadingSpinner: ProgressBar
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge() // Enables edge-to-edge design
+        enableEdgeToEdge()
         setContentView(R.layout.activity_stores)
 
         window.setDecorFitsSystemWindows(false)
@@ -42,7 +45,6 @@ class StoresActivity : AppCompatActivity() {
         insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
 
-        // Set up navigation button
         val btnNavigate = findViewById< ImageButton>(R.id.btnBack)
         btnNavigate.setOnClickListener {
             val intent = Intent(this, Main::class.java)
@@ -55,12 +57,10 @@ class StoresActivity : AppCompatActivity() {
             setupRecyclerView(storeList)
         }
 
-        // Set up "Back" button
         findViewById<ImageButton>(R.id.btnBack).setOnClickListener {
-            finish() // Close the current screen
+            finish()
         }
 
-        // Set up search functionality
         val searchBar: EditText = findViewById(R.id.searchBar)
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
@@ -70,6 +70,23 @@ class StoresActivity : AppCompatActivity() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun afterTextChanged(s: Editable?) {}
         })
+
+        loadingSpinner = findViewById(R.id.loadingSpinner)
+        loadingSpinner.visibility = View.VISIBLE
+
+        lifecycleScope.launch {
+            loadingSpinner.visibility = View.VISIBLE
+
+            originalList = withContext(Dispatchers.IO) {
+                sortStoreCombo(articleList, 1, Filters.BYPRICE)
+            }
+
+            storeList = originalList
+            setupRecyclerView(storeList)
+
+            loadingSpinner.visibility = View.GONE
+        }
+
     }
 
     private fun setupRecyclerView(data: List<StoreComboMatchResult>) {
@@ -79,7 +96,6 @@ class StoresActivity : AppCompatActivity() {
         recyclerView.adapter = adapter
     }
 
-    // Filters the store list based on the search query
     private fun filterStores(query: String) {
         lifecycleScope.launch(Dispatchers.IO) {
             val filteredList = if (query.isEmpty()) {
@@ -99,15 +115,13 @@ class StoresActivity : AppCompatActivity() {
         }
     }
 
-    // Updates adapter data efficiently using DiffUtil
     private fun updateAdapterData(newStoreList: List<StoreComboMatchResult>) {
         val diffCallback = StoreDiffCallback(storeList, newStoreList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
-        storeList = newStoreList // Update the internal list reference
+        storeList = newStoreList
         diffResult.dispatchUpdatesTo(adapter)
     }
 
-    // Custom DiffUtil Callback for Store comparison
     private class StoreDiffCallback(
         private val oldList: List<StoreComboMatchResult>,
         private val newList: List<StoreComboMatchResult>
@@ -118,12 +132,10 @@ class StoresActivity : AppCompatActivity() {
         override fun getNewListSize(): Int = newList.size
 
         override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            // Check if items are the same (e.g., by ID or unique identifier)
             return oldList[oldItemPosition].store == newList[newItemPosition].store
         }
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            // Check if the content of items is the same
             return oldList[oldItemPosition] == newList[newItemPosition]
         }
     }

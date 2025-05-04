@@ -1,6 +1,6 @@
 package com.example.shopko
 
-import ArtikliAdapter
+import ArticleAdapter
 import android.Manifest
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -32,7 +32,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
     private lateinit var previewView: PreviewView
     private lateinit var takePhotoButton: Button
     private val context = ShopkoApp.getAppContext()
-    private var artikliAdapter = ArtikliAdapter(articleList)
+    private var articleAdapter = ArticleAdapter(articleList)
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,10 +58,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
     override fun onStart() {
         super.onStart()
 
-        dialog?.window?.setLayout(
-            ViewGroup.LayoutParams.MATCH_PARENT,
-            ViewGroup.LayoutParams.MATCH_PARENT,
-        )
+        dialog?.window?.setLayout(900, 2200)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
 
@@ -110,7 +107,9 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    Toast.makeText(requireContext(), "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
+                    context?.let {
+                        Toast.makeText(it, "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
+                    }
                     Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
 
                     runTextRecognitionOnImage(photoFile) { scannedArticlesList ->
@@ -125,9 +124,12 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                                 Log.d("ARTIKLI", "$articleList")
                             }
                             else {
-                                Toast.makeText(requireContext(), "No store results found", Toast.LENGTH_SHORT).show()
+                                context?.let {
+                                    Toast.makeText(it, "No store results found", Toast.LENGTH_SHORT).show()
+                                }
                             }
                     }
+                    dialog?.dismiss()
                 }
 
                 override fun onError(exception: ImageCaptureException) {
