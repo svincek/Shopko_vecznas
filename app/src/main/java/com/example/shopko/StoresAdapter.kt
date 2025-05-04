@@ -11,7 +11,6 @@ import com.example.shopko.entitys.StoreComboMatchResult
 class StoresAdapter(private var storeList: List<StoreComboMatchResult>) :
     RecyclerView.Adapter<StoresAdapter.StoreViewHolder>() {
 
-    // ViewHolder class for holding store item views
     class StoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.StoreName)
         val location: TextView = itemView.findViewById(R.id.StoreLocation)
@@ -29,7 +28,7 @@ class StoresAdapter(private var storeList: List<StoreComboMatchResult>) :
         val store = storeList[position]
         holder.name.text = store.store.joinToString(" + "){it.name}
         holder.location.text = store.store.joinToString(", "){it.location}
-        holder.price.text = String.format("%.2f", store.totalPrice)
+        holder.price.text = "€" + String.format("%.2f", store.totalPrice)
     }
 
     override fun getItemCount(): Int = storeList.size

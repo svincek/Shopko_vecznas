@@ -1,5 +1,6 @@
 package com.example.shopko.utils.dataFunctions
 
+import android.util.Log
 import com.example.shopko.entitys.Article
 import com.example.shopko.entitys.ShopkoApp
 import com.example.shopko.entitys.Store
@@ -31,14 +32,15 @@ suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: F
             .groupBy { it.type }
             .mapValues { entry -> entry.value.minByOrNull { it.price } }
 
-        val matchedArticles = articleList.mapNotNull { article ->
-            typeToArticle[article.type]
+        val matchedArticles = articleList.mapNotNull { userArticle ->
+            typeToArticle[userArticle.type]?.copy(quantity = userArticle.quantity)
         }
 
         val matchedTypes = matchedArticles.map { it.type }.toSet()
         val missingTypes = articleList.map{ it.type }.filterNot {it in matchedTypes}
 
         val totalPrice = matchedArticles.sumOf { it.price * it.quantity }
+        val quantity = matchedArticles.first().quantity
 
         val distance = userLatLng?.let {
             calculateComboDistance(it, storeCombo)
