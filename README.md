@@ -55,5 +55,5 @@ fix: Ispravljen bug pri skeniranju bar koda
 ## Kontakt
 
 Autor: [Simon Vincek]  
-Email: [simon.vincek@email.com]  
+Email: [simon.vincek@gmail.com]  
 GitHub: [github.com/svincek]
