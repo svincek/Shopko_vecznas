@@ -1,4 +1,4 @@
-package com.example.shopko
+package com.example.shopko.ui.components
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,9 +8,9 @@ import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.RadioButton
 import android.widget.Spinner
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.fragment.app.DialogFragment
-import com.example.shopko.enums.Filters
+import com.example.shopko.R
+import com.example.shopko.utils.enums.Filters
 
 class FilterDialogFragment(
     private val currentFilter: Filters,
