@@ -68,7 +68,6 @@ class MainApp : AppCompatActivity() {
         bottomNav.setOnItemSelectedListener { item ->
             val selectedFragment = when (item.itemId) {
                 R.id.menu_home-> PocetnaFragment()
-                R.id.menu_profil -> ProfileFragment()
                 else -> null
             }
 

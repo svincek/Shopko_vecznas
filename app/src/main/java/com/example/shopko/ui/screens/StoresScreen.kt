@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
+import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ProgressBar
@@ -21,11 +22,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
 import com.example.shopko.data.model.StoreComboResult
-import com.example.shopko.data.model.UserArticleList
+import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.ui.MainApp
 import com.example.shopko.ui.adapters.StoresAdapter
-import com.example.shopko.utils.data_functions.sortStoreCombo
+import com.example.shopko.ui.components.FilterDialogFragment
 import com.example.shopko.utils.enums.Filters
+import com.example.shopko.utils.sorting.sortStoreCombo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -36,6 +38,8 @@ class StoresScreen : AppCompatActivity() {
     private lateinit var storeList: List<StoreComboResult>
     private lateinit var originalList: List<StoreComboResult>
     private lateinit var loadingSpinner: ProgressBar
+    private var selectedFilter: Filters = Filters.BYPRICE
+    private var selectedStoreCount: Int = 1
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +60,7 @@ class StoresScreen : AppCompatActivity() {
         }
 
         lifecycleScope.launch {
-            originalList = sortStoreCombo(UserArticleList.articleList, 1, Filters.BYPRICE)
+            originalList = sortStoreCombo(articleList, 1, Filters.BYPRICE)
             storeList = originalList
             setupRecyclerView(storeList)
         }
@@ -82,7 +86,7 @@ class StoresScreen : AppCompatActivity() {
             loadingSpinner.visibility = View.VISIBLE
 
             originalList = withContext(Dispatchers.IO) {
-                sortStoreCombo(UserArticleList.articleList, 1, Filters.BYPRICE)
+                sortStoreCombo(articleList, 1, Filters.BYPRICE)
             }
 
             storeList = originalList
@@ -90,6 +94,15 @@ class StoresScreen : AppCompatActivity() {
 
             loadingSpinner.visibility = View.GONE
         }
+
+        findViewById<Button>(R.id.btnOpenFilter).setOnClickListener {
+            FilterDialogFragment(selectedFilter, selectedStoreCount) { filter, count ->
+                selectedFilter = filter
+                selectedStoreCount = count
+                reloadData()
+            }.show(supportFragmentManager, "FilterDialog")
+        }
+
 
     }
 
@@ -141,6 +154,20 @@ class StoresScreen : AppCompatActivity() {
 
         override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
             return oldList[oldItemPosition] == newList[newItemPosition]
+        }
+    }
+    private fun reloadData() {
+        lifecycleScope.launch {
+            loadingSpinner.visibility = View.VISIBLE
+
+            originalList = withContext(Dispatchers.IO) {
+                sortStoreCombo(articleList, selectedStoreCount, selectedFilter)
+            }
+
+            storeList = originalList
+            setupRecyclerView(storeList)
+
+            loadingSpinner.visibility = View.GONE
         }
     }
 }

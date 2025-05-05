@@ -38,7 +38,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.dialog_popup, container, false)
+        val view = inflater.inflate(R.layout.dialog_camera, container, false)
         previewView = view.findViewById(R.id.previewView)
         takePhotoButton = view.findViewById(R.id.captureButton)
         return view

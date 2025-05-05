@@ -1,6 +1,17 @@
 <resources>
     <string name="app_name">Shopko</string>
     <string name="title_activity_login">Login</string>
+    <string name="filter">Filter</string>
+    <string name="apply">Apply</string>
+    <string name="broj_trgovina">Max. broj trgovina:</string>
+    <string name="soritiraj_po">Sortiraj po:</string>
+    <string name="udaljenosti">Udaljenosti</string>
+    <string name="cijeni">Cijeni</string>
+    <string-array name="store_count_options">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
     <string name="nastavi_na_trgovine">Nastavi na trgovine</string>
     <string name="ups_tvoj_popis_je_prazan">Ups! Tvoj popis je prazan…</string>
     <string name="stvori_svoj_popis_za_kupovinu">Stvori svoj popis za kupovinu!</string>
