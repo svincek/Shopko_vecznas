@@ -6,6 +6,7 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -109,24 +110,24 @@ class PocetnaFragment : Fragment() {
             .setTitle("Dodaj artikl")
             .setView(input)
             .setPositiveButton("Dodaj") { _, _ ->
-                val newArticle = input.text.toString().trim()
+                val newArticle = input.text.toString().trim().uppercase() // Pretvara unos u ALL CAPS
                 if (newArticle.isNotEmpty()) {
-                    val artikl: Article? = getArticles().firstOrNull { it.type == newArticle }
-                    if(artikl != null){
+                    val artikl: Article? = getArticles().firstOrNull { it.type.uppercase() == newArticle }
+                    if (artikl != null) {
                         articleList.add(artikl)
                         articleAdapter.notifyDataSetChanged()
                         refreshListView()
-
-                    }
-                    else{
+                    } else {
                         Toast.makeText(activity, "Nije pronađen artikl: $newArticle", Toast.LENGTH_SHORT).show()
                     }
                 }
             }
             .setNegativeButton("Odustani", null)
             .create()
+
         alertDialog.show()
     }
+
     private fun refreshListView() {
         if (articleList.isEmpty()) {
             emptyListText.visibility = View.VISIBLE

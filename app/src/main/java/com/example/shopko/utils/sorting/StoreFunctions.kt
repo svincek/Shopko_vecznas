@@ -1,4 +1,4 @@
-package com.example.shopko.utils.data_functions
+package com.example.shopko.utils.sorting
 
 import com.example.shopko.data.model.Article
 import com.example.shopko.data.model.ShopkoApp

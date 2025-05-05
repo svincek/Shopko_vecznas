@@ -5,10 +5,6 @@
         android:enabled="true"
         android:icon="@drawable/icon_home"
         android:title="Početna"/>
-    <item
-        android:id="@+id/menu_profil"
-        android:enabled="true"
-        android:icon="@drawable/icon_heart"
-        android:title="Profil"/>
+
 
 </menu>

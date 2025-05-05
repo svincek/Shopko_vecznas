@@ -51,6 +51,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <Button
+        android:id="@+id/btnOpenFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
+        android:text="@string/filter"
+        app:layout_constraintBottom_toTopOf="@+id/recyclerViewStores"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchBar"
+        android:backgroundTint="@color/glavna"/>
+
+
+
     <TextView
         android:id="@+id/textView3"
         android:layout_width="wrap_content"

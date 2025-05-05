@@ -16,6 +16,7 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
         val name: TextView = itemView.findViewById(R.id.StoreName)
         val location: TextView = itemView.findViewById(R.id.StoreLocation)
         val price: TextView = itemView.findViewById(R.id.ArticlePrice)
+        val distance: TextView = itemView.findViewById(R.id.StoreDistance)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StoreViewHolder {
@@ -29,10 +30,8 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
         val store = storeList[position]
         holder.name.text = store.store.joinToString(" + "){it.name}
         holder.location.text = store.store.joinToString(", "){it.location}
-        holder.price.text = buildString {
-            append("€")
-            append(String.format("%.2f", store.totalPrice))
-        }
+        holder.price.text = "€" + String.format("%.2f", store.totalPrice)
+        holder.distance.text = "${"%.1f".format(store.distance / 1000)} km"
     }
 
     override fun getItemCount(): Int = storeList.size
