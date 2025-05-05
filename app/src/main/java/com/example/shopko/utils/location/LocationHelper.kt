@@ -15,6 +15,12 @@ import com.google.android.gms.location.Priority
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.suspendCancellableCoroutine
 
+/**
+ * Pomoćna klasa za dohvaćanje korisnikove trenutne lokacije korištenjem Google Play Services FusedLocationProviderClient.
+ *
+ * @constructor Prima [Context] aplikacije ili aktivnosti za pristup servisima.
+ */
+
 class LocationHelper(private val context: Context) {
 
     private val fusedLocationProvider = LocationServices.getFusedLocationProviderClient(context)

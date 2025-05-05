@@ -1,4 +1,4 @@
-package com.example.shopko.enums
+package com.example.shopko.utils.enums
 
 enum class Filters {
     BYPRICE, BYDISTANCE

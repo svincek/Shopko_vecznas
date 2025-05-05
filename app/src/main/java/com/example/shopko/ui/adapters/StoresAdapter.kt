@@ -1,4 +1,4 @@
-package com.example.shopko
+package com.example.shopko.ui.adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,9 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shopko.entitys.StoreComboMatchResult
+import com.example.shopko.R
+import com.example.shopko.data.model.StoreComboResult
 
-class StoresAdapter(private var storeList: List<StoreComboMatchResult>) :
+class StoresAdapter(private var storeList: List<StoreComboResult>) :
     RecyclerView.Adapter<StoresAdapter.StoreViewHolder>() {
 
     class StoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

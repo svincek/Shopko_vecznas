@@ -1,21 +1,24 @@
-package com.example.shopko
+package com.example.shopko.ui
 
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
+import com.example.shopko.R
 import com.example.shopko.fragments.ProfileFragment
+import com.example.shopko.ui.screens.PocetnaFragment
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-
-class Main : AppCompatActivity() {
+class MainApp : AppCompatActivity() {
 
     private lateinit var locationHelper: LocationHelper
 
@@ -25,14 +28,14 @@ class Main : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
-        window.setDecorFitsSystemWindows(false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val insetsController = window.insetsController
         insetsController?.hide(WindowInsets.Type.systemBars())
         insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
 
 
-        val mainLayout = findViewById<android.view.View>(R.id.main)
+        val mainLayout = findViewById<View>(R.id.main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
 
         ViewCompat.setOnApplyWindowInsetsListener(mainLayout) { view, insets ->

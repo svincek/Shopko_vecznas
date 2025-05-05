@@ -1,13 +1,25 @@
 package com.example.shopko.utils.location
 
 import android.content.Context
-import android.location.Geocoder
 import android.location.Address
+import android.location.Geocoder
 import android.os.Build
 import android.util.Log
 import com.google.android.gms.maps.model.LatLng
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
+
+/**
+ * Dohvaća geografske koordinate (latitude, longitude) iz adrese kao teksta.
+ *
+ * @return [LatLng] objekt s koordinatama adrese ili `null` ako adresa nije pronađena.
+ *
+ * Ova funkcija podržava i starije i novije verzije Androida:
+ * - Za Android 13 (API 33) i novije koristi asinkroni `GeocodeListener`.
+ * - Za starije koristi blokirajući pristup `getFromLocationName`.
+ *
+ * Potrebno je imati internetsku vezu i aktiviran Geocoder servis na uređaju.
+ */
 
 object LatLngFromAddress {
     suspend fun getLatLngFromAddressSuspend(

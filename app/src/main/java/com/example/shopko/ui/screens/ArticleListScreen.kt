@@ -1,6 +1,8 @@
-package com.example.shopko
+package com.example.shopko.ui.screens
 
-import ArticleAdapter
+import android.Manifest
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
@@ -18,20 +20,23 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.shopko.entitys.Article
-import com.example.shopko.entitys.ShopkoApp
-import com.example.shopko.entitys.UserArticleList.articleList
-import com.example.shopko.utils.repository.getArticles
+import com.example.shopko.R
+import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.repository.getArticles
+import com.example.shopko.ui.adapters.ArticleAdapter
+import com.example.shopko.ui.components.MyCustomDialog
 
 
 class PocetnaFragment : Fragment() {
 
     private lateinit var listRecyclerView: RecyclerView
     private lateinit var articleAdapter: ArticleAdapter
-    private val context = ShopkoApp.getAppContext()
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var emptyListText: TextView
+    private var permissionForScan = false
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,21 +50,23 @@ class PocetnaFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                val intent = Intent(requireContext(), StoresActivity::class.java)
-                startActivity(intent)
+                if (permissionForScan) {
+                    showScanDialog()
+                } else {
+                    val intent = Intent(requireContext(), StoresScreen::class.java)
+                    startActivity(intent)
+                }
             } else {
-                Toast.makeText(requireContext(), "Dozvola odbijena!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Dozvola je potrebna za neke funckionalnosti!", Toast.LENGTH_SHORT).show()
             }
         }
 
         scanButton.setOnClickListener {
-            if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-                requestPermissionLauncher.launch(android.Manifest.permission.CAMERA)
+            if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                permissionForScan = true
+                requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             } else{
-                MyCustomDialog{
-                    articleAdapter.notifyDataSetChanged()
-                    refreshListView()
-                }.show(childFragmentManager, "MyCustomDialog")
+                showScanDialog()
             }
         }
         listRecyclerView = view.findViewById(R.id.list)
@@ -75,28 +82,30 @@ class PocetnaFragment : Fragment() {
         val btnAdvance = view.findViewById<Button>(R.id.advance)
         btnAdvance.setOnClickListener {
             if(articleList.isNotEmpty()){
-                if (ActivityCompat.checkSelfPermission(requireContext(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-                    requestPermissionLauncher.launch(android.Manifest.permission.ACCESS_FINE_LOCATION)
+                if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    permissionForScan = false
+                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 } else {
-                    val intent = Intent(requireContext(), StoresActivity::class.java)
+                    val intent = Intent(requireContext(), StoresScreen::class.java)
                     startActivity(intent)
                 }
             }
             else{
-                Toast.makeText(activity, "list je prazan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "lista je prazna!", Toast.LENGTH_SHORT).show()
             }
         }
         refreshListView()
         return view
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showAddDialog() {
         val input = EditText(requireContext()).apply {
             hint = "Unesite naziv artikla"
             setPadding(32, 32, 32, 32)
         }
 
-        val alertDialog = android.app.AlertDialog.Builder(requireContext())
+        val alertDialog = AlertDialog.Builder(requireContext())
             .setTitle("Dodaj artikl")
             .setView(input)
             .setPositiveButton("Dodaj") { _, _ ->
@@ -126,6 +135,13 @@ class PocetnaFragment : Fragment() {
             emptyListText.visibility = View.GONE
             listRecyclerView.visibility = View.VISIBLE
         }
+    }
+
+    private fun showScanDialog() {
+        MyCustomDialog {
+            articleAdapter.notifyDataSetChanged()
+            refreshListView()
+        }.show(childFragmentManager, "MyCustomDialog")
     }
 
 }

@@ -1,9 +1,9 @@
 package com.example.shopko
 
-import com.example.shopko.entitys.Article
-import com.example.shopko.entitys.Store
-import com.example.shopko.entitys.StoreComboMatchResult
-import com.example.shopko.enums.Filters
+import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.Store
+import com.example.shopko.data.model.StoreComboResult
+import com.example.shopko.utils.enums.Filters
 import com.example.shopko.utils.general.combinations
 import com.google.android.gms.maps.model.LatLng
 
@@ -14,7 +14,7 @@ fun sortStoreComboTestable(
     maxCombos: Int,
     filter: Filters,
     distanceCalculator: DistanceCalculator
-): List<StoreComboMatchResult> {
+): List<StoreComboResult> {
     val allStoreCombos = (1..maxCombos).flatMap { count ->
         stores.combinations(count)
     }
@@ -39,7 +39,7 @@ fun sortStoreComboTestable(
             calculateComboDistance(it, storeCombo, distanceCalculator)
         } ?: Float.MAX_VALUE
 
-        StoreComboMatchResult(
+        StoreComboResult(
             store = storeCombo,
             matchedArticles = matchedArticles,
             missingTypes = missingTypes,
@@ -50,11 +50,11 @@ fun sortStoreComboTestable(
 
     return when (filter) {
         Filters.BYPRICE -> validCombos.sortedWith(
-            compareBy<StoreComboMatchResult> { it.missingTypes.size }
+            compareBy<StoreComboResult> { it.missingTypes.size }
                 .thenBy { it.totalPrice }
         )
         Filters.BYDISTANCE -> validCombos.sortedWith(
-            compareBy<StoreComboMatchResult> { it.missingTypes.size }
+            compareBy<StoreComboResult> { it.missingTypes.size }
                 .thenBy { it.distance }
         )
     }

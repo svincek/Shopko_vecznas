@@ -1,6 +1,5 @@
-package com.example.shopko.entitys
+package com.example.shopko.data.model
 
-import android.app.Activity
 import android.app.Application
 import android.content.Context
 

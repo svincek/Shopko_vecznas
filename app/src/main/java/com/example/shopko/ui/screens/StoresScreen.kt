@@ -1,4 +1,4 @@
-package com.example.shopko
+package com.example.shopko.ui.screens
 
 import android.content.Intent
 import android.os.Build
@@ -17,6 +17,7 @@ import android.widget.Spinner
 import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,15 +26,22 @@ import com.example.shopko.entitys.StoreComboMatchResult
 import com.example.shopko.entitys.UserArticleList.articleList
 import com.example.shopko.enums.Filters
 import com.example.shopko.utils.sorting.sortStoreCombo
+import com.example.shopko.R
+import com.example.shopko.data.model.StoreComboResult
+import com.example.shopko.data.model.UserArticleList
+import com.example.shopko.ui.MainApp
+import com.example.shopko.ui.adapters.StoresAdapter
+import com.example.shopko.utils.data_functions.sortStoreCombo
+import com.example.shopko.utils.enums.Filters
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class StoresActivity : AppCompatActivity() {
+class StoresScreen : AppCompatActivity() {
 
     private lateinit var adapter: StoresAdapter
-    private lateinit var storeList: List<StoreComboMatchResult>
-    private lateinit var originalList: List<StoreComboMatchResult>
+    private lateinit var storeList: List<StoreComboResult>
+    private lateinit var originalList: List<StoreComboResult>
     private lateinit var loadingSpinner: ProgressBar
     private var selectedFilter: Filters = Filters.BYPRICE
     private var selectedStoreCount: Int = 1
@@ -44,20 +52,20 @@ class StoresActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_stores)
 
-        window.setDecorFitsSystemWindows(false)
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         val insetsController = window.insetsController
         insetsController?.hide(WindowInsets.Type.systemBars())
         insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
 
-        val btnNavigate = findViewById< ImageButton>(R.id.btnBack)
+        val btnNavigate = findViewById<ImageButton>(R.id.btnBack)
         btnNavigate.setOnClickListener {
-            val intent = Intent(this, Main::class.java)
+            val intent = Intent(this, MainApp::class.java)
             startActivity(intent)
         }
 
         lifecycleScope.launch {
-            originalList = sortStoreCombo(articleList, 1, Filters.BYPRICE)
+            originalList = sortStoreCombo(UserArticleList.articleList, 1, Filters.BYPRICE)
             storeList = originalList
             setupRecyclerView(storeList)
         }
@@ -83,7 +91,7 @@ class StoresActivity : AppCompatActivity() {
             loadingSpinner.visibility = View.VISIBLE
 
             originalList = withContext(Dispatchers.IO) {
-                sortStoreCombo(articleList, 1, Filters.BYPRICE)
+                sortStoreCombo(UserArticleList.articleList, 1, Filters.BYPRICE)
             }
 
             storeList = originalList
@@ -103,7 +111,7 @@ class StoresActivity : AppCompatActivity() {
 
     }
 
-    private fun setupRecyclerView(data: List<StoreComboMatchResult>) {
+    private fun setupRecyclerView(data: List<StoreComboResult>) {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewStores)
         adapter = StoresAdapter(data)
         recyclerView.layoutManager = LinearLayoutManager(this)
@@ -129,7 +137,7 @@ class StoresActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateAdapterData(newStoreList: List<StoreComboMatchResult>) {
+    private fun updateAdapterData(newStoreList: List<StoreComboResult>) {
         val diffCallback = StoreDiffCallback(storeList, newStoreList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
         storeList = newStoreList
@@ -137,8 +145,8 @@ class StoresActivity : AppCompatActivity() {
     }
 
     private class StoreDiffCallback(
-        private val oldList: List<StoreComboMatchResult>,
-        private val newList: List<StoreComboMatchResult>
+        private val oldList: List<StoreComboResult>,
+        private val newList: List<StoreComboResult>
     ) : DiffUtil.Callback() {
 
         override fun getOldListSize(): Int = oldList.size

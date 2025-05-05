@@ -1,4 +1,4 @@
-package com.example.shopko.entitys
+package com.example.shopko.data.model
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

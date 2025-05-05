@@ -12,4 +12,32 @@
         <item>2</item>
         <item>3</item>
     </string-array>
+    <string name="nastavi_na_trgovine">Nastavi na trgovine</string>
+    <string name="ups_tvoj_popis_je_prazan">Ups! Tvoj popis je prazan…</string>
+    <string name="stvori_svoj_popis_za_kupovinu">Stvori svoj popis za kupovinu!</string>
+    <string name="todo">TODO</string>
+    <string name="button_search" />
+    <string name="skeniraj">Skeniraj</string>
+    <string name="dodaj">Dodaj</string>
+    <string name="tra_i">Traži</string>
+    <string name="buttonadd">buttonAdd</string>
+    <string name="button_scan">button_scan</string>
+    <string name="logo_image">logo_image</string>
+    <string name="dobrodo_li_natrag">Dobrodošli natrag!</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="log_in">Log In</string>
+    <string name="shopko">SHOPKO</string>
+    <string name="back">Back</string>
+    <string name="pretra_i_du_an">Pretraži dućan</string>
+    <string name="rezultati">Rezultati</string>
+    <string name="skeniraj_gumb">Skeniraj</string>
+    <string name="button_add" />
+    <string name="naziv_artikla">Naziv artikla</string>
+    <string name="oduzmi">Oduzmi</string>
+    <string name="_0">0</string>
+    <string name="dodaj_">Dodaj</string>
+    <string name="naziv_du_ana">Naziv dućana</string>
+    <string name="adresa_lokacije_du_ana">Adresa lokacije dućana</string>
+    <string name="cijena_proizvoda_du_ana">Cijena proizvoda dućana</string>
 </resources>
