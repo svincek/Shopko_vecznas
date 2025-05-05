@@ -108,14 +108,23 @@ class StoresScreen : AppCompatActivity() {
 
     private fun setupRecyclerView(data: List<StoreComboResult>) {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerViewStores)
-        adapter = StoresAdapter(data)
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
+
+        if (!::adapter.isInitialized) {
+            adapter = StoresAdapter(data)
+            recyclerView.layoutManager = LinearLayoutManager(this)
+            recyclerView.adapter = adapter
+            storeList = data
+        } else {
+            updateAdapterData(data)
+        }
     }
 
+
     private fun filterStores(query: String) {
+        if (!::originalList.isInitialized) return
+
         lifecycleScope.launch(Dispatchers.IO) {
-            val filteredList = if (query.isEmpty()) {
+            val filteredList = if (query.isBlank()) {
                 originalList
             } else {
                 originalList.filter { combo ->
@@ -127,17 +136,25 @@ class StoresScreen : AppCompatActivity() {
             }
 
             withContext(Dispatchers.Main) {
-                updateAdapterData(filteredList)
+                if (filteredList != null) {
+                    updateAdapterData(filteredList)
+                }
             }
         }
     }
 
+
     private fun updateAdapterData(newStoreList: List<StoreComboResult>) {
+        if (!::adapter.isInitialized || !::storeList.isInitialized) return
+
         val diffCallback = StoreDiffCallback(storeList, newStoreList)
         val diffResult = DiffUtil.calculateDiff(diffCallback)
+
         storeList = newStoreList
         diffResult.dispatchUpdatesTo(adapter)
     }
+
+
 
     private class StoreDiffCallback(
         private val oldList: List<StoreComboResult>,
