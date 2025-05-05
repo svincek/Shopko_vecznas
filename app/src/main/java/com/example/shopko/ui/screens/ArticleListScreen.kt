@@ -34,6 +34,7 @@ class PocetnaFragment : Fragment() {
     private lateinit var articleAdapter: ArticleAdapter
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var emptyListText: TextView
+    private var permissionForScan = false
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -49,21 +50,23 @@ class PocetnaFragment : Fragment() {
             ActivityResultContracts.RequestPermission()
         ) { isGranted: Boolean ->
             if (isGranted) {
-                val intent = Intent(requireContext(), StoresScreen::class.java)
-                startActivity(intent)
+                if (permissionForScan) {
+                    showScanDialog()
+                } else {
+                    val intent = Intent(requireContext(), StoresScreen::class.java)
+                    startActivity(intent)
+                }
             } else {
-                Toast.makeText(requireContext(), "Dozvola odbijena!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Dozvola je potrebna za neke funckionalnosti!", Toast.LENGTH_SHORT).show()
             }
         }
 
         scanButton.setOnClickListener {
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
+                permissionForScan = true
                 requestPermissionLauncher.launch(Manifest.permission.CAMERA)
             } else{
-                MyCustomDialog {
-                    articleAdapter.notifyDataSetChanged()
-                    refreshListView()
-                }.show(childFragmentManager, "MyCustomDialog")
+                showScanDialog()
             }
         }
         listRecyclerView = view.findViewById(R.id.list)
@@ -80,6 +83,7 @@ class PocetnaFragment : Fragment() {
         btnAdvance.setOnClickListener {
             if(articleList.isNotEmpty()){
                 if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                    permissionForScan = false
                     requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 } else {
                     val intent = Intent(requireContext(), StoresScreen::class.java)
@@ -87,7 +91,7 @@ class PocetnaFragment : Fragment() {
                 }
             }
             else{
-                Toast.makeText(activity, "list je prazan!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(activity, "lista je prazna!", Toast.LENGTH_SHORT).show()
             }
         }
         refreshListView()
@@ -131,6 +135,13 @@ class PocetnaFragment : Fragment() {
             emptyListText.visibility = View.GONE
             listRecyclerView.visibility = View.VISIBLE
         }
+    }
+
+    private fun showScanDialog() {
+        MyCustomDialog {
+            articleAdapter.notifyDataSetChanged()
+            refreshListView()
+        }.show(childFragmentManager, "MyCustomDialog")
     }
 
 }
