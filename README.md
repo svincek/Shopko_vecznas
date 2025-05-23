@@ -34,7 +34,7 @@
 3. Dodaj `local.properties` datoteku u root projekta:
    ```properties
    sdk.dir=/Users/korisnik/Library/Android/sdk
-   API_KEY=AIzaSyD_ZxfRa5P9FRCicjNg-z9SPtp_WxCc-14
+   API_KEY= *Ovdje staviti API ključ, za dostavljanje API ključa prvo kontaktirati na mail: simon.vincek@gmail.com*
    ```
 
 4. Pokreni `Build > Make Project` ili `./gradlew build`
