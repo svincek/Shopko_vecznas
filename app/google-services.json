@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "715730736463",
+    "project_id": "shopko-858d0",
+    "storage_bucket": "shopko-858d0.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715730736463:android:ae2cfe404878d271d6e13a",
+        "android_client_info": {
+          "package_name": "com.example.shopko"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDD_kC3-D325jSYJXe8PrpHh2B8IYIon4Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -6,7 +6,6 @@ import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
-import android.text.InputFilter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -76,7 +75,7 @@ class PocetnaFragment : Fragment() {
         articleAdapter = ArticleAdapter(articleList)
         listRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         listRecyclerView.adapter = articleAdapter
-        
+
         addButton.setOnClickListener {
             showAddDialog()
         }
@@ -110,7 +109,7 @@ class PocetnaFragment : Fragment() {
             .setTitle("Dodaj artikl")
             .setView(input)
             .setPositiveButton("Dodaj") { _, _ ->
-                val newArticle = input.text.toString().trim().uppercase() // Pretvara unos u ALL CAPS
+                val newArticle = input.text.toString().trim().uppercase()
                 if (newArticle.isNotEmpty()) {
                     val artikl: Article? = getArticles().firstOrNull { it.type.uppercase() == newArticle }
                     if (artikl != null) {

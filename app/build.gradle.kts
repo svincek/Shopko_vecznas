@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     kotlin("plugin.serialization") version "1.9.0"
+    id("com.google.gms.google-services")
 }
 
 val apiKey = project.findProperty("API_KEY") as? String ?: ""
@@ -68,6 +69,8 @@ dependencies {
     implementation ("androidx.camera:camera-lifecycle:1.3.2")
     implementation ("androidx.camera:camera-view:1.3.0")
     implementation ("com.google.mlkit:text-recognition:16.0.1")
+    implementation(platform("com.google.firebase:firebase-bom:33.13.0"))
+    implementation("com.google.firebase:firebase-analytics")
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

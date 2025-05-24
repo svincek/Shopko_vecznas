@@ -13,7 +13,6 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.example.shopko.R
-import com.example.shopko.fragments.ProfileFragment
 import com.example.shopko.ui.screens.PocetnaFragment
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
@@ -32,7 +31,6 @@ class MainApp : AppCompatActivity() {
         val insetsController = window.insetsController
         insetsController?.hide(WindowInsets.Type.systemBars())
         insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-
 
 
         val mainLayout = findViewById<View>(R.id.main)
