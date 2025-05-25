@@ -47,8 +47,6 @@ class MainApp : AppCompatActivity() {
             insets
         }
 
-
-
         locationHelper = LocationHelper(this)
 
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav) { view, insets ->
