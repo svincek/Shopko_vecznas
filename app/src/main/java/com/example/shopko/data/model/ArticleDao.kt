@@ -12,5 +12,8 @@ interface ArticleDao {
     suspend fun getAllArticles(): List<ArticleEntity>
 
     @Query("SELECT * FROM articles WHERE storeBrand = :storeBrand")
-    suspend fun getArticlesByBrand(storeBrand: String): List<ArticleEntity>
+    suspend fun getArticlesByStore(storeBrand: String): List<ArticleEntity>
+
+    @Query("SELECT * FROM articles WHERE isFavourite = 1")
+    suspend fun getFavouriteArticles(): List<ArticleEntity>
 }

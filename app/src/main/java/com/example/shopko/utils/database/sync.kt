@@ -9,7 +9,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-class FirestoreSyncHelper(private val db: AppDatabase) {
+class MongoSyncHelper(private val db: AppDatabase) {
 
     fun syncStores() {
         Firebase.firestore.collection("stores")

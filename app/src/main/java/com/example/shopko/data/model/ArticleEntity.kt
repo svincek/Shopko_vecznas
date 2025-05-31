@@ -17,5 +17,6 @@ data class ArticleEntity(
     val bestPrice30: Double,
     val anchorPrice: Double,
     val specialPrice: Double,
-    val storeBrand: String
+    val storeBrand: String,
+    val isFavourite: Boolean = false
 )
