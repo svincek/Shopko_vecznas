@@ -22,6 +22,7 @@ import androidx.fragment.app.DialogFragment
 import com.example.shopko.R
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.repository.getArticles
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
 import java.io.File
 
@@ -118,7 +119,9 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
 
                         Log.d("SKEN", "$scannedArticlesList")
                         if (scannedArticlesList.isNotEmpty()) {
-                                articleList.addAll(scannedArticlesList)
+                                articleList.addAll(scannedArticlesList.map { article ->
+                                    getArticles().first { it.type == article }
+                                }.toList())
                                 onArticlesAdded()
                                 Log.d("ARTIKLI", "$articleList")
                             }

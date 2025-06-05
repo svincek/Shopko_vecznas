@@ -8,7 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.shopko.R
-import com.example.shopko.ui.MainApp
+import com.example.shopko.ui.MainScreen
 
 class LoginScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -23,7 +23,7 @@ class LoginScreen : AppCompatActivity() {
 
         val goToSecondButton: Button = findViewById(R.id.login_button)
         goToSecondButton.setOnClickListener {
-            val intent = Intent(this, MainApp::class.java)
+            val intent = Intent(this, MainScreen::class.java)
             startActivity(intent)
             finish()
     }

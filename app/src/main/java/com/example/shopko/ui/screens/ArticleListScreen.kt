@@ -18,14 +18,18 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
 import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.data.repository.getArticles
 import com.example.shopko.ui.adapters.ArticleAdapter
 import com.example.shopko.ui.components.MyCustomDialog
+import kotlinx.coroutines.launch
 
 
 class PocetnaFragment : Fragment() {
@@ -35,6 +39,7 @@ class PocetnaFragment : Fragment() {
     private lateinit var requestPermissionLauncher: ActivityResultLauncher<String>
     private lateinit var emptyListText: TextView
     private var permissionForScan = false
+    private val db = AppDatabase.getDatabase(ShopkoApp.getAppContext())
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -43,6 +48,14 @@ class PocetnaFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_create_list, container, false)
         emptyListText = view.findViewById(R.id.empty_list_text)
+
+        lifecycleScope.launch {
+            val article = db.articleDao().getAllArticles().first()
+            val rarticle = Article(article.productId.toInt(), article.name, article.brand,
+                article.category.toString(),
+                article.unit.toString(), article.price)
+            articleList.add(rarticle)
+        }
 
         val scanButton = view.findViewById<View>(R.id.btnScan)
 
@@ -137,6 +150,7 @@ class PocetnaFragment : Fragment() {
         }
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     private fun showScanDialog() {
         MyCustomDialog {
             articleAdapter.notifyDataSetChanged()
