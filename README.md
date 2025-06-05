@@ -54,6 +54,6 @@ fix: Ispravljen bug pri skeniranju bar koda
 
 ## Kontakt
 
-Autor: [Simon Vincek]  
-Email: [simon.vincek@gmail.com]  
+Autori: [Simon Vincek, Dino Huđ, Lara Šljivić]  
+Email: [simon.vincek@gmail.com, dhud61@gmail.com, lara.sljivic@gmail.com]  
 GitHub: [github.com/svincek]
