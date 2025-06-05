@@ -1,9 +1,23 @@
 package com.example.shopko.data.model
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+
 
 data class StoreComboResult (
-    val store: List<Store>,
-    val matchedArticles: List<Article>,
-    val missingTypes: List<String>,
-    val totalPrice: Double,
-    val distance: Float,
+val store: List<Store>,
+val matchedArticles: List<Article>,
+val missingTypes: List<String>,
+val totalPrice: Double,
+val distance: Float,
 )
+
+
+@Parcelize
+data class StoreComboResultParcelable(
+    val storeName: String,
+    val storeLocation: String,
+    val storeHours: String,
+    val articles: List<ArticleStores>,
+    val totalPrice: Double
+) : Parcelable

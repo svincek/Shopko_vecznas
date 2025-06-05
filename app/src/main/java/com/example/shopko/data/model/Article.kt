@@ -10,7 +10,8 @@ data class Article(
     var category: String,
     @SerialName ("unit_size") var unitSize: String,
     var price: Double,
-    var quantity: Int = 1
+    var quantity: Int = 1,
+    var isChecked: Boolean = true
 )
 
 @Serializable

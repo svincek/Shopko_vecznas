@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/nav_profile"
+    app:startDestination="@id/profileFragment">
+
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.example.shopko.ui.screens.ProfileFragment"
+        android:label="Profile">
+        <action
+            android:id="@+id/action1"
+            app:destination="@id/profilePreferencesFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/profilePreferencesFragment"
+        android:name="com.example.shopko.ui.screens.ProfilePreferencesFragment"
+        android:label="profilePreferences" />
+
+
+</navigation>

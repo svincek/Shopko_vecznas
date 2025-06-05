@@ -13,12 +13,12 @@
         <item>3</item>
     </string-array>
     <string name="nastavi_na_trgovine">Nastavi na trgovine</string>
-    <string name="ups_tvoj_popis_je_prazan">Ups! Tvoj popis je prazan…</string>
+    <string name="ups_tvoj_popis_je_prazan">Tvoj popis je prazan!</string>
     <string name="stvori_svoj_popis_za_kupovinu">Stvori svoj popis za kupovinu!</string>
     <string name="todo">TODO</string>
     <string name="button_search" />
-    <string name="skeniraj">Skeniraj</string>
-    <string name="dodaj">Dodaj</string>
+    <string name="skeniraj">Skeniraj popis</string>
+    <string name="dodaj">Dodaj artikle</string>
     <string name="tra_i">Traži</string>
     <string name="buttonadd">buttonAdd</string>
     <string name="button_scan">button_scan</string>
@@ -29,7 +29,7 @@
     <string name="log_in">Log In</string>
     <string name="shopko">SHOPKO</string>
     <string name="back">Back</string>
-    <string name="pretra_i_du_an">Pretraži dućan</string>
+    <string name="pretra_i_du_an">Traži trgovine</string>
     <string name="rezultati">Rezultati</string>
     <string name="skeniraj_gumb">Skeniraj</string>
     <string name="button_add" />
@@ -39,5 +39,17 @@
     <string name="dodaj_">Dodaj</string>
     <string name="naziv_du_ana">Naziv dućana</string>
     <string name="adresa_lokacije_du_ana">Adresa lokacije dućana</string>
-    <string name="cijena_proizvoda_du_ana">Cijena proizvoda dućana</string>
+    <string name="cijena_proizvoda_du_ana">€3,40</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="title_activity_nenica">nenica</string>
+    <string name="skeniraj_ru_no_pisani_popis_ili_dodaj_artikle_kako_bi_krenuo_s_pametnom_kupovinom">Skeniraj ručno pisani popis ili dodaj artikle kako bi krenuo s pametnom kupovinom.</string>
+    <string name="natrag">Natrag</string>
+    <string name="broj_rezultata">Broj rezultata</string>
+    <string name="sortiraj_po">Sortiraj po:</string>
+    <string name="cijeni_uzlazno">Cijeni: uzlazno</string>
+    <string name="cijeni_silazno">Cijeni: silazno</string>
+    <string name="poni_ti">Poništi</string>
+    <string name="spremi">Spremi</string>
+    <string name="sortiranje">Sortiranje</string>
 </resources>

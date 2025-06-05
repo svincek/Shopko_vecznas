@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.View
 import android.view.WindowInsets
 import android.view.WindowInsetsController
-import androidx.activity.enableEdgeToEdge
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -13,27 +12,20 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import com.example.shopko.R
-import com.example.shopko.fragments.ProfileFragment
-import com.example.shopko.ui.screens.PocetnaFragment
-import com.example.shopko.utils.location.LocationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
-class MainApp : AppCompatActivity() {
-
-    private lateinit var locationHelper: LocationHelper
+class MainActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
+        WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false)
         val insetsController = window.insetsController
         insetsController?.hide(WindowInsets.Type.systemBars())
-        insetsController?.systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
-
-
+        insetsController?.systemBarsBehavior =
+            WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
         val mainLayout = findViewById<View>(R.id.main)
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_navigation)
@@ -49,34 +41,36 @@ class MainApp : AppCompatActivity() {
             insets
         }
 
-
-
-        locationHelper = LocationHelper(this)
-
         ViewCompat.setOnApplyWindowInsetsListener(bottomNav) { view, insets ->
             val bottomInset = insets.getInsets(WindowInsetsCompat.Type.systemBars()).bottom
             view.updatePadding(bottom = bottomInset)
             insets
         }
 
-        supportFragmentManager.beginTransaction()
-            .replace(R.id.fragment_container, PocetnaFragment())
-            .commit()
+        val homeNavHost = supportFragmentManager.findFragmentById(R.id.nav_host_home)
+        val profileNavHost = supportFragmentManager.findFragmentById(R.id.nav_host_profile)
 
+
+        homeNavHost?.view?.visibility = View.VISIBLE
+        profileNavHost?.view?.visibility = View.GONE
         bottomNav.selectedItemId = R.id.menu_home
 
         bottomNav.setOnItemSelectedListener { item ->
-            val selectedFragment = when (item.itemId) {
-                R.id.menu_home-> PocetnaFragment()
-                else -> null
-            }
+            when (item.itemId) {
+                R.id.menu_home -> {
+                    homeNavHost?.view?.visibility = View.VISIBLE
+                    profileNavHost?.view?.visibility = View.GONE
+                    true
+                }
 
-            selectedFragment?.let {
-                supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragment_container, it)
-                    .commit()
-                true
-            } == true
+                R.id.menu_profile -> {
+                    homeNavHost?.view?.visibility = View.GONE
+                    profileNavHost?.view?.visibility = View.VISIBLE
+                    true
+                }
+
+                else -> false
+            }
         }
     }
 }
