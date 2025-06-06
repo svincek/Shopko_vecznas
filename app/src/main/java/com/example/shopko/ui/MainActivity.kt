@@ -22,15 +22,12 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.R)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        lifecycleScope.launch {
-            syncDataFromApiToRoom(this@MainActivity)
-        }
-
-        setContentView(R.layout.activity_main)
-
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
+
+        lifecycleScope.launch{
+            syncDataFromApiToRoom(this@MainActivity)
+        }
 
         val insetsController = window.insetsController
         insetsController?.hide(WindowInsets.Type.systemBars())
