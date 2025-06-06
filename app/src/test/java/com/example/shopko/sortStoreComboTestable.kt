@@ -57,6 +57,11 @@ fun sortStoreComboTestable(
             compareBy<StoreComboResult> { it.missingTypes.size }
                 .thenBy { it.distance }
         )
+        Filters.BYPRICE_DESC -> validCombos.sortedWith(
+            compareBy<StoreComboResult> { it.missingTypes.size }
+                .thenByDescending { it.totalPrice }
+        )
+        Filters.DEFAULT -> validCombos
     }
 }
 
