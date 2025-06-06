@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
             syncDataFromApiToRoom(this@MainActivity)
         }
 
-        enableEdgeToEdge()
         setContentView(R.layout.activity_main)
 
         WindowCompat.setDecorFitsSystemWindows(window, false)

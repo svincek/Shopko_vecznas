@@ -6,12 +6,20 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.view.WindowInsets
+import android.view.WindowInsetsController
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.RequiresApi
-import androidx.camera.core.*
+import androidx.camera.core.CameraSelector
+import androidx.camera.core.ImageAnalysis
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
+import androidx.camera.core.Preview
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -21,7 +29,6 @@ import com.example.shopko.R
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.utils.FileUtils
-import com.example.shopko.data.repository.getArticles
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
 import java.io.File
 
@@ -45,7 +52,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                 }
 
                 if (scannedArticlesList.isNotEmpty()) {
-                    articleList.addAll(scannedArticlesList)
+                    //articleList.addAll(scannedArticlesList)
                     onArticlesAdded()
                     dialog?.dismiss()
                 } else {
@@ -154,7 +161,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                         }
 
                         if (scannedArticlesList.isNotEmpty()) {
-                            articleList.addAll(scannedArticlesList)
+                            //articleList.addAll(scannedArticlesList)
                             onArticlesAdded()
                             Log.d("ARTIKLI", "$articleList")
                         } else {
