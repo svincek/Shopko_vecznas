@@ -1,55 +1,123 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="8dp"
-    app:cardCornerRadius="10dp"
-    app:cardElevation="5dp">
+    android:orientation="horizontal">
 
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:padding="16dp">
+        android:layout_height="match_parent">
 
         <TextView
             android:id="@+id/article_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
             android:layout_weight="4"
+            android:fontFamily="@font/satoshi_medium"
             android:text="@string/naziv_artikla"
             android:textColor="@android:color/black"
             android:textSize="16sp"
-            android:fontFamily="@font/teriyake_medium"/>
+            android:lineHeight="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/button_minus"
+            app:layout_constraintStart_toEndOf="@+id/materialCheckBox"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <ImageButton
             android:id="@+id/button_minus"
-            android:layout_width="48dp"
-             android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/oduzmi"
             android:src="@drawable/icon_minus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/quantity"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
+
         <TextView
             android:id="@+id/quantity"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/satoshi_regular"
             android:gravity="center"
             android:text="@string/_0"
             android:textColor="@android:color/black"
-            android:textSize="16sp"
-            android:fontFamily="@font/teriyake_medium"/>
+            android:textSize="14sp"
+            android:lineHeight="24sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/button_plus"
+            app:layout_constraintTop_toTopOf="parent" />
 
-         <ImageButton
+        <ImageButton
             android:id="@+id/button_plus"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="8dp"
             android:background="@android:color/transparent"
             android:contentDescription="@string/dodaj"
             android:src="@drawable/icon_plus"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 
-    </LinearLayout>
-</androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/textView12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/satoshi_regular"
+            android:lineHeight="17sp"
+            android:text="Z'bregov"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="@+id/starCount"
+            app:layout_constraintStart_toEndOf="@+id/starCount"
+            app:layout_constraintTop_toTopOf="@+id/starCount"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <com.google.android.material.checkbox.MaterialCheckBox
+            android:id="@+id/materialCheckBox"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginStart="8dp"
+            android:button="@drawable/custom_checkbox"
+            android:buttonTint="@null"
+            android:checked="true"
+            android:focusable="false"
+            app:buttonTint="@null"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:useMaterialThemeColors="false" />
+
+        <ImageView
+            android:id="@+id/star_icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:clickable="true"
+            android:focusable="true"
+            android:src="@drawable/icon_starbox_false"
+            app:layout_constraintStart_toStartOf="@+id/article_name"
+            app:layout_constraintTop_toBottomOf="@+id/article_name" />
+
+        <TextView
+            android:id="@+id/starCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="x2"
+            app:layout_constraintBottom_toBottomOf="@+id/star_icon"
+            app:layout_constraintStart_toEndOf="@+id/star_icon"
+            app:layout_constraintTop_toTopOf="@+id/star_icon" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

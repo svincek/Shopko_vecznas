@@ -1,0 +1,379 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/filterBottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_searchbar"
+    android:padding="0dp">
+
+    <!-- Handle -->
+    <ImageView
+        android:id="@+id/handle"
+        android:layout_width="80dp"
+        android:layout_height="4dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/icon_line"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/filterTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/satoshi_medium"
+        android:text="Filteri"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/handle" />
+
+    <TextView
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:fontFamily="@font/satoshi_regular"
+        android:text="resetiraj"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@id/filterTitle"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- RADNO VRIJEME -->
+
+    <TextView
+        android:id="@+id/txtWorkingHours"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/satoshi_medium"
+        android:text="Radno vrijeme:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/filterTitle"
+        app:layout_constraintTop_toBottomOf="@id/filterTitle" />
+
+
+    <Button
+        android:id="@+id/btnWorkingAll"
+        android:layout_width="47dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/sort_button_selected"
+        android:fontFamily="@font/satoshi_regular"
+        android:padding="0dp"
+        android:text="Sve"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="@+id/txtWorkingHours"
+        app:layout_constraintTop_toBottomOf="@+id/txtWorkingHours" />
+
+    <Button
+        android:id="@+id/btnWorkingNow"
+        android:layout_width="116dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/sort_button_unselected"
+        android:fontFamily="@font/satoshi_regular"
+        android:padding="0dp"
+        android:text="Otvoreno sada"
+        android:textColor="@color/glavna"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toEndOf="@+id/btnWorkingAll"
+        app:layout_constraintTop_toTopOf="@+id/btnWorkingAll" />
+
+
+    <Button
+        android:id="@+id/btnWorkingSunday"
+        android:layout_width="148dp"
+        android:layout_height="32dp"
+        android:layout_marginStart="16dp"
+        android:background="@drawable/sort_button_unselected"
+        android:fontFamily="@font/satoshi_regular"
+        android:padding="0dp"
+        android:text="Otvoreno nedjeljom"
+        android:textColor="@color/glavna"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        app:layout_constraintEnd_toEndOf="@+id/btnReset"
+        app:layout_constraintStart_toEndOf="@+id/btnWorkingNow"
+        app:layout_constraintTop_toTopOf="@+id/btnWorkingNow" />
+
+    <TextView
+        android:id="@+id/txtStores"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/satoshi_medium"
+        android:text="Odaberite trgovine:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/txtWorkingHours"
+        app:layout_constraintTop_toBottomOf="@+id/btnWorkingSunday" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:id="@+id/flexStoreContainer"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        app:flexWrap="wrap"
+        app:justifyContent="flex_start"
+        app:layout_constraintEnd_toEndOf="@+id/btnReset"
+        app:layout_constraintStart_toStartOf="@+id/txtStores"
+        app:layout_constraintTop_toBottomOf="@id/txtStores">
+
+        <Button
+            android:id="@+id/btnStoreSve"
+            android:layout_width="47dp"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_selected"
+            android:fontFamily="@font/satoshi_regular"
+            android:padding="0dp"
+            android:text="Sve"
+            android:textColor="@color/white"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnKaufland"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Kaufland"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnPlodine"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Plodine"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnLidl"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Lidl"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnKonzum"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Konzum"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnEurospin"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Eurospin"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnStudenac"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Studenac"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnSpar"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Špar"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnInterspar"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Interšpar"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+        <Button
+            android:id="@+id/btnTommy"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/sort_button_unselected"
+            android:fontFamily="@font/satoshi_regular"
+            android:paddingHorizontal="12dp"
+            android:paddingVertical="0dp"
+            android:text="Tommy"
+            android:textColor="@color/glavna"
+            android:textSize="14sp"
+            app:backgroundTint="@null" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
+
+    <!-- SLIDER: Broj trgovina -->
+    <TextView
+        android:id="@+id/txtStoreCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/satoshi_medium"
+        android:text="Odaberite u koliko različitih trgovina ste spremni ići po kupnju:"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="@+id/flexStoreContainer"
+        app:layout_constraintStart_toStartOf="@+id/flexStoreContainer"
+        app:layout_constraintTop_toBottomOf="@id/flexStoreContainer" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderStoreCount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="-12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="-12dp"
+        android:padding="0dp"
+        android:stepSize="1"
+        android:value="1"
+        android:valueFrom="1"
+        android:valueTo="10"
+        app:layout_constraintEnd_toEndOf="@+id/txtStoreCount"
+        app:layout_constraintStart_toStartOf="@+id/txtStoreCount"
+        app:layout_constraintTop_toBottomOf="@id/txtStoreCount"
+        app:thumbColor="@color/glavna"
+        app:thumbHeight="18dp"
+        app:thumbRadius="50dp"
+        app:thumbTrackGapSize="0dp"
+        app:thumbWidth="18dp"
+        app:tickVisible="false"
+        app:trackColorActive="@color/glavna"
+        app:trackColorInactive="#EFEFEF"
+        app:trackHeight="10dp" />
+
+    <TextView
+        android:id="@+id/txtDistance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/satoshi_medium"
+        android:text="Maksimalna udaljenost trgovina:"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@+id/txtStoreCount"
+        app:layout_constraintTop_toBottomOf="@id/sliderStoreCount" />
+
+    <com.google.android.material.slider.Slider
+        android:id="@+id/sliderDistance"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:stepSize="1"
+        android:value="5"
+        android:valueFrom="1"
+        android:valueTo="20"
+        app:layout_constraintEnd_toEndOf="@+id/sliderStoreCount"
+        app:layout_constraintStart_toStartOf="@+id/sliderStoreCount"
+        app:layout_constraintTop_toBottomOf="@id/txtDistance"
+        app:thumbColor="@color/glavna"
+        app:thumbHeight="18dp"
+        app:thumbRadius="50dp"
+        app:thumbTrackGapSize="0dp"
+        app:thumbWidth="18dp"
+        app:tickVisible="false"
+        app:trackColorActive="@color/glavna"
+        app:trackColorInactive="#EFEFEF"
+        app:trackHeight="10dp" />
+
+    <!-- Buttons -->
+    <ImageButton
+        android:id="@+id/btnCancel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginBottom="32dp"
+        android:background="@null"
+        android:src="@drawable/button_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/sliderDistance" />
+
+    <ImageButton
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="32dp"
+        android:background="@null"
+        android:src="@drawable/button_save"
+        app:layout_constraintBottom_toBottomOf="@id/btnCancel"
+        app:layout_constraintEnd_toEndOf="@+id/sliderDistance"
+        app:layout_constraintTop_toTopOf="@id/btnCancel" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

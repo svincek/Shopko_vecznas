@@ -2,18 +2,16 @@ package com.example.shopko.ui.components
 
 import android.Manifest
 import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Button
+import android.view.*
+import android.widget.ImageButton
 import android.widget.Toast
-import androidx.camera.core.CameraSelector
-import androidx.camera.core.ImageAnalysis
-import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureException
-import androidx.camera.core.Preview
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.annotation.RequiresApi
+import androidx.camera.core.*
 import androidx.camera.lifecycle.ProcessCameraProvider
 import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
@@ -22,16 +20,39 @@ import androidx.fragment.app.DialogFragment
 import com.example.shopko.R
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.utils.FileUtils
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
 import java.io.File
-
 
 class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment() {
 
     private lateinit var imageCapture: ImageCapture
     private lateinit var previewView: PreviewView
-    private lateinit var takePhotoButton: Button
+    private lateinit var takePhotoButton: ImageButton
+    private lateinit var backButton: ImageButton
+    private lateinit var openGalleryButton: ImageButton
     private val context = ShopkoApp.getAppContext()
+
+    private val pickImageLauncher = registerForActivityResult(
+        ActivityResultContracts.GetContent()
+    ) { uri: Uri? ->
+        uri?.let {
+            val file = FileUtils.getFileFromUri(requireContext(), it)
+            runTextRecognitionOnImage(file) { scannedArticlesList ->
+                for (text in scannedArticlesList) {
+                    Log.d("TextRecognition", "Recognized text from gallery: $text")
+                }
+
+                if (scannedArticlesList.isNotEmpty()) {
+                    articleList.addAll(scannedArticlesList)
+                    onArticlesAdded()
+                    dialog?.dismiss()
+                } else {
+                    Toast.makeText(requireContext(), "No store results found", Toast.LENGTH_SHORT).show()
+                }
+            }
+        }
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,6 +62,8 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
         val view = inflater.inflate(R.layout.dialog_camera, container, false)
         previewView = view.findViewById(R.id.previewView)
         takePhotoButton = view.findViewById(R.id.captureButton)
+        backButton = view.findViewById(R.id.btnBack)
+        openGalleryButton = view.findViewById(R.id.btnImg)
         return view
     }
 
@@ -52,13 +75,28 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
         takePhotoButton.setOnClickListener {
             takePhoto()
         }
+
+        backButton.setOnClickListener {
+            dialog?.dismiss()
+        }
+
+        openGalleryButton.setOnClickListener {
+            pickImageLauncher.launch("image/*")
+        }
     }
 
+    @RequiresApi(Build.VERSION_CODES.R)
     override fun onStart() {
         super.onStart()
-
-        dialog?.window?.setLayout(900, 2200)
+        dialog?.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.MATCH_PARENT
+        )
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.window?.insetsController?.apply {
+            hide(WindowInsets.Type.systemBars())
+            systemBarsBehavior = WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
+        }
     }
 
     private fun startCamera() {
@@ -106,9 +144,7 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    context.let {
-                        Toast.makeText(it, "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
-                    }
+                    Toast.makeText(context, "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
                     Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
 
                     runTextRecognitionOnImage(photoFile) { scannedArticlesList ->
@@ -116,17 +152,13 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                             Log.d("TextRecognition", "Recognized text: $text")
                         }
 
-                        Log.d("SKEN", "$scannedArticlesList")
                         if (scannedArticlesList.isNotEmpty()) {
-                                articleList.addAll(scannedArticlesList)
-                                onArticlesAdded()
-                                Log.d("ARTIKLI", "$articleList")
-                            }
-                            else {
-                                context.let {
-                                    Toast.makeText(it, "No store results found", Toast.LENGTH_SHORT).show()
-                                }
-                            }
+                            articleList.addAll(scannedArticlesList)
+                            onArticlesAdded()
+                            Log.d("ARTIKLI", "$articleList")
+                        } else {
+                            Toast.makeText(context, "No store results found", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     dialog?.dismiss()
                 }
@@ -137,14 +169,5 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                 }
             }
         )
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
-        if (requestCode == 1001 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            startCamera()
-        } else {
-            Toast.makeText(requireContext(), "Permission denied for camera", Toast.LENGTH_SHORT).show()
-        }
     }
 }

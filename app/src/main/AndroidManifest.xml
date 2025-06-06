@@ -17,6 +17,7 @@
         android:name=".data.model.ShopkoApp"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,19 +26,25 @@
         android:theme="@style/Theme.Shopko"
         tools:targetApi="31">
         <activity
-            android:name=".ui.screens.StoresScreen"
-            android:exported="true" />
-        <activity
-            android:name=".ui.MainApp"
-            android:exported="true" />
-        <activity
-            android:name=".ui.screens.LoginScreen"
-            android:exported="true">
+            android:name=".SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.Shopko.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+
+        <activity
+            android:name=".ui.screens.StoreDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.MainActivity"
+            android:exported="true" />
+        <activity
+            android:name=".ui.screens.StartActivity"
+            android:exported="true">
         </activity>
 
         <meta-data
