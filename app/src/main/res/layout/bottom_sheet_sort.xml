@@ -1,0 +1,128 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sortBottomSheet"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/custom_searchbar"
+    >
+
+    <ImageView
+        android:id="@+id/view"
+        android:layout_width="80dp"
+        android:layout_height="3dp"
+        android:src="@drawable/icon_line"
+        android:background="@drawable/custom_searchbar"
+        android:layout_gravity="center"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/sortiranje"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/satoshi_medium"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/view" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="@string/sortiraj_po"
+        android:textSize="16sp"
+        android:fontFamily="@font/satoshi_medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView14" />
+
+    <TextView
+        android:id="@+id/btnReset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:fontFamily="@font/satoshi_regular"
+        android:text="resetiraj"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView14" />
+
+    <Button
+        android:id="@+id/btnDistance"
+        android:layout_width="94dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/sort_button_unselected"
+        android:fontFamily="@font/satoshi_regular"
+        android:padding="0dp"
+        android:text="@string/udaljenosti"
+        android:textColor="@color/glavna"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        app:layout_constraintStart_toStartOf="@+id/textView6"
+        app:layout_constraintTop_toBottomOf="@+id/textView6" />
+
+    <Button
+        android:id="@+id/btnPriceAsc"
+        android:layout_width="115dp"
+        android:layout_height="32dp"
+        android:fontFamily="@font/satoshi_regular"
+        android:textSize="14sp"
+        android:textColor="@color/white"
+        app:backgroundTint="@null"
+        android:padding="0dp"
+        android:background="@drawable/sort_button_selected"
+        android:text="@string/cijeni_uzlazno"
+        app:layout_constraintBottom_toBottomOf="@+id/btnDistance"
+        app:layout_constraintEnd_toStartOf="@+id/btnPriceDesc"
+        app:layout_constraintStart_toEndOf="@+id/btnDistance" />
+
+    <Button
+        android:id="@+id/btnPriceDesc"
+        android:layout_marginEnd="24dp"
+        android:layout_width="110dp"
+        android:layout_height="32dp"
+        android:background="@drawable/sort_button_unselected"
+        android:textColor="@color/glavna"
+        android:textSize="14sp"
+        app:backgroundTint="@null"
+        android:fontFamily="@font/satoshi_regular"
+        android:padding="0dp"
+        android:text="@string/cijeni_silazno"
+        app:layout_constraintBottom_toBottomOf="@+id/btnPriceAsc"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="24dp"
+        android:background="@null"
+        android:src="@drawable/button_cancel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnDistance" />
+
+    <ImageButton
+        android:id="@+id/btnSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="24dp"
+        android:background="@null"
+        android:src="@drawable/button_save"
+        app:layout_constraintBottom_toBottomOf="@+id/btnBack"
+        app:layout_constraintEnd_toEndOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

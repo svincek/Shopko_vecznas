@@ -2,7 +2,6 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="24dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -19,16 +18,15 @@
             android:id="@+id/radioPrice"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/cijeni"
-            android:fontFamily="@font/teriyake_medium"
-            />
+            android:fontFamily="@font/satoshi_medium"
+            android:text="@string/cijeni" />
 
         <RadioButton
             android:id="@+id/radioDistance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/udaljenosti"
-            android:fontFamily="@font/teriyake_medium"/>
+            android:fontFamily="@font/satoshi_medium"
+            android:text="@string/udaljenosti" />
 
     </RadioGroup>
 
@@ -38,32 +36,32 @@
         android:layout_height="48dp"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
+        android:fontFamily="@font/satoshi_medium"
         app:layout_constraintBottom_toTopOf="@+id/btnApply"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        android:fontFamily="@font/teriyake_medium"/>
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <Button
         android:id="@+id/btnApply"
         android:layout_width="141dp"
         android:layout_height="56dp"
         android:backgroundTint="@color/glavna"
+        android:fontFamily="@font/satoshi_medium"
         android:text="@string/apply"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:fontFamily="@font/teriyake_medium"/>
+        app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
+        android:fontFamily="@font/satoshi_medium"
         android:text="@string/broj_trgovina"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/btnApply"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        android:fontFamily="@font/teriyake_medium"/>
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
     <TextView
         android:id="@+id/textView8"
@@ -71,10 +69,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
+        android:fontFamily="@font/satoshi_medium"
         android:text="@string/soritiraj_po"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:fontFamily="@font/teriyake_medium"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

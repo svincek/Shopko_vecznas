@@ -1,20 +1,24 @@
 package com.example.shopko.ui.adapters
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
+import com.example.shopko.data.model.ArticleStores
 import com.example.shopko.data.model.StoreComboResult
+import com.example.shopko.data.model.StoreComboResultParcelable
+import com.example.shopko.ui.screens.StoreDetailActivity
 
 class StoresAdapter(private var storeList: List<StoreComboResult>) :
     RecyclerView.Adapter<StoresAdapter.StoreViewHolder>() {
 
     class StoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.StoreName)
-        val location: TextView = itemView.findViewById(R.id.StoreLocation)
+//        val location: TextView = itemView.findViewById(R.id.StoreLocation)
         val price: TextView = itemView.findViewById(R.id.ArticlePrice)
         val distance: TextView = itemView.findViewById(R.id.StoreDistance)
     }
@@ -27,12 +31,42 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
-        val store = storeList[position]
-        holder.name.text = store.store.joinToString(" + "){it.name}
-        holder.location.text = store.store.joinToString(", "){it.location}
-        holder.price.text = "€" + String.format("%.2f", store.totalPrice)
-        holder.distance.text = "${"%.1f".format(store.distance / 1000)} km"
+        val storeCombo = storeList[position]
+        holder.name.text = storeCombo.store.joinToString(" + ") { it.name }
+        holder.price.text = "€%.2f".format(storeCombo.totalPrice)
+        holder.distance.text = "${"%.1f".format(storeCombo.distance / 1000)} km"
+
+        holder.itemView.setOnClickListener {
+            val context = holder.itemView.context
+            val firstStore = storeCombo.store.first()
+            val articlesMapped = storeCombo.matchedArticles.map {
+                ArticleStores(
+                    type = (it.type.toIntOrNull() ?: -1).toString(),
+                    brand = it.brand,
+                    category = it.category,
+                    unitSize = it.unitSize,
+                    price = it.price.toString(),
+                    quantity = it.quantity,
+                    id = it.id
+                )
+            }
+
+
+            val intent = Intent(context, StoreDetailActivity::class.java).apply {
+                putExtra(
+                    "storeCombo", StoreComboResultParcelable(
+                        firstStore.name,
+                        firstStore.location,
+                        firstStore.openingHours,
+                        articlesMapped,
+                        storeCombo.totalPrice
+                    )
+                )
+            }
+            context.startActivity(intent)
+        }
     }
+
 
     override fun getItemCount(): Int = storeList.size
 

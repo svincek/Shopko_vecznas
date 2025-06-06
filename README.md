@@ -34,7 +34,7 @@
 3. Dodaj `local.properties` datoteku u root projekta:
    ```properties
    sdk.dir=/Users/korisnik/Library/Android/sdk
-   API_KEY=AIzaSyD_ZxfRa5P9FRCicjNg-z9SPtp_WxCc-14
+   API_KEY= *Ovdje staviti API ključ, za dostavljanje API ključa prvo kontaktirati na mail: simon.vincek@gmail.com*
    ```
 
 4. Pokreni `Build > Make Project` ili `./gradlew build`
@@ -54,6 +54,6 @@ fix: Ispravljen bug pri skeniranju bar koda
 
 ## Kontakt
 
-Autor: [Simon Vincek]  
-Email: [simon.vincek@gmail.com]  
+Autori: [Simon Vincek, Dino Huđ, Lara Šljivić]  
+Email: [simon.vincek@gmail.com, dhud61@gmail.com, lara.sljivic@gmail.com]  
 GitHub: [github.com/svincek]

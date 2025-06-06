@@ -1,9 +1,11 @@
 package com.example.shopko.utils.sorting
 
+import android.util.Log
 import com.example.shopko.data.model.Article
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.Store
 import com.example.shopko.data.model.StoreComboResult
+import com.example.shopko.data.preference.PreferenceManager
 import com.example.shopko.data.repository.getStores
 import com.example.shopko.utils.enums.Filters
 import com.example.shopko.utils.general.combinations
@@ -28,8 +30,9 @@ import com.google.android.gms.maps.model.LatLng
  * Artikli se spajaju iz više trgovina, uzimajući najjeftinije verzije, a rezultat uključuje i artikle koji nisu pronađeni.
  */
 
-suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: Filters): List<StoreComboResult>{
+suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: Filters): List<StoreComboResult> {
     val stores = getStores()
+    Log.d("STORES", stores.joinToString("\n") { it.name })
 
     val allStoreCombos = (1..maxCombos).flatMap { count ->
         stores.combinations(count)
@@ -38,22 +41,28 @@ suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: F
     val context = ShopkoApp.getAppContext()
     val locationHelper = LocationHelper(context)
     val userLocation = locationHelper.getLastLocationSuspend()
-
     val userLatLng = userLocation?.let { LatLng(it.latitude, it.longitude) }
 
     val validCombos = allStoreCombos.map { storeCombo ->
         val allArticles = storeCombo.flatMap { it.articles }
 
-        val typeToArticle = allArticles
+        // Grupa po tipu artikla
+        val typeToArticle: Map<String, Article?> = allArticles
             .groupBy { it.type }
-            .mapValues { entry -> entry.value.minByOrNull { it.price } }
+            .mapValues { (type, articles) ->
+                val preference = PreferenceManager.getPreference(context, type)
+                preference?.let {
+                    articles.find { it.brand == preference.brand && it.unitSize == preference.unitSize }
+                } ?: articles.minByOrNull { it.price }
+            }
 
+        // Pronađeni artikli prema listi korisnika
         val matchedArticles = articleList.mapNotNull { userArticle ->
             typeToArticle[userArticle.type]?.copy(quantity = userArticle.quantity)
         }
 
         val matchedTypes = matchedArticles.map { it.type }.toSet()
-        val missingTypes = articleList.map{ it.type }.filterNot {it in matchedTypes}
+        val missingTypes = articleList.map { it.type }.filterNot { it in matchedTypes }
 
         val totalPrice = matchedArticles.sumOf { it.price * it.quantity }
 
@@ -70,14 +79,28 @@ suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: F
         )
     }
 
-    return when(filter) {
-        Filters.BYPRICE -> validCombos.sortedWith (
-            compareBy <StoreComboResult> { it.missingTypes.size }
+    validCombos.forEach {
+        Log.d("SORT_CHECK", "${it.store.joinToString { s -> s.name }} - missing: ${it.missingTypes.size}, price: ${it.totalPrice}, dist: ${it.distance}")
+    }
+
+    return when (filter) {
+        Filters.BYPRICE -> validCombos.sortedWith(
+            compareBy<StoreComboResult> { it.missingTypes.size }
                 .thenBy { it.totalPrice }
         )
-        Filters.BYDISTANCE -> validCombos.sortedWith (
-            compareBy <StoreComboResult> { it.missingTypes.size }
+
+        Filters.BYDISTANCE -> validCombos.sortedWith(
+            compareBy<StoreComboResult> { it.missingTypes.size }
                 .thenBy { it.distance }
+        )
+
+        Filters.BYPRICE_DESC -> validCombos.sortedWith(
+            compareBy<StoreComboResult> { it.missingTypes.size }
+                .thenByDescending { it.totalPrice }
+        )
+
+        Filters.DEFAULT -> validCombos.sortedWith(
+            compareBy<StoreComboResult> { it.missingTypes.size }
         )
     }
 }
