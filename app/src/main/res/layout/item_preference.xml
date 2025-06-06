@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -63,15 +64,17 @@
             app:layout_constraintStart_toStartOf="@+id/brandText"
             app:layout_constraintTop_toBottomOf="@+id/brandText" />
 
-        <TextView
-            android:id="@+id/priceText"
+        <ImageButton
+            android:id="@+id/imageButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Cijena"
-            android:textColor="@color/black"
-            android:textSize="14sp"
+            android:layout_marginEnd="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/icon_forwardarrow"
+            android:background="@null"
+            />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </LinearLayout>

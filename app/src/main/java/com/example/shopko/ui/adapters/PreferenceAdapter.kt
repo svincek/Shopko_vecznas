@@ -62,13 +62,11 @@ class PreferenceAdapter(
     inner class PreferenceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val brandText: TextView = itemView.findViewById(R.id.brandText)
         val sizeText: TextView = itemView.findViewById(R.id.sizeText)
-        val priceText: TextView = itemView.findViewById(R.id.priceText)
         val checkBox: CheckBox = itemView.findViewById(R.id.prefCheckBox)
 
         fun bind(article: Article, isSelected: Boolean) {
             brandText.text = article.brand
             sizeText.text = article.unitSize
-            priceText.text = "${article.price} €"
             checkBox.isChecked = isSelected
         }
     }
