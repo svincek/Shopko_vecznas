@@ -9,7 +9,7 @@ import com.example.shopko.data.model.ArticleEntity
 import com.example.shopko.data.model.StoreDao
 import com.example.shopko.data.model.StoreEntity
 
-@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 3)
+@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 4)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun storeDao(): StoreDao
     abstract fun articleDao(): ArticleDao

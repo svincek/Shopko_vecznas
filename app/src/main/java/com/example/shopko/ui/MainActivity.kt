@@ -20,7 +20,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
 import syncDataFromApiToRoom
 
-class MainScreen : AppCompatActivity() {
+class MainActivity : AppCompatActivity() {
 
     private lateinit var locationHelper: LocationHelper
 
@@ -29,7 +29,7 @@ class MainScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            syncDataFromApiToRoom(this@MainScreen)
+            syncDataFromApiToRoom(this@MainActivity)
         }
 
         enableEdgeToEdge()

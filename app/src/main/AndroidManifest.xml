@@ -29,7 +29,7 @@
             android:name=".ui.screens.StoresScreen"
             android:exported="true" />
         <activity
-            android:name=".ui.MainScreen"
+            android:name=".ui.MainActivity"
             android:exported="true" />
         <activity
             android:name=".ui.screens.LoginScreen"

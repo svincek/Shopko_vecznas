@@ -23,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
 import com.example.shopko.data.model.StoreComboResult
 import com.example.shopko.data.model.UserArticleList.articleList
-import com.example.shopko.ui.MainScreen
+import com.example.shopko.ui.MainActivity
 import com.example.shopko.ui.adapters.StoresAdapter
 import com.example.shopko.ui.components.FilterDialogFragment
 import com.example.shopko.utils.enums.Filters
@@ -55,7 +55,7 @@ class StoresScreen : AppCompatActivity() {
 
         val btnNavigate = findViewById<ImageButton>(R.id.btnBack)
         btnNavigate.setOnClickListener {
-            val intent = Intent(this, MainScreen::class.java)
+            val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
         }
 

@@ -9,7 +9,7 @@
     android:background="@color/white"
 
     android:fitsSystemWindows="true"
-    tools:context=".ui.MainScreen">
+    tools:context=".ui.MainActivity">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

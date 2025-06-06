@@ -53,7 +53,8 @@ class PocetnaFragment : Fragment() {
 
         lifecycleScope.launch {
             val article = db.articleDao().getAllArticles().first()
-            val rarticle = Article(article.productId.toInt(), article.name, article.brand,
+            val rarticle = Article(
+                article.productId?.toInt() ?: 0, article.name.toString(), article.brand.toString(),
                 article.category.toString(),
                 article.unit.toString(), article.price)
             articleList.add(rarticle)
