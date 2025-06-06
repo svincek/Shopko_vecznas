@@ -8,9 +8,6 @@
         android:id="@+id/articleListFragment"
         android:name="com.example.shopko.ui.screens.ArticleListFragment"
         android:label="Articles" >
-        <action
-            android:id="@+id/action1"
-            app:destination="@id/storesFragment" />
     </fragment>
 
     <fragment
@@ -22,5 +19,15 @@
         android:id="@+id/preferenceSelectionFragment"
         android:name="com.example.shopko.ui.preference.PreferenceSelectionFragment"
         android:label="Preferences" />
+    <fragment
+        android:id="@+id/articleAddFragment"
+        android:name="com.example.shopko.ui.screens.ArticleAddFragment"
+        android:label="Add Article" />
 
+    <action
+        android:id="@+id/action_storesFragment"
+        app:destination="@id/storesFragment" />
+    <action
+        android:id="@+id/action_add_article"
+        app:destination="@id/articleAddFragment" />
 </navigation>
