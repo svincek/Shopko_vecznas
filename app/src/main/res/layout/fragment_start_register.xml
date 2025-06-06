@@ -83,7 +83,6 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/custom_edittext"
                 android:fontFamily="@font/satoshi_regular"
-                android:inputType="textPassword"
                 android:textColor="@color/black"
                 android:textSize="18sp"
 
