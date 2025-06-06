@@ -21,6 +21,7 @@ import com.example.shopko.R
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.utils.FileUtils
+import com.example.shopko.data.repository.getArticles
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
 import java.io.File
 
