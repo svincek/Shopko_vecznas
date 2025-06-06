@@ -25,6 +25,7 @@ import com.example.shopko.R
 import com.example.shopko.data.model.Article
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.remote.ApiService
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.data.repository.getArticles
 import com.example.shopko.ui.adapters.ArticleAdapter
@@ -40,6 +41,7 @@ class PocetnaFragment : Fragment() {
     private lateinit var emptyListText: TextView
     private var permissionForScan = false
     private val db = AppDatabase.getDatabase(ShopkoApp.getAppContext())
+    private val api = ApiService()
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -55,6 +57,7 @@ class PocetnaFragment : Fragment() {
                 article.category.toString(),
                 article.unit.toString(), article.price)
             articleList.add(rarticle)
+            articleAdapter.notifyDataSetChanged()
         }
 
         val scanButton = view.findViewById<View>(R.id.btnScan)

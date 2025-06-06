@@ -9,7 +9,7 @@ import com.example.shopko.data.model.ArticleEntity
 import com.example.shopko.data.model.StoreDao
 import com.example.shopko.data.model.StoreEntity
 
-@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 1)
+@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 3)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun storeDao(): StoreDao
     abstract fun articleDao(): ArticleDao
@@ -20,10 +20,11 @@ abstract class AppDatabase : RoomDatabase() {
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
-                    context.applicationContext,
-                    AppDatabase::class.java,
-                    "shopko_database"
-                ).build()
+                                context.applicationContext,
+                                AppDatabase::class.java,
+                                "shopko_database"
+                            ).fallbackToDestructiveMigration(true)
+                    .build()
                 INSTANCE = instance
                 instance
             }

@@ -18,7 +18,7 @@ import com.example.shopko.ui.screens.PocetnaFragment
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
-import syncDataFromMongoToRoom
+import syncDataFromApiToRoom
 
 class MainScreen : AppCompatActivity() {
 
@@ -29,7 +29,7 @@ class MainScreen : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            syncDataFromMongoToRoom(this@MainScreen)
+            syncDataFromApiToRoom(this@MainScreen)
         }
 
         enableEdgeToEdge()
