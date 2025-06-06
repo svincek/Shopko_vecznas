@@ -34,7 +34,7 @@ class ArticleListFragment : Fragment() {
     private lateinit var emptyListText: TextView
     private lateinit var emptyListImg: ImageView
     private lateinit var emptyListTextUnder: TextView
-    private lateinit var cardAdvance: CardView
+    private lateinit var btnAdvance: ImageButton
     private lateinit var cardMain: CardView
     private var permissionForScan = false
     private lateinit var cardBtnUp: CardView
@@ -49,7 +49,7 @@ class ArticleListFragment : Fragment() {
         emptyListText = view.findViewById(R.id.empty_list_text)
         emptyListImg = view.findViewById(R.id.imageViewEmpty)
         emptyListTextUnder = view.findViewById(R.id.underEmptyListText)
-        cardAdvance = view.findViewById(R.id.cardAdvance)
+        btnAdvance = view.findViewById(R.id.btnAdvance)
         cardMain = view.findViewById(R.id.cardViewMain)
         cardBtnUp = view.findViewById(R.id.btnTopCard)
         btnToTop = view.findViewById(R.id.btnScrollToTop)
@@ -164,10 +164,9 @@ class ArticleListFragment : Fragment() {
 
 
         addButton.setOnClickListener {
-            showAddDialog()
+            findNavController().navigate(R.id.action_add_article)
         }
 
-        val btnAdvance = view.findViewById<ImageButton>(R.id.advance)
         btnAdvance.setOnClickListener {
             val selectedArticles = articleList.filter { it.isChecked }
             if (selectedArticles.isNotEmpty()) {
@@ -179,7 +178,7 @@ class ArticleListFragment : Fragment() {
                     permissionForScan = false
                     requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
                 } else {
-                    findNavController().navigate(R.id.action1)
+                    findNavController().navigate(R.id.action_storesFragment)
                 }
             } else {
                 Toast.makeText(activity, "Odaberite barem jedan artikl!", Toast.LENGTH_SHORT).show()
@@ -192,42 +191,15 @@ class ArticleListFragment : Fragment() {
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    private fun showAddDialog() {
-        val input = EditText(requireContext()).apply {
-            hint = "Unesite naziv artikla"
-            setPadding(32, 32, 32, 32)
-        }
 
-        val alertDialog = AlertDialog.Builder(requireContext())
-            .setTitle("Dodaj artikl")
-            .setView(input)
-            .setPositiveButton("Dodaj") { _, _ ->
-                val newArticle = input.text.toString().trim().uppercase()
-                if (newArticle.isNotEmpty()) {
-                    val artikl: Article? = getArticles().firstOrNull { it.type.uppercase() == newArticle }
-                    if (artikl != null) {
-                        articleList.add(artikl)
-                        articleAdapter.notifyDataSetChanged()
-                        refreshListView()
-                    } else {
-                        Toast.makeText(activity, "Nije pronađen artikl: $newArticle", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }
-            .setNegativeButton("Odustani", null)
-            .create()
-
-        alertDialog.show()
-    }
 
     private fun refreshListView() {
         if (articleList.isEmpty()) {
             emptyListText.visibility = View.VISIBLE
             emptyListImg.visibility = View.VISIBLE
             emptyListTextUnder.visibility = View.VISIBLE
-            cardAdvance.visibility = View.GONE
+            btnAdvance.setImageResource(R.drawable.button_grayed_out)
             listRecyclerView.visibility = View.GONE
-
         } else {
             cardMain.layoutParams.height = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -237,8 +209,9 @@ class ArticleListFragment : Fragment() {
             emptyListText.visibility = View.GONE
             emptyListImg.visibility = View.GONE
             emptyListTextUnder.visibility = View.GONE
-            cardAdvance.visibility = View.VISIBLE
+            btnAdvance.visibility = View.VISIBLE
             listRecyclerView.visibility = View.VISIBLE
+            btnAdvance.setImageResource(R.drawable.button_advance)
         }
     }
 
