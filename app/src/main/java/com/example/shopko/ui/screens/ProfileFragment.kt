@@ -25,10 +25,25 @@ class ProfileFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         val btnMyPreferences: ConstraintLayout = view.findViewById(R.id.my_preferences)
+        val btnEditProfile: ConstraintLayout = view.findViewById(R.id.edit_profile)
+        val btnLogout: ConstraintLayout = view.findViewById(R.id.logout)
+        val btnPasswordChange: ConstraintLayout = view.findViewById(R.id.change_password)
+        val btnHistory: ConstraintLayout = view.findViewById(R.id.history)
 
         btnMyPreferences.setOnClickListener {
-            findNavController().navigate(R.id.action1)
+            findNavController().navigate(R.id.action_preferences)
         }
-
+        btnEditProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_edit)
+        }
+        btnPasswordChange.setOnClickListener {
+            findNavController().navigate(R.id.action_password)
+        }
+        btnHistory.setOnClickListener {
+            findNavController().navigate(R.id.action_history)
+        }
+        btnLogout.setOnClickListener {
+            //TODO: Logout
+        }
     }
 }

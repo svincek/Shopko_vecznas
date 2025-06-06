@@ -9,14 +9,35 @@
         android:name="com.example.shopko.ui.screens.ProfileFragment"
         android:label="Profile">
         <action
-            android:id="@+id/action1"
+            android:id="@+id/action_preferences"
             app:destination="@id/profilePreferencesFragment" />
+        <action
+            android:id="@+id/action_edit"
+            app:destination="@id/profileEditFragment" />
+        <action
+            android:id="@+id/action_password"
+            app:destination="@id/profilePasswordFragment" />
+        <action
+            android:id="@+id/action_history"
+            app:destination="@id/profileHistoryFragment" />
     </fragment>
 
     <fragment
         android:id="@+id/profilePreferencesFragment"
         android:name="com.example.shopko.ui.screens.ProfilePreferencesFragment"
         android:label="profilePreferences" />
+    <fragment
+        android:id="@+id/profileEditFragment"
+        android:name="com.example.shopko.ui.screens.ProfileEditFragment"
+        android:label="profileEdit" />
+    <fragment
+        android:id="@+id/profilePasswordFragment"
+        android:name="com.example.shopko.ui.screens.ProfilePasswordFragment"
+        android:label="profilePassword" />
+    <fragment
+        android:id="@+id/profileHistoryFragment"
+        android:name="com.example.shopko.ui.screens.ProfileHistoryFragment"
+        android:label="profileHistory" />
 
 
 </navigation>

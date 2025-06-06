@@ -43,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        viewBinding = true
     }
 }
 
@@ -80,6 +81,7 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-livedata-ktx:2.6.1")
     implementation ("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1")
     implementation("com.google.android.flexbox:flexbox:3.0.0")
+    implementation ("androidx.core:core-splashscreen:1.0.1")
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.androidx.legacy.support.v4)
@@ -91,6 +93,8 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     testImplementation(kotlin("test"))
+
+
 
 
 
