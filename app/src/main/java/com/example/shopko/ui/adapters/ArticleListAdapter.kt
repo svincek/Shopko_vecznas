@@ -28,6 +28,8 @@ class ArticleStoreAdapter(private val articles: List<ArticleStores>) :
         holder.name.text = "${article.brand} ${article.type}"
         holder.price.text = "€%.2f".format(article.price.toDouble())
         holder.quantity.text = "x${article.quantity}"
+
+
     }
 
     override fun getItemCount(): Int = articles.size

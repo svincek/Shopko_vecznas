@@ -5,5 +5,5 @@ class ArticleDisplay (
     val subcategory: String?,
     var isFavourite: Boolean = false,
     var buyQuantity: Int = 1,
-    var isChecked: Boolean = false
+    var isChecked: Boolean = true
 )

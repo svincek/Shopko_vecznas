@@ -38,13 +38,21 @@ suspend fun sortStoreCombo(
     val db = AppDatabase.getDatabase(context)
     val stores = db.storeDao().getAllStores()
 
-    val allStoreCombos = (1..maxCombos).flatMap { count ->
-        stores.combinations(count)
-    }
-
     val locationHelper = LocationHelper(context)
     val userLocation = locationHelper.getLastLocationSuspend()
     val userLatLng = userLocation?.let { LatLng(it.latitude, it.longitude) }
+
+    val sortedStores = userLatLng?.let {
+        stores.sortedBy { store ->
+            DistanceUtil.calculateDistance(userLatLng, LatLng(store.latitude ?: 0.0, store.longitude ?: 0.0))
+        }
+    } ?: stores
+
+    val limitedStores = sortedStores.take(20)
+
+    val allStoreCombos = (1..maxCombos).flatMap { count ->
+        limitedStores.combinations(count)
+    }
 
     val validCombos = allStoreCombos.map { storeCombo ->
         val allArticles = storeCombo.flatMap { db.articleDao().getArticlesByStore(it.name.toString()) }
@@ -118,5 +126,3 @@ fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
 
     return totalDistance
 }
-
-

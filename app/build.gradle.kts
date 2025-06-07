@@ -8,6 +8,7 @@ plugins {
     id("com.google.gms.google-services")
     id("com.google.devtools.ksp") version "2.2.0-RC-2.0.1"
     id("kotlin-parcelize")
+    id("kotlin-kapt")
 }
 
 val apiKey = project.findProperty("API_KEY") as? String ?: ""
@@ -98,6 +99,7 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4")
     implementation ("androidx.room:room-runtime:2.7.1")
     implementation ("androidx.room:room-ktx:2.7.1")
+
     ksp("androidx.room:room-compiler:2.7.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation ("androidx.appcompat:appcompat:1.6.1")
@@ -115,6 +117,10 @@ dependencies {
     implementation(platform("com.google.firebase:firebase-bom:33.15.0"))
     implementation("com.google.firebase:firebase-analytics")
     implementation ("com.google.android.material:material:1.11.0")
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    annotationProcessor ("com.github.bumptech.glide:compiler:4.16.0")
+    kapt ("com.github.bumptech.glide:compiler:4.16.0")
+
     implementation(libs.navigation.fragment.ktx)
     implementation(libs.navigation.ui.ktx)
     implementation(libs.androidx.legacy.support.v4)
