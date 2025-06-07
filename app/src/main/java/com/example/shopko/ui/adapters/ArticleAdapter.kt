@@ -24,7 +24,7 @@ class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
         val buttonMinus: ImageButton = itemView.findViewById(R.id.button_minus)
         val buttonPlus: ImageButton = itemView.findViewById(R.id.button_plus)
         val checkBox: CheckBox = itemView.findViewById(R.id.materialCheckBox)
-        val starCount: TextView = itemView.findViewById(R.id.starCount) // Zamijenjeno iz ImageView
+        val starCount: TextView = itemView.findViewById(R.id.starCount)
         val starIcon: ImageView = itemView.findViewById(R.id.star_icon)
     }
 
@@ -46,12 +46,19 @@ class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
             currentArticle.subcategory.toString()
         ) ?: emptyList()
 
-        if (preferences.isNotEmpty()) {
-            holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
-            holder.starCount.text = "x${preferences.size}"
-        } else {
-            holder.starIcon.setImageResource(R.drawable.icon_starbox_false)
-            holder.starCount.text = ""
+        when (preferences.size) {
+            0 -> {
+                holder.starIcon.setImageResource(R.drawable.icon_starbox_false)
+                holder.starCount.text = "Odaberi favorita"
+            }
+            1 -> {
+                holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
+                holder.starCount.text = preferences[0].brand
+            }
+            else -> {
+                holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
+                holder.starCount.text = "${preferences.size} favorita"
+            }
         }
 
         holder.starIcon.setOnClickListener {
@@ -64,8 +71,6 @@ class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
             )
         }
 
-
-        // Checkbox logika
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             currentArticle.isChecked = isChecked
         }
@@ -74,21 +79,30 @@ class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
             if (currentArticle.buyQuantity > 0) {
                 currentArticle.buyQuantity--
                 notifyItemChanged(position)
-                articleList.filter { currentArticle.subcategory == it.subcategory }.forEach {
-                    it.buyQuantity = currentArticle.buyQuantity
-                }
+                articleList.find { it.subcategory == currentArticle.subcategory }?.buyQuantity = currentArticle.buyQuantity
             }
         }
 
         holder.buttonPlus.setOnClickListener {
             currentArticle.buyQuantity++
             notifyItemChanged(position)
-            articleList.filter { currentArticle.subcategory == it.subcategory }.forEach {
-                it.buyQuantity = currentArticle.buyQuantity
-            }
+            articleList.find { it.subcategory == currentArticle.subcategory }?.buyQuantity = currentArticle.buyQuantity
         }
     }
 
 
-    override fun getItemCount(): Int = article.size
+    override fun getItemCount(): Int = articleList.size
+
+    fun filter(query: String) {
+        articleList = if (query.isEmpty()) {
+            fullList.toMutableList()
+        } else {
+            fullList.filter {
+                it.type.contains(query, ignoreCase = true)
+            }.toMutableList()
+        }
+        notifyDataSetChanged()
+    }
+
+    fun getCurrentList(): List<Article> = filteredList
 }

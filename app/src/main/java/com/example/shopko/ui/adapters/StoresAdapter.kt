@@ -18,7 +18,6 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
 
     class StoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val name: TextView = itemView.findViewById(R.id.StoreName)
-//        val location: TextView = itemView.findViewById(R.id.StoreLocation)
         val price: TextView = itemView.findViewById(R.id.ArticlePrice)
         val distance: TextView = itemView.findViewById(R.id.StoreDistance)
     }
@@ -34,7 +33,7 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
         val storeCombo = storeList[position]
         holder.name.text = storeCombo.store.joinToString(" + ") { it.name }
         holder.price.text = "€%.2f".format(storeCombo.totalPrice)
-        holder.distance.text = "${"%.1f".format(storeCombo.distance / 1000)} km"
+        holder.distance.text = "${"%.1f".format(storeCombo.distance / 1000f)} km"
 
         holder.itemView.setOnClickListener {
             val context = holder.itemView.context
@@ -51,7 +50,6 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
                 )
             }
 
-
             val intent = Intent(context, StoreDetailActivity::class.java).apply {
                 putExtra(
                     "storeCombo", StoreComboResultParcelable(
@@ -67,7 +65,11 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
         }
     }
 
-
     override fun getItemCount(): Int = storeList.size
 
+    @SuppressLint("NotifyDataSetChanged")
+    fun updateList(newList: List<StoreComboResult>) {
+        storeList = newList
+        notifyDataSetChanged()
+    }
 }

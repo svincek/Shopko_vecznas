@@ -17,7 +17,6 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
@@ -36,13 +35,18 @@ import kotlinx.coroutines.withContext
 class StoresFragment : Fragment() {
 
     private lateinit var adapter: StoresAdapter
-    private lateinit var storeList: List<StoreComboResult>
-    private lateinit var originalList: List<StoreComboResult>
+    private var storeList: List<StoreComboResult> = emptyList()
+    private var originalList: List<StoreComboResult> = emptyList()
+
     private lateinit var loadingSpinner: ProgressBar
+    private lateinit var resultStoreCount: TextView
+
     private var selectedFilter: Filters = Filters.BYPRICE
     private var selectedStoreCount: Int = 1
-    private lateinit var resultStoreCount: TextView
+    private var maxDistance: Float = Float.MAX_VALUE
     private var currentSortOption: SortOption? = null
+    private var selectedDistance: Float = 10f
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -66,19 +70,14 @@ class StoresFragment : Fragment() {
         }
 
         loadingSpinner = view.findViewById(R.id.loadingSpinner)
-        loadingSpinner.visibility = View.VISIBLE
         resultStoreCount = view.findViewById(R.id.resultCount)
 
-        lifecycleScope.launch {
-            originalList = withContext(Dispatchers.IO) {
-                val filteredArticles = articleList.filter { it.isChecked }
-                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
-            }
-            storeList = originalList
-            setupRecyclerView(view, storeList)
-            loadingSpinner.visibility = View.GONE
-            resultStoreCount.text = "${storeList.count()} rezultata"
-        }
+        val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewStores)
+        adapter = StoresAdapter(emptyList())
+        recyclerView.layoutManager = LinearLayoutManager(requireContext())
+        recyclerView.adapter = adapter
+
+        loadData()
 
         val searchBar: EditText = view.findViewById(R.id.searchBar)
         searchBar.addTextChangedListener(object : TextWatcher {
@@ -91,24 +90,80 @@ class StoresFragment : Fragment() {
         })
 
         view.findViewById<LinearLayout>(R.id.btnOpenFilter).setOnClickListener {
-            FilterBottomSheetDialog().show(childFragmentManager, "BottomSheetDialog")
+            FilterBottomSheetDialog(selectedStoreCount, selectedDistance) { newCount, newDistance ->
+                selectedStoreCount = newCount
+                selectedDistance = newDistance
+                reloadData(requireView()) // ponovno učitaj podatke s novim filterima
+            }.show(childFragmentManager, "BottomSheetDialog")
+
         }
 
         view.findViewById<LinearLayout>(R.id.btnOpenSort).setOnClickListener {
             SortBottomSheetDialog(currentSortOption) { newSortOption ->
-                if (newSortOption != null) {
-                    currentSortOption = newSortOption
-                    selectedFilter = when (newSortOption) {
+                newSortOption?.let {
+                    currentSortOption = it
+                    selectedFilter = when (it) {
                         SortOption.PRICE_ASC -> Filters.BYPRICE
                         SortOption.PRICE_DESC -> Filters.BYPRICE_DESC
                         SortOption.DISTANCE -> Filters.BYDISTANCE
                     }
-                    reloadData(requireView())
+                    loadData()
                 }
             }.show(childFragmentManager, "SortDialog")
         }
     }
 
+    private fun loadData() {
+        lifecycleScope.launch {
+            loadingSpinner.visibility = View.VISIBLE
+            val filteredArticles = articleList.filter { it.isChecked }
+            originalList = withContext(Dispatchers.IO) {
+                sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+            }
+            applyFiltersAndUpdateUI("")
+            loadingSpinner.visibility = View.GONE
+        }
+    }
+
+    private fun filterStores(query: String) {
+        applyFiltersAndUpdateUI(query)
+    }
+
+    private fun applyFiltersAndUpdateUI(query: String) {
+        val filteredList = originalList.filter {
+            it.store.size <= selectedStoreCount /*&& it.distance <= maxDistance*/ &&
+                    it.store.any { s ->
+                        s.name.contains(query, ignoreCase = true) ||
+                                s.location.contains(query, ignoreCase = true)
+                    }
+        }
+        storeList = filteredList
+        adapter.updateList(storeList)
+
+        resultStoreCount.text = "${storeList.count()} rezultata"
+    }
+    private fun reloadData(view: View) {
+        lifecycleScope.launch {
+            loadingSpinner.visibility = View.VISIBLE
+
+            val filteredArticles = articleList.filter { it.isChecked }
+
+            originalList = withContext(Dispatchers.IO) {
+                sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+            }
+
+//            originalList = withContext(Dispatchers.IO) {
+//                val allCombos = sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+//                allCombos.filter { it.distance <= selectedDistance }
+//            }
+
+
+            storeList = originalList
+            setupRecyclerView(view, storeList)
+            loadingSpinner.visibility = View.GONE
+            resultStoreCount.text = "${storeList.count()} rezultata"
+        }
+    }
     private fun setupRecyclerView(view: View, data: List<StoreComboResult>) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewStores)
         adapter = StoresAdapter(data)
@@ -116,60 +171,5 @@ class StoresFragment : Fragment() {
         recyclerView.adapter = adapter
     }
 
-    private fun filterStores(query: String) {
-        lifecycleScope.launch(Dispatchers.IO) {
-            val filteredList = if (query.isEmpty()) {
-                originalList
-            } else {
-                originalList.filter { combo ->
-                    combo.store.any { store ->
-                        store.name.contains(query, ignoreCase = true) ||
-                                store.address.contains(query, ignoreCase = true) ||
-                                store.city.contains(query, ignoreCase = true)
-                    }
-                }
-            }
 
-            withContext(Dispatchers.Main) {
-                updateAdapterData(filteredList)
-            }
-        }
-    }
-
-    private fun updateAdapterData(newStoreList: List<StoreComboResult>) {
-        val diffCallback = StoreDiffCallback(storeList, newStoreList)
-        val diffResult = DiffUtil.calculateDiff(diffCallback)
-        storeList = newStoreList
-        diffResult.dispatchUpdatesTo(adapter)
-        resultStoreCount.text = "${storeList.count()} rezultata"
-    }
-
-    private fun reloadData(view: View) {
-        lifecycleScope.launch {
-            loadingSpinner.visibility = View.VISIBLE
-            originalList = withContext(Dispatchers.IO) {
-                val filteredArticles = articleList.filter { it.isChecked }
-                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
-            }
-            storeList = originalList
-            setupRecyclerView(view, storeList)
-            loadingSpinner.visibility = View.GONE
-            resultStoreCount.text = "${storeList.count()} rezultata"
-        }
-    }
-
-    private class StoreDiffCallback(
-        private val oldList: List<StoreComboResult>,
-        private val newList: List<StoreComboResult>
-    ) : DiffUtil.Callback() {
-        override fun getOldListSize(): Int = oldList.size
-        override fun getNewListSize(): Int = newList.size
-        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition].store == newList[newItemPosition].store
-        }
-
-        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-            return oldList[oldItemPosition] == newList[newItemPosition]
-        }
-    }
 }
