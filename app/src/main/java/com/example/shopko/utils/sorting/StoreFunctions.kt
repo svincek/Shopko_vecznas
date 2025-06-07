@@ -92,14 +92,17 @@ suspend fun sortStoreCombo(
     return when (filter) {
         Filters.BYPRICE -> validCombos.sortedWith(
             compareBy<StoreComboResult> { it.missingTypes.size }.thenBy { it.totalPrice }
+                .thenBy { it.distance }
         )
 
         Filters.BYDISTANCE -> validCombos.sortedWith(
             compareBy<StoreComboResult> { it.missingTypes.size }.thenBy { it.distance }
+                .thenBy { it.totalPrice }
         )
 
         Filters.BYPRICE_DESC -> validCombos.sortedWith(
             compareBy<StoreComboResult> { it.missingTypes.size }.thenByDescending { it.totalPrice }
+                .thenBy { it.totalPrice }
         )
 
         Filters.DEFAULT -> validCombos.sortedBy { it.missingTypes.size }

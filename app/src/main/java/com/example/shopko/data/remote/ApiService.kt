@@ -9,7 +9,7 @@ import io.ktor.client.request.parameter
 
 class ApiService {
     private val client = KtorClient.httpClient
-    private val baseUrl = "http://10.0.2.2:8080"
+    private val baseUrl = "https://shopkobe.onrender.com"
 
     suspend fun getArticlesPaginated(page: Int, size: Int): List<ArticleDTO> {
         val response: PaginatedResponse<ArticleDTO> = client.get("$baseUrl/articles") {
