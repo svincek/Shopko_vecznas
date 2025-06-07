@@ -15,8 +15,10 @@ import com.example.shopko.data.model.Article
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.data.preference.PreferenceManager
 
-class ArticleAdapter(private val article: MutableList<Article>) :
+class ArticleAdapter(private val fullList: MutableList<Article>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
+
+    private var filteredList: MutableList<Article> = fullList.toMutableList()
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val articleName: TextView = itemView.findViewById(R.id.article_name)
@@ -24,7 +26,7 @@ class ArticleAdapter(private val article: MutableList<Article>) :
         val buttonMinus: ImageButton = itemView.findViewById(R.id.button_minus)
         val buttonPlus: ImageButton = itemView.findViewById(R.id.button_plus)
         val checkBox: CheckBox = itemView.findViewById(R.id.materialCheckBox)
-        val starCount: TextView = itemView.findViewById(R.id.starCount) // Zamijenjeno iz ImageView
+        val starCount: TextView = itemView.findViewById(R.id.starCount)
         val starIcon: ImageView = itemView.findViewById(R.id.star_icon)
     }
 
@@ -35,7 +37,7 @@ class ArticleAdapter(private val article: MutableList<Article>) :
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val currentArticle = article[position]
+        val currentArticle = filteredList[position]
         val context = holder.itemView.context
 
         holder.articleName.text = currentArticle.type
@@ -44,12 +46,19 @@ class ArticleAdapter(private val article: MutableList<Article>) :
 
         val preferences = PreferenceManager.getPreferences(context, currentArticle.type) ?: emptyList()
 
-        if (preferences.isNotEmpty()) {
-            holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
-            holder.starCount.text = "x${preferences.size}"
-        } else {
-            holder.starIcon.setImageResource(R.drawable.icon_starbox_false)
-            holder.starCount.text = ""
+        when (preferences.size) {
+            0 -> {
+                holder.starIcon.setImageResource(R.drawable.icon_starbox_false)
+                holder.starCount.text = "Odaberi favorita"
+            }
+            1 -> {
+                holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
+                holder.starCount.text = preferences[0].brand
+            }
+            else -> {
+                holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
+                holder.starCount.text = "${preferences.size} favorita"
+            }
         }
 
         holder.starIcon.setOnClickListener {
@@ -62,8 +71,6 @@ class ArticleAdapter(private val article: MutableList<Article>) :
             )
         }
 
-
-        // Checkbox logika
         holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
             currentArticle.isChecked = isChecked
         }
@@ -72,21 +79,30 @@ class ArticleAdapter(private val article: MutableList<Article>) :
             if (currentArticle.quantity > 0) {
                 currentArticle.quantity--
                 notifyItemChanged(position)
-                articleList.filter { currentArticle.type == it.type }.forEach {
-                    it.quantity = currentArticle.quantity
-                }
+                articleList.find { it.type == currentArticle.type }?.quantity = currentArticle.quantity
             }
         }
 
         holder.buttonPlus.setOnClickListener {
             currentArticle.quantity++
             notifyItemChanged(position)
-            articleList.filter { currentArticle.type == it.type }.forEach {
-                it.quantity = currentArticle.quantity
-            }
+            articleList.find { it.type == currentArticle.type }?.quantity = currentArticle.quantity
         }
     }
 
 
-    override fun getItemCount(): Int = article.size
+    override fun getItemCount(): Int = filteredList.size
+
+    fun filter(query: String) {
+        filteredList = if (query.isEmpty()) {
+            fullList.toMutableList()
+        } else {
+            fullList.filter {
+                it.type.contains(query, ignoreCase = true)
+            }.toMutableList()
+        }
+        notifyDataSetChanged()
+    }
+
+    fun getCurrentList(): List<Article> = filteredList
 }
