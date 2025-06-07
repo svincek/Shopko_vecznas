@@ -20,10 +20,10 @@ class ApiService {
     }
 
     suspend fun getStoresPaginated(page: Int, size: Int): List<StoreDTO> {
-        val response: List<StoreDTO> = client.get("$baseUrl/stores") {
+        val response: PaginatedResponse<StoreDTO> = client.get("$baseUrl/stores") {
             parameter("page", page)
             parameter("size", size)
         }.body()
-        return response
+        return response.content
     }
 }

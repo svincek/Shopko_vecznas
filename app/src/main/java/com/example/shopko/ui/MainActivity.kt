@@ -11,11 +11,8 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
-import androidx.lifecycle.lifecycleScope
 import com.example.shopko.R
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import kotlinx.coroutines.launch
-import syncDataFromApiToRoom
 
 class MainActivity : AppCompatActivity() {
 
@@ -24,10 +21,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         WindowCompat.setDecorFitsSystemWindows(window, false)
         setContentView(R.layout.activity_main)
-
-        lifecycleScope.launch{
-            syncDataFromApiToRoom(this@MainActivity)
-        }
 
         val insetsController = window.insetsController
         insetsController?.hide(WindowInsets.Type.systemBars())

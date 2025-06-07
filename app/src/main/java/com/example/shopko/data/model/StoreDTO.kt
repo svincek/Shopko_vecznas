@@ -12,5 +12,7 @@ data class StoreDTO(
     val city: String,
     @Serializable(with = SafeDoubleSerializer::class)
     val zipcode: Double?,
-    val workTime: String
+    val workTime: String,
+    val latitude: Double?,
+    val longitude: Double?
 )

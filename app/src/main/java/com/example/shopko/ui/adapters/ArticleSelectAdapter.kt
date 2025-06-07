@@ -6,20 +6,19 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.cardview.widget.CardView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.ArticleDisplay
 
 class ArticleSelectAdapter(
-    private var articles: List<Article>
+    private var articles: List<ArticleDisplay>
 ) : RecyclerView.Adapter<ArticleSelectAdapter.ViewHolder>() {
 
-    private val selectedItems = mutableSetOf<Article>()
+    private val selectedItems = mutableSetOf<ArticleDisplay>()
 
-    fun getSelectedItems(): List<Article> = selectedItems.toList()
+    fun getSelectedItems(): List<ArticleDisplay> = selectedItems.toList()
 
-    fun updateList(newArticles: List<Article>) {
+    fun updateList(newArticles: List<ArticleDisplay>) {
         articles = newArticles
         selectedItems.clear()
         notifyDataSetChanged()
@@ -43,8 +42,8 @@ class ArticleSelectAdapter(
         private val checkBox: CheckBox = itemView.findViewById(R.id.articleCheckBox)
         private val card: LinearLayout = itemView as LinearLayout
 
-        fun bind(article: Article, isChecked: Boolean) {
-            nameText.text = article.type
+        fun bind(article: ArticleDisplay, isChecked: Boolean) {
+            nameText.text = article.subcategory
             checkBox.isChecked = isChecked
 
             val toggle = {

@@ -21,5 +21,7 @@ data class ArticleEntity(
     val anchorPrice: Double?,
     val specialPrice: Double?,
     val storeBrand: String?,
-    val isFavourite: Boolean = false
+    var isFavourite: Boolean = false,
+    var buyQuantity: Int = 1,
+    var isChecked: Boolean = false
 )

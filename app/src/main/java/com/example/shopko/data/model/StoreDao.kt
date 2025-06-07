@@ -13,9 +13,15 @@ interface StoreDao {
     @Query("SELECT name FROM stores")
     suspend fun getAllStoreBrands(): List<String>
 
+    @Query("SELECT * FROM stores")
+    suspend fun getAllStores(): List<StoreEntity>
+
     @Query("SELECT * FROM stores WHERE name = :brandName")
     suspend fun getStoresByBrand(brandName: String): List<StoreEntity>
 
     @Query("UPDATE stores SET workTime = :workTime WHERE name = :storeName")
     suspend fun updateStoreWorkTime(storeName: String, workTime: String): Int
+
+    @Query("SELECT COUNT(*) FROM stores")
+    suspend fun getStoresCount(): Int
 }

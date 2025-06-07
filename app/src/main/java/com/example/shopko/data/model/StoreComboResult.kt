@@ -5,8 +5,8 @@ import kotlinx.parcelize.Parcelize
 
 
 data class StoreComboResult (
-val store: List<Store>,
-val matchedArticles: List<Article>,
+val store: List<StoreEntity>,
+val matchedArticles: List<ArticleEntity>,
 val missingTypes: List<String>,
 val totalPrice: Double,
 val distance: Float,

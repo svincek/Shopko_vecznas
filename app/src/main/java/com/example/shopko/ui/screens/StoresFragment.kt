@@ -72,7 +72,7 @@ class StoresFragment : Fragment() {
         lifecycleScope.launch {
             originalList = withContext(Dispatchers.IO) {
                 val filteredArticles = articleList.filter { it.isChecked }
-                sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
             }
             storeList = originalList
             setupRecyclerView(view, storeList)
@@ -124,7 +124,8 @@ class StoresFragment : Fragment() {
                 originalList.filter { combo ->
                     combo.store.any { store ->
                         store.name.contains(query, ignoreCase = true) ||
-                                store.location.contains(query, ignoreCase = true)
+                                store.address.contains(query, ignoreCase = true) ||
+                                store.city.contains(query, ignoreCase = true)
                     }
                 }
             }
@@ -148,7 +149,7 @@ class StoresFragment : Fragment() {
             loadingSpinner.visibility = View.VISIBLE
             originalList = withContext(Dispatchers.IO) {
                 val filteredArticles = articleList.filter { it.isChecked }
-                sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
             }
             storeList = originalList
             setupRecyclerView(view, storeList)

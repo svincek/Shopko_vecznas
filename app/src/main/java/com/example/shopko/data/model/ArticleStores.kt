@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ArticleStores(
-    val id: Int,
+    val id: Long?,
     val type: String,
     val brand: String,
     val category: String,
@@ -14,14 +14,14 @@ data class ArticleStores(
     val quantity: Int
 ) : Parcelable
 
-fun Article.toArticleStores(): ArticleStores {
+fun ArticleEntity.toArticleStores(): ArticleStores {
     return ArticleStores(
-        id = this.id,
-        type = this.type,
-        brand = this.brand,
-        category = this.category,
-        unitSize = this.unitSize,
+        id = this.productId,
+        type = this.name.toString(),
+        brand = this.brand.toString(),
+        category = this.category.toString(),
+        unitSize = this.quantity.toString(),
         price = this.price.toString(),
-        quantity = this.quantity
+        quantity = this.buyQuantity
     )
 }

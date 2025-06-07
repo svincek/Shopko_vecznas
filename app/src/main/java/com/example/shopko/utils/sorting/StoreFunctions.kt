@@ -1,12 +1,11 @@
 package com.example.shopko.utils.sorting
 
-import android.util.Log
-import com.example.shopko.data.model.Article
-import com.example.shopko.data.model.ShopkoApp
-import com.example.shopko.data.model.Store
+import android.content.Context
+import com.example.shopko.data.model.ArticleDisplay
+import com.example.shopko.data.model.ArticleEntity
 import com.example.shopko.data.model.StoreComboResult
-import com.example.shopko.data.preference.PreferenceManager
-import com.example.shopko.data.repository.getStores
+import com.example.shopko.data.model.StoreEntity
+import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.utils.enums.Filters
 import com.example.shopko.utils.general.combinations
 import com.example.shopko.utils.location.DistanceUtil
@@ -30,41 +29,44 @@ import com.google.android.gms.maps.model.LatLng
  * Artikli se spajaju iz više trgovina, uzimajući najjeftinije verzije, a rezultat uključuje i artikle koji nisu pronađeni.
  */
 
-suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: Filters): List<StoreComboResult> {
-    val stores = getStores()
-    Log.d("STORES", stores.joinToString("\n") { it.name })
+suspend fun sortStoreCombo(
+    context: Context,
+    articleList: List<ArticleDisplay>,
+    maxCombos: Int,
+    filter: Filters
+): List<StoreComboResult> {
+    val db = AppDatabase.getDatabase(context)
+    val stores = db.storeDao().getAllStores()
 
     val allStoreCombos = (1..maxCombos).flatMap { count ->
         stores.combinations(count)
     }
 
-    val context = ShopkoApp.getAppContext()
     val locationHelper = LocationHelper(context)
     val userLocation = locationHelper.getLastLocationSuspend()
     val userLatLng = userLocation?.let { LatLng(it.latitude, it.longitude) }
 
     val validCombos = allStoreCombos.map { storeCombo ->
-        val allArticles = storeCombo.flatMap { it.articles }
+        val allArticles = storeCombo.flatMap { db.articleDao().getArticlesByStore(it.name.toString()) }
 
-        // Grupa po tipu artikla
-        val typeToArticle: Map<String, Article?> = allArticles
-            .groupBy { it.type }
-            .mapValues { (type, articles) ->
-                val preference = PreferenceManager.getPreference(context, type)
-                preference?.let {
-                    articles.find { it.brand == preference.brand && it.unitSize == preference.unitSize }
-                } ?: articles.minByOrNull { it.price }
+        val typeToArticle: Map<String?, ArticleEntity?> = allArticles
+            .groupBy { it.subcategory }
+            .mapValues { (_, articles) ->
+                articles.find { it.isFavourite } ?: articles.minByOrNull { it.price }
             }
 
-        // Pronađeni artikli prema listi korisnika
         val matchedArticles = articleList.mapNotNull { userArticle ->
-            typeToArticle[userArticle.type]?.copy(quantity = userArticle.quantity)
+            val article = typeToArticle[userArticle.subcategory]?.copy(buyQuantity = userArticle.buyQuantity)
+            article
         }
 
-        val matchedTypes = matchedArticles.map { it.type }.toSet()
-        val missingTypes = articleList.map { it.type }.filterNot { it in matchedTypes }
+        val matchedTypes = matchedArticles.map { it.subcategory }.toSet()
+        val missingTypes = articleList.map { it.subcategory }.filterNot { it in matchedTypes }
 
-        val totalPrice = matchedArticles.sumOf { it.price * it.quantity }
+        val totalPrice = matchedArticles.sumOf {
+            val quantity = it.buyQuantity.takeIf { q -> q > 0 } ?: 1
+            it.price * quantity
+        }
 
         val distance = userLatLng?.let {
             calculateComboDistance(it, storeCombo)
@@ -73,52 +75,48 @@ suspend fun sortStoreCombo(articleList: List<Article>, maxCombos: Int, filter: F
         StoreComboResult(
             store = storeCombo,
             matchedArticles = matchedArticles,
-            missingTypes = missingTypes,
+            missingTypes = missingTypes.filterNotNull(),
             totalPrice = totalPrice,
             distance = distance
         )
     }
 
-    validCombos.forEach {
-        Log.d("SORT_CHECK", "${it.store.joinToString { s -> s.name }} - missing: ${it.missingTypes.size}, price: ${it.totalPrice}, dist: ${it.distance}")
-    }
-
     return when (filter) {
         Filters.BYPRICE -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }
-                .thenBy { it.totalPrice }
+            compareBy<StoreComboResult> { it.missingTypes.size }.thenBy { it.totalPrice }
         )
 
         Filters.BYDISTANCE -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }
-                .thenBy { it.distance }
+            compareBy<StoreComboResult> { it.missingTypes.size }.thenBy { it.distance }
         )
 
         Filters.BYPRICE_DESC -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }
-                .thenByDescending { it.totalPrice }
+            compareBy<StoreComboResult> { it.missingTypes.size }.thenByDescending { it.totalPrice }
         )
 
-        Filters.DEFAULT -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }
-        )
+        Filters.DEFAULT -> validCombos.sortedBy { it.missingTypes.size }
     }
 }
 
-fun calculateComboDistance(start: LatLng, stores: List<Store>): Float {
-    val remaining = stores.toMutableList()
+
+fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
+    val validStores = stores.filter { it.latitude != null && it.longitude != null }
+
+    val remaining = validStores.toMutableList()
     var current = start
     var totalDistance = 0f
 
     while (remaining.isNotEmpty()) {
         val next = remaining.minByOrNull { store ->
-            DistanceUtil.calculateDistance(current, store.latLngLoc)
+            DistanceUtil.calculateDistance(current, LatLng(store.latitude!!, store.longitude!!))
         }!!
 
-        totalDistance += DistanceUtil.calculateDistance(current, next.latLngLoc)
-        current = next.latLngLoc
+        totalDistance += DistanceUtil.calculateDistance(current, LatLng(next.latitude!!, next.longitude!!))
+        current = LatLng(next.latitude, next.longitude)
         remaining.remove(next)
     }
 
     return totalDistance
 }
+
+

@@ -11,11 +11,11 @@ import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.ArticleDisplay
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.data.preference.PreferenceManager
 
-class ArticleAdapter(private val article: MutableList<Article>) :
+class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -38,11 +38,13 @@ class ArticleAdapter(private val article: MutableList<Article>) :
         val currentArticle = article[position]
         val context = holder.itemView.context
 
-        holder.articleName.text = currentArticle.type
-        holder.quantity.text = currentArticle.quantity.toString()
+        holder.articleName.text = currentArticle.subcategory
+        holder.quantity.text = currentArticle.buyQuantity.toString()
         holder.checkBox.isChecked = currentArticle.isChecked
 
-        val preferences = PreferenceManager.getPreferences(context, currentArticle.type) ?: emptyList()
+        val preferences = PreferenceManager.getPreferences(context,
+            currentArticle.subcategory.toString()
+        ) ?: emptyList()
 
         if (preferences.isNotEmpty()) {
             holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
@@ -54,7 +56,7 @@ class ArticleAdapter(private val article: MutableList<Article>) :
 
         holder.starIcon.setOnClickListener {
             val bundle = Bundle().apply {
-                putString("article_type", currentArticle.type)
+                putString("article_type", currentArticle.subcategory)
             }
             findNavController(holder.itemView).navigate(
                 R.id.preferenceSelectionFragment,
@@ -69,20 +71,20 @@ class ArticleAdapter(private val article: MutableList<Article>) :
         }
 
         holder.buttonMinus.setOnClickListener {
-            if (currentArticle.quantity > 0) {
-                currentArticle.quantity--
+            if (currentArticle.buyQuantity > 0) {
+                currentArticle.buyQuantity--
                 notifyItemChanged(position)
-                articleList.filter { currentArticle.type == it.type }.forEach {
-                    it.quantity = currentArticle.quantity
+                articleList.filter { currentArticle.subcategory == it.subcategory }.forEach {
+                    it.buyQuantity = currentArticle.buyQuantity
                 }
             }
         }
 
         holder.buttonPlus.setOnClickListener {
-            currentArticle.quantity++
+            currentArticle.buyQuantity++
             notifyItemChanged(position)
-            articleList.filter { currentArticle.type == it.type }.forEach {
-                it.quantity = currentArticle.quantity
+            articleList.filter { currentArticle.subcategory == it.subcategory }.forEach {
+                it.buyQuantity = currentArticle.buyQuantity
             }
         }
     }
