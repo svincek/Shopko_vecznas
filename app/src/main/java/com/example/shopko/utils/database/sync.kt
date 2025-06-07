@@ -32,6 +32,7 @@ suspend fun syncDataFromApiToRoom(context: Context) = withContext(Dispatchers.IO
                         city = it.city,
                         zipcode = it.zipcode,
                         workTime = it.workTime,
+                        logoUrl = it.logoUrl,
                         latitude = it.latitude,
                         longitude = it.longitude
                     )
