@@ -28,7 +28,7 @@
         android:background="@drawable/frame_255"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9">
+        app:layout_constraintTop_toBottomOf="@+id/emailField">
 
         <ImageView
             android:id="@+id/imageView3"
@@ -247,25 +247,23 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/emailField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/satoshi_regular"
-        android:text="ime.prezimencic@gmail.com"
         android:textColor="#7F8083"
         android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView10" />
+        app:layout_constraintTop_toBottomOf="@+id/nameField" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/nameField"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:fontFamily="@font/satoshi_bold"
-        android:text="Ime Prezimenčić"
         android:textColor="@color/glavna"
         android:textStyle="bold"
         android:textSize="20sp"

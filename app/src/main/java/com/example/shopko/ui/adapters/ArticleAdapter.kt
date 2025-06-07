@@ -11,14 +11,14 @@ import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.Article
+import com.example.shopko.data.model.ArticleDisplay
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.data.preference.PreferenceManager
 
-class ArticleAdapter(private val fullList: MutableList<Article>) :
+class ArticleAdapter(private val fullList: MutableList<ArticleDisplay>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
-    private var filteredList: MutableList<Article> = fullList.toMutableList()
+    private var filteredList: MutableList<ArticleDisplay> = fullList.toMutableList()
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val articleName: TextView = itemView.findViewById(R.id.article_name)
@@ -40,11 +40,13 @@ class ArticleAdapter(private val fullList: MutableList<Article>) :
         val currentArticle = filteredList[position]
         val context = holder.itemView.context
 
-        holder.articleName.text = currentArticle.type
-        holder.quantity.text = currentArticle.quantity.toString()
+        holder.articleName.text = currentArticle.subcategory
+        holder.quantity.text = currentArticle.buyQuantity.toString()
         holder.checkBox.isChecked = currentArticle.isChecked
 
-        val preferences = PreferenceManager.getPreferences(context, currentArticle.type) ?: emptyList()
+        val preferences = PreferenceManager.getPreferences(context,
+            currentArticle.subcategory.toString()
+        ) ?: emptyList()
 
         when (preferences.size) {
             0 -> {
@@ -63,7 +65,7 @@ class ArticleAdapter(private val fullList: MutableList<Article>) :
 
         holder.starIcon.setOnClickListener {
             val bundle = Bundle().apply {
-                putString("article_type", currentArticle.type)
+                putString("article_type", currentArticle.subcategory)
             }
             findNavController(holder.itemView).navigate(
                 R.id.preferenceSelectionFragment,
@@ -76,33 +78,31 @@ class ArticleAdapter(private val fullList: MutableList<Article>) :
         }
 
         holder.buttonMinus.setOnClickListener {
-            if (currentArticle.quantity > 0) {
-                currentArticle.quantity--
+            if (currentArticle.buyQuantity > 0) {
+                currentArticle.buyQuantity--
                 notifyItemChanged(position)
-                articleList.find { it.type == currentArticle.type }?.quantity = currentArticle.quantity
+                articleList.find { it.subcategory == currentArticle.subcategory }?.buyQuantity = currentArticle.buyQuantity
             }
         }
 
         holder.buttonPlus.setOnClickListener {
-            currentArticle.quantity++
+            currentArticle.buyQuantity++
             notifyItemChanged(position)
-            articleList.find { it.type == currentArticle.type }?.quantity = currentArticle.quantity
+            articleList.find { it.subcategory == currentArticle.subcategory }?.buyQuantity = currentArticle.buyQuantity
         }
     }
 
 
-    override fun getItemCount(): Int = filteredList.size
+    override fun getItemCount(): Int = articleList.size
 
     fun filter(query: String) {
         filteredList = if (query.isEmpty()) {
             fullList.toMutableList()
         } else {
             fullList.filter {
-                it.type.contains(query, ignoreCase = true)
+                it.subcategory?.contains(query, ignoreCase = true) == true
             }.toMutableList()
         }
         notifyDataSetChanged()
     }
-
-    fun getCurrentList(): List<Article> = filteredList
 }

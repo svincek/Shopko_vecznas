@@ -1,5 +1,5 @@
 package com.example.shopko.data.model
 
 object UserArticleList {
-    val articleList = mutableListOf<Article>()
+    val articleList = mutableListOf<ArticleDisplay>()
 }

@@ -3,7 +3,6 @@ package com.example.shopko.ui.screens
 import android.Manifest
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -12,7 +11,11 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.ImageView
+import android.widget.TextView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
@@ -23,9 +26,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.Article
 import com.example.shopko.data.model.UserArticleList.articleList
-import com.example.shopko.data.repository.getArticles
 import com.example.shopko.ui.adapters.ArticleAdapter
 import com.example.shopko.ui.components.MyCustomDialog
 import java.io.File
@@ -270,7 +271,7 @@ class ArticleListFragment : Fragment() {
             return
         }
 
-        val exportText = articleList.joinToString("\n") { "${it.type} - ${it.quantity} kom" }
+        val exportText = articleList.joinToString("\n") { "${it.subcategory} - ${it.buyQuantity} kom" }
 
         try {
             val exportDir = File(requireContext().getExternalFilesDir(null), "exports")

@@ -6,8 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.lifecycleScope
 import com.example.shopko.ui.screens.StartActivity
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import syncDataFromApiToRoom
 
 class SplashActivity : AppCompatActivity() {
     
@@ -23,7 +23,8 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         lifecycleScope.launch {
-            delay(3000) //TODO delay simulira učitavanje pa zmjeni to
+            syncDataFromApiToRoom(this@SplashActivity)
+
             isReady = true
 
             startActivity(Intent(this@SplashActivity, StartActivity::class.java))

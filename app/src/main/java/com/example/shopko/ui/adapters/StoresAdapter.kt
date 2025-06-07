@@ -40,13 +40,13 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
             val firstStore = storeCombo.store.first()
             val articlesMapped = storeCombo.matchedArticles.map {
                 ArticleStores(
-                    type = (it.type.toIntOrNull() ?: -1).toString(),
-                    brand = it.brand,
-                    category = it.category,
-                    unitSize = it.unitSize,
+                    type = (it.name).toString(),
+                    brand = it.brand.toString(),
+                    category = it.subcategory.toString(),
+                    unitSize = it.quantity.toString(),
                     price = it.price.toString(),
-                    quantity = it.quantity,
-                    id = it.id
+                    quantity = it.buyQuantity,
+                    id = it.productId
                 )
             }
 
@@ -54,8 +54,8 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
                 putExtra(
                     "storeCombo", StoreComboResultParcelable(
                         firstStore.name,
-                        firstStore.location,
-                        firstStore.openingHours,
+                        firstStore.address + " " + firstStore.city,
+                        firstStore.workTime,
                         articlesMapped,
                         storeCombo.totalPrice
                     )

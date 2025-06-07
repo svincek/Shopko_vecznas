@@ -12,32 +12,43 @@ suspend fun syncDataFromApiToRoom(context: Context) = withContext(Dispatchers.IO
     val api = ApiService()
     val db = AppDatabase.getDatabase(context)
 
+    val storeCount = db.storeDao().getStoresCount()
+    val articleCount = db.articleDao().getArticlesCount()
+
     try {
-        val pageSize = 50
+        val pageSize = 100
         var currentPage = 0
         var totalFetched: Int
-        do {
-            val stores = api.getStoresPaginated(currentPage, pageSize)
-            totalFetched = stores.size
-            val storeEntities = stores.map {
-                StoreEntity(
-                    storeId = it.storeId,
-                    name = it.name,
-                    address = it.address,
-                    type = it.type,
-                    city = it.city,
-                    zipcode = it.zipcode,
-                    workTime = it.workTime
-                )
-            }
+        if(storeCount==0){
+            do {
+                val stores = api.getStoresPaginated(currentPage, pageSize)
+                totalFetched = stores.size
+                val storeEntities = stores.map {
+                    StoreEntity(
+                        storeId = it.storeId,
+                        name = it.name,
+                        address = it.address,
+                        type = it.type,
+                        city = it.city,
+                        zipcode = it.zipcode,
+                        workTime = it.workTime,
+                        latitude = it.latitude,
+                        longitude = it.longitude
+                    )
+                }
 
-            if (stores.isNotEmpty()) {
-                db.storeDao().insertStores(storeEntities)
-                Log.d("Unos", stores.toString())
-            }
+                if (stores.isNotEmpty()) {
+                    db.storeDao().insertStores(storeEntities)
+                    Log.d("Unos", stores.toString())
+                }
 
-            currentPage++
-        } while (totalFetched == pageSize)
+                currentPage++
+
+                Log.d("API Stores Page", "Page $currentPage fetched ${stores.size} stores")
+            } while (totalFetched == pageSize)
+        } else {
+            Log.d("Sync", "Stores already initialized, skipping store sync")
+        }
 
         currentPage = 0
         do {
@@ -68,6 +79,8 @@ suspend fun syncDataFromApiToRoom(context: Context) = withContext(Dispatchers.IO
             }
 
             currentPage++
+
+            Log.d("API Articles Page", "Page $currentPage fetched ${articles.size} articles")
         } while (totalFetched == pageSize)
 
     } catch (e: Exception) {

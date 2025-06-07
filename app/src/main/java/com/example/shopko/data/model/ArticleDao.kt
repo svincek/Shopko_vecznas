@@ -24,4 +24,7 @@ interface ArticleDao {
 
     @Query("UPDATE articles SET isFavourite = :isFavourite WHERE barcode = :barcode")
     suspend fun updateFavouriteStatus(barcode: String, isFavourite: Boolean): Int
+
+    @Query("SELECT COUNT(*) FROM articles")
+    suspend fun getArticlesCount(): Int
 }

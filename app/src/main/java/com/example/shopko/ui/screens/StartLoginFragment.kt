@@ -2,15 +2,16 @@ package com.example.shopko.ui.screens
 
 import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.shopko.R
-import com.example.shopko.SplashActivity
+import com.example.shopko.data.model.AuthManager
 import com.example.shopko.ui.MainActivity
 
 class StartLoginFragment : Fragment() {
@@ -25,12 +26,23 @@ class StartLoginFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_start_login, container, false)
+
+        val fieldEMail = view.findViewById<TextView>(R.id.input_username)
+        val fieldPassword = view.findViewById<TextView>(R.id.input_password)
+
         val btnLogin = view.findViewById<ImageButton>(R.id.btnLogin)
         val btnRegister = view.findViewById<TextView>(R.id.btnRegister)
 
         btnLogin.setOnClickListener {
-            startActivity(Intent(activity, MainActivity::class.java))
-            activity?.finish()
+            AuthManager.login(fieldEMail.text.toString(), fieldPassword.text.toString()) { success, message ->
+                if (success){
+                    startActivity(Intent(activity, MainActivity::class.java))
+                    activity?.finish()
+                }
+                else{
+                    Toast.makeText(context, "Error: $message", Toast.LENGTH_SHORT).show()
+                }
+            }
         }
 
         btnRegister.setOnClickListener {

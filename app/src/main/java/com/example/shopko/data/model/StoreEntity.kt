@@ -13,5 +13,7 @@ data class StoreEntity(
     val address: String,
     val city: String,
     val zipcode: Double?,
-    val workTime: String
+    val workTime: String,
+    val latitude: Double?,
+    val longitude: Double?
 )
