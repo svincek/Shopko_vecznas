@@ -66,22 +66,6 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tint="@color/black" />
 
-        <TextView
-            android:id="@+id/textView12"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginBottom="1dp"
-            android:layout_weight="1"
-            android:fontFamily="@font/satoshi_regular"
-            android:lineHeight="17sp"
-            android:text="Z'bregov"
-            android:textSize="14sp"
-            app:layout_constraintBottom_toBottomOf="@+id/starCount"
-            app:layout_constraintStart_toEndOf="@+id/star_icon"
-            app:layout_constraintTop_toTopOf="@+id/starCount"
-            app:layout_constraintVertical_bias="1.0" />
-
         <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/materialCheckBox"
             android:layout_width="25dp"
@@ -116,8 +100,11 @@
             android:id="@+id/starCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
+            android:layout_marginStart="6dp"
+            android:fontFamily="@font/satoshi_regular"
             android:text="x2"
+            android:textColor="@color/gray"
+            android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@+id/star_icon"
             app:layout_constraintStart_toEndOf="@+id/star_icon"
             app:layout_constraintTop_toTopOf="@+id/star_icon" />

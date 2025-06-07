@@ -4,7 +4,9 @@ import android.Manifest
 import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.app.AlertDialog
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -15,6 +17,7 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
+import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -25,6 +28,9 @@ import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.data.repository.getArticles
 import com.example.shopko.ui.adapters.ArticleAdapter
 import com.example.shopko.ui.components.MyCustomDialog
+import java.io.File
+import java.io.FileWriter
+import java.io.IOException
 
 class ArticleListFragment : Fragment() {
 
@@ -39,6 +45,9 @@ class ArticleListFragment : Fragment() {
     private var permissionForScan = false
     private lateinit var cardBtnUp: CardView
     private lateinit var btnToTop: ImageButton
+    private lateinit var btnExport: ImageButton
+    private lateinit var searchBar: EditText
+    private lateinit var myListText: TextView
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -53,6 +62,18 @@ class ArticleListFragment : Fragment() {
         cardMain = view.findViewById(R.id.cardViewMain)
         cardBtnUp = view.findViewById(R.id.btnTopCard)
         btnToTop = view.findViewById(R.id.btnScrollToTop)
+        btnExport = view.findViewById(R.id.btnExport)
+        searchBar = view.findViewById(R.id.searchBar)
+        myListText = view.findViewById(R.id.myListText)
+
+
+        searchBar.addTextChangedListener(object : android.text.TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                articleAdapter.filter(s.toString())
+            }
+            override fun afterTextChanged(s: android.text.Editable?) {}
+        })
 
 
         val scanButton = view.findViewById<View>(R.id.btnScan)
@@ -155,6 +176,10 @@ class ArticleListFragment : Fragment() {
             }
         })
 
+        btnExport.setOnClickListener {
+            exportArticleListToTxt()
+        }
+
 
         btnToTop.setOnClickListener {
             listRecyclerView.smoothScrollToPosition(0)
@@ -200,6 +225,10 @@ class ArticleListFragment : Fragment() {
             emptyListTextUnder.visibility = View.VISIBLE
             btnAdvance.setImageResource(R.drawable.button_grayed_out)
             listRecyclerView.visibility = View.GONE
+            btnExport.visibility = View.GONE
+            searchBar.visibility = View.GONE
+            myListText.visibility = View.GONE
+
         } else {
             cardMain.layoutParams.height = TypedValue.applyDimension(
                 TypedValue.COMPLEX_UNIT_DIP,
@@ -212,6 +241,9 @@ class ArticleListFragment : Fragment() {
             btnAdvance.visibility = View.VISIBLE
             listRecyclerView.visibility = View.VISIBLE
             btnAdvance.setImageResource(R.drawable.button_advance)
+            btnExport.visibility = View.VISIBLE
+            searchBar.visibility = View.VISIBLE
+            myListText.visibility = View.VISIBLE
         }
     }
 
@@ -231,5 +263,43 @@ class ArticleListFragment : Fragment() {
             cardMain.layoutParams = layoutParams
         }
         animator.start()
+    }
+    private fun exportArticleListToTxt() {
+        if (articleList.isEmpty()) {
+            Toast.makeText(requireContext(), "Popis je prazan!", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        val exportText = articleList.joinToString("\n") { "${it.type} - ${it.quantity} kom" }
+
+        try {
+            val exportDir = File(requireContext().getExternalFilesDir(null), "exports")
+            if (!exportDir.exists()) exportDir.mkdirs()
+
+            val file = File(exportDir, "PopisArtikala.txt")
+            val writer = FileWriter(file)
+            writer.write(exportText)
+            writer.flush()
+            writer.close()
+
+
+            val uri: Uri = FileProvider.getUriForFile(
+                requireContext(),
+                requireContext().packageName + ".provider",
+                file
+            )
+
+            val shareIntent = Intent(Intent.ACTION_SEND).apply {
+                type = "text/plain"
+                putExtra(Intent.EXTRA_STREAM, uri)
+                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            }
+
+            startActivity(Intent.createChooser(shareIntent, "Pošalji popis"))
+
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(requireContext(), "Greška pri spremanju datoteke", Toast.LENGTH_SHORT).show()
+        }
     }
 }

@@ -43,10 +43,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/menu_bottomnav"
+        app:itemTextAppearanceActive="@style/BottomNavTextStyle"
+        app:itemTextAppearanceInactive="@style/BottomNavTextStyle"
         app:backgroundTint="@color/white"
-        app:itemIconTint="@color/glavna"
+        app:itemIconTint="@color/bottom_nav_item_color"
         app:itemRippleColor="#FFFFFF"
-        app:itemTextColor="@color/glavna"
+        app:itemTextColor="@color/bottom_nav_item_color"
         app:itemActiveIndicatorStyle="@color/white"
         />
 </androidx.constraintlayout.widget.ConstraintLayout>
