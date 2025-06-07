@@ -126,5 +126,3 @@ fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
 
     return totalDistance
 }
-
-
