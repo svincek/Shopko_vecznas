@@ -335,7 +335,6 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:stepSize="1"
-        android:value="10"
         android:valueFrom="1"
         android:valueTo="50"
         app:layout_constraintEnd_toEndOf="@+id/sliderStoreCount"

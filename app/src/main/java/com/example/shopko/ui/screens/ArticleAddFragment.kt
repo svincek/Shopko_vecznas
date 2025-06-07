@@ -3,7 +3,6 @@ package com.example.shopko.ui.screens
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -96,8 +95,10 @@ class ArticleAddFragment : Fragment() {
                     if (!articleList.any { it.subcategory == newArticle.subcategory }) {
                         articleList.add(newArticle)
                     }
+                    else{
+                        Toast.makeText(requireContext(), "Već dodano ${selected.size} artikala", Toast.LENGTH_SHORT).show()
+                    }
                 }
-                Toast.makeText(requireContext(), "Već dodano ${selected.size} artikala", Toast.LENGTH_SHORT).show()
                 findNavController().popBackStack()
             }
         }
@@ -111,13 +112,11 @@ class ArticleAddFragment : Fragment() {
 
     private fun updateUI(filteredList: List<ArticleDisplay>) {
         if (filteredList.isEmpty()) {
-            Log.d("MAMICA", filteredList.isEmpty().toString())
             recyclerViewArticles.visibility = View.GONE
             placeholder.visibility = View.VISIBLE
             resultCount.visibility = View.GONE
             textResult.visibility = View.GONE
         } else {
-            Log.d("MAMICA", filteredList.isEmpty().toString())
             recyclerViewArticles.visibility = View.VISIBLE
             resultCount.visibility = View.VISIBLE
             placeholder.visibility = View.GONE

@@ -15,8 +15,10 @@ import com.example.shopko.data.model.ArticleDisplay
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.data.preference.PreferenceManager
 
-class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
+class ArticleAdapter(private val fullList: MutableList<ArticleDisplay>) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
+
+    private var filteredList: MutableList<ArticleDisplay> = fullList.toMutableList()
 
     inner class ArticleViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val articleName: TextView = itemView.findViewById(R.id.article_name)
@@ -35,7 +37,7 @@ class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
     }
 
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
-        val currentArticle = article[position]
+        val currentArticle = filteredList[position]
         val context = holder.itemView.context
 
         holder.articleName.text = currentArticle.subcategory
@@ -94,15 +96,13 @@ class ArticleAdapter(private val article: MutableList<ArticleDisplay>) :
     override fun getItemCount(): Int = articleList.size
 
     fun filter(query: String) {
-        articleList = if (query.isEmpty()) {
+        filteredList = if (query.isEmpty()) {
             fullList.toMutableList()
         } else {
             fullList.filter {
-                it.type.contains(query, ignoreCase = true)
+                it.subcategory?.contains(query, ignoreCase = true) == true
             }.toMutableList()
         }
         notifyDataSetChanged()
     }
-
-    fun getCurrentList(): List<Article> = filteredList
 }

@@ -43,9 +43,8 @@ class StoresFragment : Fragment() {
 
     private var selectedFilter: Filters = Filters.BYPRICE
     private var selectedStoreCount: Int = 1
-    private var maxDistance: Float = Float.MAX_VALUE
     private var currentSortOption: SortOption? = null
-    private var selectedDistance: Float = 10f
+    private var selectedDistance: Float = 20f
 
 
     override fun onCreateView(
@@ -93,7 +92,7 @@ class StoresFragment : Fragment() {
             FilterBottomSheetDialog(selectedStoreCount, selectedDistance) { newCount, newDistance ->
                 selectedStoreCount = newCount
                 selectedDistance = newDistance
-                reloadData(requireView()) // ponovno učitaj podatke s novim filterima
+                reloadData(requireView())
             }.show(childFragmentManager, "BottomSheetDialog")
 
         }
@@ -118,7 +117,7 @@ class StoresFragment : Fragment() {
             loadingSpinner.visibility = View.VISIBLE
             val filteredArticles = articleList.filter { it.isChecked }
             originalList = withContext(Dispatchers.IO) {
-                sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
             }
             applyFiltersAndUpdateUI("")
             loadingSpinner.visibility = View.GONE
@@ -131,10 +130,11 @@ class StoresFragment : Fragment() {
 
     private fun applyFiltersAndUpdateUI(query: String) {
         val filteredList = originalList.filter {
-            it.store.size <= selectedStoreCount /*&& it.distance <= maxDistance*/ &&
+            it.store.size <= selectedStoreCount && it.distance <= selectedDistance*1000 &&
                     it.store.any { s ->
                         s.name.contains(query, ignoreCase = true) ||
-                                s.location.contains(query, ignoreCase = true)
+                                s.address.contains(query, ignoreCase = true) ||
+                                s.city.contains(query, ignoreCase = true)
                     }
         }
         storeList = filteredList
@@ -149,13 +149,13 @@ class StoresFragment : Fragment() {
             val filteredArticles = articleList.filter { it.isChecked }
 
             originalList = withContext(Dispatchers.IO) {
-                sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
             }
 
-//            originalList = withContext(Dispatchers.IO) {
-//                val allCombos = sortStoreCombo(filteredArticles, selectedStoreCount, selectedFilter)
-//                allCombos.filter { it.distance <= selectedDistance }
-//            }
+            originalList = withContext(Dispatchers.IO) {
+                val allCombos = sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                allCombos.filter { it.distance <= selectedDistance*1000 }
+            }
 
 
             storeList = originalList
