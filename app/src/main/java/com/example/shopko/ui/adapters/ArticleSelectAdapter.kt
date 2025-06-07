@@ -11,16 +11,29 @@ import com.example.shopko.R
 import com.example.shopko.data.model.ArticleDisplay
 
 class ArticleSelectAdapter(
-    private var articles: List<ArticleDisplay>
+    private var articles: List<ArticleDisplay>,
+    private val initialSelected: List<ArticleDisplay> = emptyList()
 ) : RecyclerView.Adapter<ArticleSelectAdapter.ViewHolder>() {
 
     private val selectedItems = mutableSetOf<ArticleDisplay>()
 
+    init {
+        selectedItems.addAll(initialSelected)
+    }
+
     fun getSelectedItems(): List<ArticleDisplay> = selectedItems.toList()
 
     fun updateList(newArticles: List<ArticleDisplay>) {
-        articles = newArticles
-        selectedItems.clear()
+        val updatedArticles = newArticles.map { newArticle ->
+            val isSelected = selectedItems.any { it.subcategory == newArticle.subcategory }
+            ArticleDisplay(
+                brand = newArticle.brand,
+                subcategory = newArticle.subcategory,
+                isChecked = isSelected,
+                buyQuantity = newArticle.buyQuantity
+            )
+        }
+        articles = updatedArticles
         notifyDataSetChanged()
     }
 
@@ -34,7 +47,7 @@ class ArticleSelectAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val article = articles[position]
-        holder.bind(article, selectedItems.contains(article))
+        holder.bind(article)
     }
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -42,15 +55,17 @@ class ArticleSelectAdapter(
         private val checkBox: CheckBox = itemView.findViewById(R.id.articleCheckBox)
         private val card: LinearLayout = itemView as LinearLayout
 
-        fun bind(article: ArticleDisplay, isChecked: Boolean) {
+        fun bind(article: ArticleDisplay) {
             nameText.text = article.subcategory
-            checkBox.isChecked = isChecked
+            checkBox.isChecked = article.isChecked
 
             val toggle = {
-                if (selectedItems.contains(article)) {
-                    selectedItems.remove(article)
+                if (selectedItems.any { it.subcategory == article.subcategory }) {
+                    selectedItems.removeIf { it.subcategory == article.subcategory }
+                    article.isChecked = false
                 } else {
                     selectedItems.add(article)
+                    article.isChecked = true
                 }
                 notifyItemChanged(adapterPosition)
             }
@@ -60,3 +75,4 @@ class ArticleSelectAdapter(
         }
     }
 }
+

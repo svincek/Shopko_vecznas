@@ -1,6 +1,6 @@
 package com.example.shopko.data.model
 
-class ArticleDisplay (
+data class ArticleDisplay (
     val brand: String?,
     val subcategory: String?,
     var isFavourite: Boolean = false,

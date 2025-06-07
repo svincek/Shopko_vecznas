@@ -52,7 +52,7 @@ class ArticleAddFragment : Fragment() {
         recyclerViewArticles = view.findViewById(R.id.recyclerViewArticles)
         textResult = view.findViewById(R.id.textResult)
 
-        adapter = ArticleSelectAdapter(emptyList())
+        adapter = ArticleSelectAdapter(emptyList(), initialSelected = articleList)
         recyclerViewArticles.layoutManager = LinearLayoutManager(requireContext())
         recyclerViewArticles.adapter = adapter
         recyclerViewArticles.addItemDecoration(
