@@ -15,9 +15,9 @@ val distance: Float,
 
 @Parcelize
 data class StoreComboResultParcelable(
-    val storeName: String,
-    val storeLocation: String,
-    val storeHours: String,
-    val articles: List<ArticleStores>,
+    val storeNames: List<String>,
+    val storeLocations: List<String>,
+    val storeHours: List<String>,
+    val articles: List<ArticleEntity>,
     val totalPrice: Double
 ) : Parcelable

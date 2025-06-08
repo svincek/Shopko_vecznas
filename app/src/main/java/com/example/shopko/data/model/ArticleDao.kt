@@ -20,7 +20,7 @@ interface ArticleDao {
 
     @Query("""
     SELECT * FROM articles
-    WHERE subcategory = :subcategory
+    WHERE LOWER(subcategory) = LOWER(:subcategory)
     AND brand NOT IN ('Nan', 'NaN')
 """)
     suspend fun getArticlesBySubcategoryContains(subcategory: String): List<ArticleEntity>
@@ -31,8 +31,8 @@ interface ArticleDao {
     @Query("SELECT * FROM articles WHERE isFavourite = 1")
     suspend fun getFavouriteArticles(): List<ArticleEntity>
 
-    @Query("SELECT DISTINCT category FROM articles")
-    suspend fun getAllCategories(): List<String>
+    @Query("SELECT DISTINCT subcategory FROM articles")
+    suspend fun getAllSubcategories(): List<String>
 
     @Query("UPDATE articles SET isFavourite = :isFavourite WHERE brand = :brand " +
             "AND subcategory = :subcategory " +

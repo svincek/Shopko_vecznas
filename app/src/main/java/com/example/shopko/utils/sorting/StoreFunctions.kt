@@ -60,26 +60,29 @@ suspend fun sortStoreCombo(
         .groupBy { it.name }
         .flatMap { (_, storesInChain) ->
             storesInChain.take(3)
-        }
+        }.take(12)
+
+    val articlesByStore: Map<String, List<ArticleEntity>> = limitedStores.associate { store ->
+        store.name to db.articleDao().getArticlesByStore(store.name)
+    }
 
     val allStoreCombos = (1..maxCombos).flatMap { count ->
         limitedStores.combinations(count)
     }
 
     val validCombos = allStoreCombos.map { storeCombo ->
-        val allArticles =
-            storeCombo.flatMap { db.articleDao().getArticlesByStore(it.name.toString()) }
+        val comboArticles = storeCombo.flatMap { store ->
+            articlesByStore[store.name].orEmpty()
+        }
 
-        val typeToArticle: Map<String?, ArticleEntity?> = allArticles
+        val typeToArticle: Map<String?, ArticleEntity?> = comboArticles
             .groupBy { it.subcategory }
             .mapValues { (_, articles) ->
                 articles.find { it.isFavourite } ?: articles.minByOrNull { it.price }
             }
 
         val matchedArticles = articleList.mapNotNull { userArticle ->
-            val article =
-                typeToArticle[userArticle.subcategory]?.copy(buyQuantity = userArticle.buyQuantity)
-            article
+            typeToArticle[userArticle.subcategory]?.copy(buyQuantity = userArticle.buyQuantity)
         }
 
         val matchedTypes = matchedArticles.map { it.subcategory }.toSet()

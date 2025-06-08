@@ -1,14 +1,17 @@
 package com.example.shopko.data.model
 
-data class ArticleDisplay (
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+
+@Entity(tableName = "user_articles")
+data class UserArticlesEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
     val brand: String?,
     val quantity: String?,
     val subcategory: String?,
-    var isFavourite: Boolean = false,
-    var buyQuantity: Int = 1,
-    var isChecked: Boolean = true
+    val buyQuantity: Int,
 ){
-    fun toEntity() = UserArticlesEntity(
+    fun toDisplay() = ArticleDisplay(
         brand = brand,
         quantity = quantity,
         subcategory = subcategory,

@@ -99,7 +99,6 @@ dependencies {
     implementation("io.ktor:ktor-serialization-kotlinx-json:2.3.4")
     implementation ("androidx.room:room-runtime:2.7.1")
     implementation ("androidx.room:room-ktx:2.7.1")
-
     ksp("androidx.room:room-compiler:2.7.1")
     coreLibraryDesugaring("com.android.tools:desugar_jdk_libs:2.1.5")
     implementation ("androidx.appcompat:appcompat:1.6.1")

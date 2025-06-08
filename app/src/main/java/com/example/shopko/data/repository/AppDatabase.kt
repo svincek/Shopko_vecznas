@@ -10,25 +10,34 @@ import com.example.shopko.data.model.ArticleDao
 import com.example.shopko.data.model.ArticleEntity
 import com.example.shopko.data.model.StoreDao
 import com.example.shopko.data.model.StoreEntity
+import com.example.shopko.data.model.UserArticlesDao
+import com.example.shopko.data.model.UserArticlesEntity
 
-@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 6)
+@Database(
+    entities = [
+        StoreEntity::class,
+        ArticleEntity::class,
+        UserArticlesEntity::class
+       ],
+    version = 7)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun storeDao(): StoreDao
     abstract fun articleDao(): ArticleDao
+    abstract fun userArticlesDao(): UserArticlesDao
 
     companion object {
         @Volatile private var INSTANCE: AppDatabase? = null
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                val MIGRATION_5_6 = object : Migration(5, 6){
+                val MIGRATION_6_7 = object : Migration(6, 7){
                     override fun migrate(database: SupportSQLiteDatabase){}
                 }
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "shopko_database"
-                ).addMigrations(MIGRATION_5_6)
+                ).addMigrations(MIGRATION_6_7)
                     .build()
                 INSTANCE = instance
                 instance
