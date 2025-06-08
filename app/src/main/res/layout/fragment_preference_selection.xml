@@ -41,7 +41,7 @@
         android:drawableEnd="@drawable/icon_search"
         android:drawableTint="@color/gray"
         android:fontFamily="@font/satoshi_regular"
-        android:hint="@string/pretra_i_du_an"
+        android:hint="Traži favorite"
         android:inputType=""
         android:paddingHorizontal="16dp"
         android:paddingVertical="14dp"

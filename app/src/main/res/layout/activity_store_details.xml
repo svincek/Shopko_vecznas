@@ -29,28 +29,14 @@
             />
 
 
-        <ImageButton
-            android:id="@+id/btnExport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="16dp"
-            android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="@string/back"
-            android:src="@drawable/icon_export"
-            app:layout_constraintBottom_toBottomOf="@+id/btnBack"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/btnBack" />
-
-
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="80dp"
             android:layout_height="80dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="16dp"
             android:src="@drawable/placeholder_store1"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+            app:layout_constraintStart_toStartOf="@+id/textView16"
+            app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
         <TextView
             android:id="@+id/storeNameText"
@@ -113,18 +99,20 @@
             app:layout_constraintStart_toStartOf="@+id/storeLocationText" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/constraintLayout2"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             app:layout_constraintEnd_toEndOf="@+id/recyclerViewArticles"
             app:layout_constraintStart_toStartOf="@+id/recyclerViewArticles"
-            app:layout_constraintTop_toBottomOf="@+id/recyclerViewArticles">
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
 
             <TextView
                 android:id="@+id/textView15"
                 android:layout_width="wrap_content"
                 android:layout_height="48dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginStart="21dp"
+                android:layout_marginTop="16dp"
                 android:fontFamily="@font/satoshi_medium"
                 android:gravity="center_vertical"
                 android:text="Ukupno"
@@ -138,7 +126,7 @@
                 android:id="@+id/totalPriceText"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="21dp"
                 android:fontFamily="@font/satoshi_bold"
                 android:text="€0.00"
                 android:textSize="16sp"
@@ -155,24 +143,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
-            android:layout_weight="1"
-            android:background="@drawable/custom_searchbar"
-            android:padding="0dp"
+            android:background="@drawable/recycler_border"
+            android:paddingHorizontal="5dp"
+            android:paddingTop="76dp"
+            android:paddingBottom="5dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/textView16" />
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Ponuda"
             android:fontFamily="@font/satoshi_bold"
-            android:textSize="20sp"
+            android:text="Ponuda"
             android:textColor="@color/black"
-            app:layout_constraintStart_toStartOf="@+id/imageView"
-            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+            android:textSize="20sp"
+            app:layout_constraintStart_toStartOf="@+id/btnBack"
+            app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
