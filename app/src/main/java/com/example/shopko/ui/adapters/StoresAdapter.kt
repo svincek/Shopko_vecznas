@@ -2,22 +2,21 @@ package com.example.shopko.ui.adapters
 
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleStores
+import com.example.shopko.data.model.CurrentStoreComboResult.storeCombo
 import com.example.shopko.data.model.StoreComboResult
 import com.example.shopko.data.model.StoreComboResultParcelable
-import com.example.shopko.ui.screens.StoreDetailActivity
-import com.bumptech.glide.Glide
+import com.example.shopko.ui.screens.StoreDetailsActivity
 
 
-class StoresAdapter(private var storeList: List<StoreComboResult>) :
+class StoresAdapter() :
     RecyclerView.Adapter<StoresAdapter.StoreViewHolder>() {
 
     class StoreViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
@@ -35,7 +34,7 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
 
     @SuppressLint("DefaultLocale")
     override fun onBindViewHolder(holder: StoreViewHolder, position: Int) {
-        val storeCombo = storeList[position]
+        val storeCombo = storeCombo[position]
         val context = holder.itemView.context
 
         holder.name.text = storeCombo.store.joinToString(" + ") { it.name }
@@ -58,40 +57,30 @@ class StoresAdapter(private var storeList: List<StoreComboResult>) :
             .into(holder.logo)
 
         holder.itemView.setOnClickListener {
-            val firstStore = storeCombo.store.first()
-            val articlesMapped = storeCombo.matchedArticles.map {
-                ArticleStores(
-                    type = it.name.toString(),
-                    brand = it.brand.toString(),
-                    category = it.subcategory.toString(),
-                    unitSize = it.quantity.toString(),
-                    price = it.price.toString(),
-                    quantity = it.buyQuantity,
-                    id = it.productId
-                )
-            }
+            val storeNames = storeCombo.store.map { it.name }
+            val storeLocations = storeCombo.store.map { "${it.address} ${it.city}" }
+            val storeHours = storeCombo.store.map { it.workTime }
+            val articlesMapped = storeCombo.matchedArticles
 
-            val intent = Intent(context, StoreDetailActivity::class.java).apply {
-                putExtra(
-                    "storeCombo", StoreComboResultParcelable(
-                        firstStore.name,
-                        "${firstStore.address} ${firstStore.city}",
-                        firstStore.workTime,
-                        articlesMapped,
-                        storeCombo.totalPrice
-                    )
-                )
+            val intent = Intent(context, StoreDetailsActivity::class.java).apply {
+                putExtra("storeCombo", StoreComboResultParcelable(
+                    storeNames,
+                    storeLocations,
+                    storeHours,
+                    articlesMapped,
+                    storeCombo.totalPrice
+                ))
             }
             context.startActivity(intent)
         }
     }
 
 
-    override fun getItemCount(): Int = storeList.size
+    override fun getItemCount(): Int = storeCombo.size
 
     @SuppressLint("NotifyDataSetChanged")
     fun updateList(newList: List<StoreComboResult>) {
-        storeList = newList
+        storeCombo = newList
         notifyDataSetChanged()
     }
 }

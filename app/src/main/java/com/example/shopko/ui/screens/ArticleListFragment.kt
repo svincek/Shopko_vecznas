@@ -7,7 +7,6 @@ import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Canvas
 import android.graphics.Color
-import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
@@ -62,6 +61,7 @@ class ArticleListFragment : Fragment() {
     private lateinit var searchBar: EditText
     private lateinit var myListText: TextView
     private lateinit var db: AppDatabase
+    private var hasLoadedFromDb: Boolean = false
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -93,6 +93,19 @@ class ArticleListFragment : Fragment() {
             override fun afterTextChanged(s: android.text.Editable?) {}
         })
 
+        lifecycleScope.launch {
+            if(!hasLoadedFromDb){
+                val dao = db.userArticlesDao()
+                val articles = dao.getAll().map { it.toDisplay() }
+
+                articleList.clear()
+                articleList.addAll(articles)
+
+                articleAdapter.notifyDataSetChanged()
+                refreshListView()
+                hasLoadedFromDb = true
+            }
+        }
 
         val scanButton = view.findViewById<View>(R.id.btnScan)
 
@@ -310,20 +323,26 @@ class ArticleListFragment : Fragment() {
         }
 
         btnAdvance.setOnClickListener {
-            val selectedArticles = articleList.filter { it.isChecked }
-            if (selectedArticles.isNotEmpty()) {
-                if (ActivityCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.ACCESS_FINE_LOCATION
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    permissionForScan = false
-                    requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+            lifecycleScope.launch {
+                val selectedArticles = articleList.filter { it.isChecked }
+                if (selectedArticles.isNotEmpty()) {
+                    if (ActivityCompat.checkSelfPermission(
+                            requireContext(),
+                            Manifest.permission.ACCESS_FINE_LOCATION
+                        ) != PackageManager.PERMISSION_GRANTED
+                    ) {
+                        permissionForScan = false
+                        requestPermissionLauncher.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+                    } else {
+                        val db = AppDatabase.getDatabase(requireContext())
+                        val dao = db.userArticlesDao()
+                        dao.clearAll()
+                        dao.insertAll(selectedArticles.map { it.toEntity() })
+                        findNavController().navigate(R.id.action_storesFragment)
+                    }
                 } else {
-                    findNavController().navigate(R.id.action_storesFragment)
+                    Toast.makeText(activity, "Odaberite barem jedan artikl!", Toast.LENGTH_SHORT).show()
                 }
-            } else {
-                Toast.makeText(activity, "Odaberite barem jedan artikl!", Toast.LENGTH_SHORT).show()
             }
         }
 

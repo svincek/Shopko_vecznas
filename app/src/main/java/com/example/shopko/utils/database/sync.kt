@@ -19,7 +19,7 @@ suspend fun syncDataFromApiToRoom(context: Context) = withContext(Dispatchers.IO
         val pageSize = 100
         var currentPage = 0
         var totalFetched: Int
-        //if(storeCount==0){
+        if(storeCount==0){
             do {
                 val stores = api.getStoresPaginated(currentPage, pageSize)
                 totalFetched = stores.size
@@ -47,12 +47,12 @@ suspend fun syncDataFromApiToRoom(context: Context) = withContext(Dispatchers.IO
 
                 Log.d("API Stores Page", "Page $currentPage fetched ${stores.size} stores")
             } while (totalFetched == pageSize)
-        //} else {
-            //Log.d("Sync", "Stores already initialized, skipping store sync")
-        //}
+        } else {
+            Log.d("Sync", "Stores already initialized, skipping store sync")
+        }
 
         currentPage = 0
-        //if(articleCount==0){
+        if(articleCount==0){
 
             do {
                 val articles = api.getArticlesPaginated(currentPage, pageSize)
@@ -85,9 +85,9 @@ suspend fun syncDataFromApiToRoom(context: Context) = withContext(Dispatchers.IO
 
                 Log.d("API Articles Page", "Page $currentPage fetched ${articles.size} articles")
             } while (totalFetched > 0)
-        //} else {
-            //Log.d("Sync", "Articles already initialized, skipping article sync")
-        //}
+        } else {
+            Log.d("Sync", "Articles already initialized, skipping article sync")
+        }
 
     } catch (e: Exception) {
         Log.e("Error", e.toString())

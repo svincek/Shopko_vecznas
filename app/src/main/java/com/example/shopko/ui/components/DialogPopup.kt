@@ -25,11 +25,15 @@ import androidx.camera.view.PreviewView
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
 import com.example.shopko.R
+import com.example.shopko.data.model.ArticleDisplay
 import com.example.shopko.data.model.ShopkoApp
 import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.utils.FileUtils
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
+import kotlinx.coroutines.launch
 import java.io.File
 
 class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment() {
@@ -52,7 +56,6 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                 }
 
                 if (scannedArticlesList.isNotEmpty()) {
-                    //articleList.addAll(scannedArticlesList)
                     onArticlesAdded()
                     dialog?.dismiss()
                 } else {
@@ -160,12 +163,23 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                             Log.d("TextRecognition", "Recognized text: $text")
                         }
 
-                        if (scannedArticlesList.isNotEmpty()) {
-                            //articleList.addAll(scannedArticlesList)
-                            onArticlesAdded()
-                            Log.d("ARTIKLI", "$articleList")
-                        } else {
-                            Toast.makeText(context, "No store results found", Toast.LENGTH_SHORT).show()
+                        lifecycleScope.launch {
+                            if (scannedArticlesList.isNotEmpty()) {
+                                val scannedArticles = mutableListOf<ArticleDisplay>()
+                                scannedArticlesList.forEach{ scannedArticle ->
+                                    scannedArticles.addAll(AppDatabase.getDatabase(requireContext()).articleDao().getArticlesBySubcategoryContains(scannedArticle).map{
+                                        ArticleDisplay(
+                                            brand = it.brand,
+                                            quantity = it.quantity,
+                                            subcategory = it.subcategory
+                                        )
+                                    }.distinctBy { it.brand })
+                                }
+                                articleList.addAll(scannedArticles)
+                                onArticlesAdded()
+                            } else {
+                                Toast.makeText(context, "No store results found", Toast.LENGTH_SHORT).show()
+                            }
                         }
                     }
                     dialog?.dismiss()

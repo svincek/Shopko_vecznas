@@ -7,7 +7,6 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleDisplay
 import com.example.shopko.data.model.ArticleEntity
 
 class PreferenceAdapter(
@@ -48,19 +47,6 @@ class PreferenceAdapter(
                 checkBox.isChecked = !checkBox.isChecked
             }
         }
-    }
-
-    private fun getCurrentFavourites(): List<ArticleDisplay> {
-        return articles
-            .filter { it.isFavourite }
-            .map { article ->
-                ArticleDisplay(
-                    brand = article.brand,
-                    quantity = article.quantity,
-                    subcategory = article.subcategory,
-                    isFavourite = true
-                )
-            }
     }
 }
 

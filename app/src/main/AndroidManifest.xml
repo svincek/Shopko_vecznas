@@ -39,7 +39,7 @@
 
 
         <activity
-            android:name=".ui.screens.StoreDetailActivity"
+            android:name=".ui.screens.StoreDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ui.MainActivity"

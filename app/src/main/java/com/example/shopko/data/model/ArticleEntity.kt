@@ -1,10 +1,13 @@
 package com.example.shopko.data.model
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import kotlinx.serialization.Serializable
 
 @Serializable
+@Parcelize
 @Entity(tableName = "articles")
 data class ArticleEntity(
     @PrimaryKey val productId: Long?,
@@ -24,4 +27,4 @@ data class ArticleEntity(
     var isFavourite: Boolean = false,
     var buyQuantity: Int = 1,
     var isChecked: Boolean = false
-)
+) : Parcelable

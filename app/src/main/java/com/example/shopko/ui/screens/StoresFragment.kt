@@ -20,6 +20,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
+import com.example.shopko.data.model.CurrentStoreComboResult.storeCombo
 import com.example.shopko.data.model.StoreComboResult
 import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.ui.adapters.StoresAdapter
@@ -36,7 +37,6 @@ class StoresFragment : Fragment() {
 
     private lateinit var adapter: StoresAdapter
     private var storeList: List<StoreComboResult> = emptyList()
-    private var originalList: List<StoreComboResult> = emptyList()
 
     private lateinit var loadingSpinner: ProgressBar
     private lateinit var resultStoreCount: TextView
@@ -72,7 +72,7 @@ class StoresFragment : Fragment() {
         resultStoreCount = view.findViewById(R.id.resultCount)
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewStores)
-        adapter = StoresAdapter(emptyList())
+        adapter = StoresAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
 
@@ -116,7 +116,7 @@ class StoresFragment : Fragment() {
         lifecycleScope.launch {
             loadingSpinner.visibility = View.VISIBLE
             val filteredArticles = articleList.filter { it.isChecked }
-            originalList = withContext(Dispatchers.IO) {
+            storeCombo = withContext(Dispatchers.IO) {
                 sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
             }
             applyFiltersAndUpdateUI("")
@@ -129,7 +129,7 @@ class StoresFragment : Fragment() {
     }
 
     private fun applyFiltersAndUpdateUI(query: String) {
-        val filteredList = originalList.filter {
+        val filteredList = storeCombo.filter {
             it.store.size <= selectedStoreCount && it.distance <= selectedDistance*1000 &&
                     it.store.any { s ->
                         s.name.contains(query, ignoreCase = true) ||
@@ -148,25 +148,25 @@ class StoresFragment : Fragment() {
 
             val filteredArticles = articleList.filter { it.isChecked }
 
-            originalList = withContext(Dispatchers.IO) {
+            storeCombo = withContext(Dispatchers.IO) {
                 sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
             }
 
-            originalList = withContext(Dispatchers.IO) {
+            storeCombo = withContext(Dispatchers.IO) {
                 val allCombos = sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
                 allCombos.filter { it.distance <= selectedDistance*1000 }
             }
 
 
-            storeList = originalList
-            setupRecyclerView(view, storeList)
+            storeList = storeCombo
+            setupRecyclerView(view)
             loadingSpinner.visibility = View.GONE
             resultStoreCount.text = "${storeList.count()} rezultata"
         }
     }
-    private fun setupRecyclerView(view: View, data: List<StoreComboResult>) {
+    private fun setupRecyclerView(view: View) {
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerViewStores)
-        adapter = StoresAdapter(data)
+        adapter = StoresAdapter()
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
         recyclerView.adapter = adapter
     }
