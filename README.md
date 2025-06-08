@@ -1,16 +1,15 @@
-# Shopko – Pametna aplikacija za optimizaciju kupovine namirnica
 
-**Shopko** je mobilna Android aplikacija razvijena u Kotlinu, s ciljem pomoći korisnicima u organizaciji i optimizaciji kupovine namirnica. Omogućuje skeniranje i izradu digitalnih popisa za kupovinu, usporedbu cijena između trgovina i odabir preferencija.
+# Shopko – Pametna Android aplikacija za optimizaciju kupovine
 
----
+**Shopko** je mobilna Android aplikacija razvijena u Kotlinu koja korisnicima pomaže u organizaciji kupovine. Omogućuje skeniranje artikala, usporedbu cijena i pronalazak najpovoljnijih trgovina na temelju lokacije.
 
 ## Ključne funkcionalnosti
 
-- Skeniranje i ručni unos popisa za kupovinu
-- Prikaz najpovoljnijih trgovina u blizini s aktualnim popustima
-- Filtriranje proizvoda prema brendovima i preferencijama korisnika
-
----
+- Skeniranje i ručni unos artikala
+- Izrada i uređivanje popisa za kupovinu
+- Usporedba cijena proizvoda među trgovinama
+- Prikaz najbližih i najpovoljnijih trgovina (lokacijski)
+- Filtriranje po brendovima, kategorijama i preferencijama
 
 ## Tehnologije i alati
 
@@ -19,41 +18,47 @@
 - **Arhitektura:** MVVM
 - **Mape i lokacija:** Google Maps API
 - **CI/CD:** GitHub Actions
+- **JSON komunikacija:** Retrofit + Moshi/Gson
 
----
-
-## Kako pokrenuti projekt lokalno
+## Pokretanje projekta lokalno
 
 1. Kloniraj repozitorij:
    ```bash
    git clone https://github.com/svincek/Shopko_vecznas.git
-   ```
+Otvori projekt u Android Studio.
 
-2. Otvori projekt u **Android Studiju**.
+Dodaj local.properties datoteku:
 
-3. Dodaj `local.properties` datoteku u root projekta:
-   ```properties
-   sdk.dir=/Users/korisnik/Library/Android/sdk
-   API_KEY= *Ovdje staviti API ključ, za dostavljanje API ključa prvo kontaktirati na mail: simon.vincek@gmail.com*
-   ```
+properties
+Copy
+Edit
+sdk.dir=/Users/korisnik/Library/Android/sdk
+API_KEY= # kontaktirati na: simon.vincek@gmail.com za api ključ
+Pokreni:
 
-4. Pokreni `Build > Make Project` ili `./gradlew build`
+Build > Make Project
 
----
+ili preko CLI: ./gradlew build
 
-## Napomena o commit porukama
+Komunikacija s backendom
+Aplikacija se spaja na Spring Boot REST API (hostiran posebno), preko sljedećih ruta:
 
-Napomena: Stariji commitovi nisu u potpunosti dokumentirani jer je projekt prvotno razvijan bez formalnih commit pravila. Od 1.5.2025. commit poruke prate preporučenu praksu.
-Od 1.5.2025., commit poruke prate standardizirani format:
-```
-feat: Dodana funkcija za filtriranje trgovina po udaljenosti
-fix: Ispravljen bug pri skeniranju bar koda
-```
+GET /articles?page=X&size=Y – artikli
 
----
+GET /stores – trgovine s geolokacijama
 
-## Kontakt
+Primjeri commit poruka
+bash
+Copy
+Edit
+feat: Implementiran prikaz trgovina na mapi
+fix: Ispravljen crash prilikom skeniranja praznog bar koda
 
-Autori: [Simon Vincek, Dino Huđ, Lara Šljivić]  
-Email: [simon.vincek@gmail.com, dhud61@gmail.com, lara.sljivic@gmail.com]  
-GitHub: [github.com/svincek]
+👤 Autori
+Simon Vincek – simon.vincek@gmail.com
+
+Dino Huđ – dhud61@gmail.com
+
+Lara Šljivić – lara.sljivic@gmail.com
+
+GitHub: github.com/svincek
