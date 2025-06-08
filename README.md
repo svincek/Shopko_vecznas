@@ -56,6 +56,7 @@ fix: Ispravljen crash prilikom skeniranja praznog bar koda
 ```
 
 👤 Autori
+
 Simon Vincek – simon.vincek@gmail.com
 
 Dino Huđ – dhud61@gmail.com
