@@ -11,7 +11,7 @@ import com.example.shopko.data.model.ArticleEntity
 import com.example.shopko.data.model.StoreDao
 import com.example.shopko.data.model.StoreEntity
 
-@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 5)
+@Database(entities = [StoreEntity::class, ArticleEntity::class], version = 6)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun storeDao(): StoreDao
     abstract fun articleDao(): ArticleDao
@@ -21,14 +21,14 @@ abstract class AppDatabase : RoomDatabase() {
 
         fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
-                val MIGRATION_4_5 = object : Migration(4, 5){
+                val MIGRATION_5_6 = object : Migration(5, 6){
                     override fun migrate(database: SupportSQLiteDatabase){}
                 }
                 val instance = Room.databaseBuilder(
-                                context.applicationContext,
-                                AppDatabase::class.java,
-                                "shopko_database"
-                            ).addMigrations(MIGRATION_4_5)
+                    context.applicationContext,
+                    AppDatabase::class.java,
+                    "shopko_database"
+                ).fallbackToDestructiveMigration(false)
                     .build()
                 INSTANCE = instance
                 instance

@@ -42,13 +42,17 @@ suspend fun sortStoreCombo(
     val userLocation = locationHelper.getLastLocationSuspend()
     val userLatLng = userLocation?.let { LatLng(it.latitude, it.longitude) }
 
-    val sortedStores = userLatLng?.let {
+    val sortedStores = userLatLng?.let { userLatLng ->
         stores.sortedBy { store ->
             DistanceUtil.calculateDistance(userLatLng, LatLng(store.latitude ?: 0.0, store.longitude ?: 0.0))
         }
     } ?: stores
 
-    val limitedStores = sortedStores.take(20)
+    val limitedStores = sortedStores
+        .groupBy { it.name }
+        .flatMap { (_, storesInChain) ->
+            storesInChain.take(3)
+        }
 
     val allStoreCombos = (1..maxCombos).flatMap { count ->
         limitedStores.combinations(count)
@@ -91,18 +95,26 @@ suspend fun sortStoreCombo(
 
     return when (filter) {
         Filters.BYPRICE -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }.thenBy { it.totalPrice }
+            compareByDescending<StoreComboResult> { it.matchedArticles.size }
+                .thenBy { it.missingTypes.size }
+                .thenBy { it.totalPrice }
+                .thenBy { it.distance }
         )
 
         Filters.BYDISTANCE -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }.thenBy { it.distance }
+            compareByDescending<StoreComboResult> { it.matchedArticles.size }
+                .thenBy { it.missingTypes.size }
+                .thenBy { it.distance }
+                .thenBy { it.totalPrice }
         )
 
         Filters.BYPRICE_DESC -> validCombos.sortedWith(
-            compareBy<StoreComboResult> { it.missingTypes.size }.thenByDescending { it.totalPrice }
+            compareByDescending<StoreComboResult> { it.matchedArticles.size }
+                .thenBy { it.missingTypes.size }
+                .thenByDescending { it.totalPrice }
         )
 
-        Filters.DEFAULT -> validCombos.sortedBy { it.missingTypes.size }
+        Filters.DEFAULT -> validCombos.sortedByDescending { it.matchedArticles.size }
     }
 }
 
@@ -126,3 +138,6 @@ fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
 
     return totalDistance
 }
+
+
+

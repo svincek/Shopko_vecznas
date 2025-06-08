@@ -28,16 +28,19 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
 import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.ui.adapters.ArticleAdapter
 import com.example.shopko.ui.components.MyCustomDialog
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileWriter
 import java.io.IOException
@@ -58,6 +61,7 @@ class ArticleListFragment : Fragment() {
     private lateinit var btnExport: ImageButton
     private lateinit var searchBar: EditText
     private lateinit var myListText: TextView
+    private lateinit var db: AppDatabase
 
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -65,6 +69,7 @@ class ArticleListFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_article_list, container, false)
+        listRecyclerView = view.findViewById(R.id.list)
         emptyListText = view.findViewById(R.id.empty_list_text)
         emptyListImg = view.findViewById(R.id.imageViewEmpty)
         emptyListTextUnder = view.findViewById(R.id.underEmptyListText)
@@ -75,7 +80,10 @@ class ArticleListFragment : Fragment() {
         btnExport = view.findViewById(R.id.btnExport)
         searchBar = view.findViewById(R.id.searchBar)
         myListText = view.findViewById(R.id.myListText)
-
+        db = AppDatabase.getDatabase(requireContext())
+        articleAdapter = ArticleAdapter(articleList, emptyList())
+        listRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        listRecyclerView.adapter = articleAdapter
 
         searchBar.addTextChangedListener(object : android.text.TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -122,6 +130,13 @@ class ArticleListFragment : Fragment() {
         listRecyclerView = view.findViewById(R.id.list)
         val addButton: ImageButton = view.findViewById(R.id.btnAdd)
 
+        lifecycleScope.launch {
+            val favouriteArticles = db.articleDao().getFavouriteArticles()
+
+            articleAdapter = ArticleAdapter(articleList, favouriteArticles)
+            listRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+            listRecyclerView.adapter = articleAdapter
+        }
         articleAdapter = ArticleAdapter(articleList)
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
@@ -286,13 +301,9 @@ class ArticleListFragment : Fragment() {
             exportArticleListToTxt()
         }
 
-
         btnToTop.setOnClickListener {
             listRecyclerView.smoothScrollToPosition(0)
         }
-
-
-
 
         addButton.setOnClickListener {
             findNavController().navigate(R.id.action_add_article)
@@ -319,6 +330,14 @@ class ArticleListFragment : Fragment() {
 
         refreshListView()
         return view
+    }
+
+    override fun onResume() {
+        super.onResume()
+        lifecycleScope.launch {
+            val updatedFavourites = db.articleDao().getFavouriteArticles()
+            articleAdapter.updateFavourites(updatedFavourites)
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")

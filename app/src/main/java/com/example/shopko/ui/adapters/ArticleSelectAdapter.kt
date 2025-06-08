@@ -30,7 +30,7 @@ class ArticleSelectAdapter(
                 brand = newArticle.brand,
                 subcategory = newArticle.subcategory,
                 isChecked = isSelected,
-                buyQuantity = newArticle.buyQuantity
+                quantity = newArticle.quantity
             )
         }
         articles = updatedArticles
