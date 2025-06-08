@@ -6,15 +6,11 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.preference.ArticlePreference
+import com.example.shopko.data.model.ArticleEntity
 
 class SavedPreferencesAdapter(
-    private val preferences: Map<String, List<ArticlePreference>>
+    private val favourites: List<ArticleEntity>
 ) : RecyclerView.Adapter<SavedPreferencesAdapter.PreferenceViewHolder>() {
-
-    private val flatList = preferences.flatMap { (type, prefs) ->
-        prefs.map { pref -> Pair(type, pref) }
-    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreferenceViewHolder {
         val view = LayoutInflater.from(parent.context)
@@ -23,21 +19,21 @@ class SavedPreferencesAdapter(
     }
 
     override fun onBindViewHolder(holder: PreferenceViewHolder, position: Int) {
-        val (type, pref) = flatList[position]
-        holder.bind(type, pref)
+        val article = favourites[position]
+        holder.bind(article)
     }
 
-    override fun getItemCount(): Int = flatList.size
+    override fun getItemCount(): Int = favourites.size
 
     inner class PreferenceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         private val typeText: TextView = itemView.findViewById(R.id.typeTextView)
         private val brandText: TextView = itemView.findViewById(R.id.brandTextView)
         private val sizeText: TextView = itemView.findViewById(R.id.sizeTextView)
 
-        fun bind(type: String, pref: ArticlePreference) {
-            typeText.text = type
-            brandText.text = pref.brand
-            sizeText.text = pref.unitSize
+        fun bind(article: ArticleEntity) {
+            typeText.text = article.subcategory
+            brandText.text = article.brand
+            sizeText.text = article.quantity
         }
     }
 }

@@ -12,10 +12,13 @@ import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
 import com.example.shopko.data.model.ArticleDisplay
+import com.example.shopko.data.model.ArticleEntity
 import com.example.shopko.data.model.UserArticleList.articleList
-import com.example.shopko.data.preference.PreferenceManager
 
-class ArticleAdapter(private val fullList: MutableList<ArticleDisplay>) :
+class ArticleAdapter(
+    private val fullList: MutableList<ArticleDisplay>,
+    private var favouriteArticles: List<ArticleEntity> = emptyList()
+) :
     RecyclerView.Adapter<ArticleAdapter.ArticleViewHolder>() {
 
     private var filteredList: MutableList<ArticleDisplay> = fullList.toMutableList()
@@ -36,36 +39,41 @@ class ArticleAdapter(private val fullList: MutableList<ArticleDisplay>) :
         return ArticleViewHolder(view)
     }
 
+    fun updateFavourites(newFavourites: List<ArticleEntity>) {
+        favouriteArticles = newFavourites
+        notifyDataSetChanged()
+    }
+
     override fun onBindViewHolder(holder: ArticleViewHolder, position: Int) {
         val currentArticle = filteredList[position]
-        val context = holder.itemView.context
 
         holder.articleName.text = currentArticle.subcategory
         holder.quantity.text = currentArticle.buyQuantity.toString()
         holder.checkBox.isChecked = currentArticle.isChecked
 
-        val preferences = PreferenceManager.getPreferences(context,
-            currentArticle.subcategory.toString()
-        ) ?: emptyList()
+        val favoritesForSubcategory = favouriteArticles.filter { it.subcategory == currentArticle.subcategory }
+            .distinctBy { it.brand to it.quantity }
+        val countFavorites = favoritesForSubcategory.size
 
-        when (preferences.size) {
+        when (countFavorites) {
             0 -> {
                 holder.starIcon.setImageResource(R.drawable.icon_starbox_false)
                 holder.starCount.text = "Odaberi favorita"
             }
             1 -> {
                 holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
-                holder.starCount.text = preferences[0].brand
+                holder.starCount.text = favoritesForSubcategory[0].brand ?: "1 favorita"
             }
             else -> {
                 holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
-                holder.starCount.text = "${preferences.size} favorita"
+                holder.starCount.text = "$countFavorites favorita"
             }
         }
 
         holder.starIcon.setOnClickListener {
             val bundle = Bundle().apply {
-                putString("article_type", currentArticle.subcategory)
+                putString("subcategory", currentArticle.subcategory)
+                putString("quantity", currentArticle.quantity)
             }
             findNavController(holder.itemView).navigate(
                 R.id.preferenceSelectionFragment,
@@ -93,7 +101,7 @@ class ArticleAdapter(private val fullList: MutableList<ArticleDisplay>) :
     }
 
 
-    override fun getItemCount(): Int = articleList.size
+    override fun getItemCount(): Int = filteredList.size
 
     fun filter(query: String) {
         filteredList = if (query.isEmpty()) {

@@ -59,27 +59,12 @@ class ArticleAddFragment : Fragment() {
             DividerItemDecoration(requireContext(), LinearLayoutManager.VERTICAL)
         )
 
-        updateUI(emptyList())
+        loadArticles("")
 
         searchBar.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
-                val query = s.toString().trim().lowercase()
-
-
-                lifecycleScope.launch {
-                    val filtered = db.articleDao().getAllArticles()
-                        .filter { it.category?.lowercase()?.contains(query) == true }
-                        .map {
-                            ArticleDisplay(
-                                brand = it.brand,
-                                subcategory = it.subcategory
-                            )
-                        }
-                        .distinctBy {it.subcategory }
-
-                    adapter.updateList(filtered)
-                    updateUI(filtered)
-                }
+                val query = s.toString().trim()
+                loadArticles(query)
             }
 
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -124,5 +109,22 @@ class ArticleAddFragment : Fragment() {
         }
 
         resultCount.text = "${filteredList.size} rezultata"
+    }
+
+    private fun loadArticles(query: String) {
+        lifecycleScope.launch {
+            val filtered = db.articleDao().getArticlesByCategoryContains(query)
+                .map {
+                    ArticleDisplay(
+                        brand = it.brand,
+                        subcategory = it.subcategory,
+                        quantity = it.quantity
+                    )
+                }
+                .distinctBy { it.subcategory }
+
+            adapter.updateList(filtered)
+            updateUI(filtered)
+        }
     }
 }
