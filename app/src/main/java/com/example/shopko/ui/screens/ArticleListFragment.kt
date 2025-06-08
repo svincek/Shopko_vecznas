@@ -5,6 +5,10 @@ import android.animation.ValueAnimator
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.graphics.Canvas
+import android.graphics.Color
+import android.graphics.Typeface
+import android.graphics.drawable.GradientDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.TypedValue
@@ -20,10 +24,13 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.cardview.widget.CardView
 import androidx.core.app.ActivityCompat
+import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
@@ -31,6 +38,8 @@ import com.example.shopko.data.model.UserArticleList.articleList
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.ui.adapters.ArticleAdapter
 import com.example.shopko.ui.components.MyCustomDialog
+import com.google.android.material.shape.MaterialShapeDrawable
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.launch
 import java.io.File
 import java.io.FileWriter
@@ -128,6 +137,105 @@ class ArticleListFragment : Fragment() {
             listRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             listRecyclerView.adapter = articleAdapter
         }
+        articleAdapter = ArticleAdapter(articleList)
+
+        val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+            override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+            ): Boolean = false
+
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val position = viewHolder.adapterPosition
+                val removedItem = articleList[position]
+
+                articleList.removeAt(position)
+                articleAdapter.notifyItemRemoved(position)
+                refreshListView()
+
+                val snackbar = Snackbar.make(listRecyclerView, "Artikl uklonjen s popisa", Snackbar.LENGTH_LONG)
+                snackbar.setAction("Poništi") {
+                    articleList.add(position, removedItem)
+                    articleAdapter.notifyItemInserted(position)
+                    refreshListView()
+                }
+
+
+
+                val snackbarView = snackbar.view
+                val snackbarText = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_text)
+                val snackbarAction = snackbarView.findViewById<TextView>(com.google.android.material.R.id.snackbar_action)
+
+
+                val background = snackbarView.background as? MaterialShapeDrawable
+                background?.shapeAppearanceModel = background.shapeAppearanceModel
+                    .toBuilder()
+                    .setAllCornerSizes(20f)
+                    .build()
+
+
+                background?.setTint(ContextCompat.getColor(requireContext(), R.color.black))
+
+
+                snackbarText.setTextColor(ContextCompat.getColor(requireContext(), R.color.white_smoke))
+                snackbarText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                snackbarText.typeface = ResourcesCompat.getFont(requireContext(), R.font.satoshi_medium)
+
+                snackbarAction.setTextColor(ContextCompat.getColor(requireContext(), R.color.light_red))
+                snackbarAction.setTextSize(TypedValue.COMPLEX_UNIT_SP, 14f)
+                snackbarAction.typeface = ResourcesCompat.getFont(requireContext(), R.font.satoshi_medium)
+
+                snackbar.show()
+
+            }
+
+            override fun onChildDraw(
+                c: Canvas,
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                dX: Float,
+                dY: Float,
+                actionState: Int,
+                isCurrentlyActive: Boolean
+            ) {
+                val itemView = viewHolder.itemView
+
+                val background = GradientDrawable().apply {
+                    shape = GradientDrawable.RECTANGLE
+                    cornerRadius = 30f
+                    setColor(Color.parseColor("#c02424"))
+                }
+
+                val icon = ContextCompat.getDrawable(requireContext(), R.drawable.icon_x)
+                val iconMargin = (itemView.height - (icon?.intrinsicHeight ?: 0)) / 2
+
+                val iconTop = itemView.top + iconMargin
+                val iconBottom = iconTop + (icon?.intrinsicHeight ?: 0)
+                val iconLeft = itemView.right - iconMargin - (icon?.intrinsicWidth ?: 0)
+                val iconRight = itemView.right - iconMargin
+
+                background.setBounds(
+                    itemView.right + dX.toInt(),
+                    itemView.top,
+                    itemView.right,
+                    itemView.bottom
+                )
+                background.draw(c)
+
+                icon?.setBounds(iconLeft, iconTop, iconRight, iconBottom)
+                icon?.draw(c)
+
+                super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive)
+            }
+        })
+        itemTouchHelper.attachToRecyclerView(listRecyclerView)
+
+
+
+
+        listRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        listRecyclerView.adapter = articleAdapter
 
         var cardIsShrunk = false
 
@@ -293,7 +401,7 @@ class ArticleListFragment : Fragment() {
             val exportDir = File(requireContext().getExternalFilesDir(null), "exports")
             if (!exportDir.exists()) exportDir.mkdirs()
 
-            val file = File(exportDir, "PopisArtikala.txt")
+            val file = File(exportDir, "MojPopis.txt")
             val writer = FileWriter(file)
             writer.write(exportText)
             writer.flush()
