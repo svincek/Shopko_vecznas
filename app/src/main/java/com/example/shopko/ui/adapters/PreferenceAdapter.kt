@@ -1,6 +1,5 @@
 package com.example.shopko.ui.preference
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,68 +7,61 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.Article
-import com.example.shopko.data.preference.ArticlePreference
-import com.example.shopko.data.preference.PreferenceManager
+import com.example.shopko.data.model.ArticleDisplay
+import com.example.shopko.data.model.ArticleEntity
 
 class PreferenceAdapter(
-    private val articles: List<Article>,
-    private val context: Context,
-    private val articleType: String,
-    private val onSave: (List<ArticlePreference>) -> Unit
-) : RecyclerView.Adapter<PreferenceAdapter.PreferenceViewHolder>() {
+    private val articles: List<ArticleEntity>,
+    private val onFavouriteChanged: (ArticleEntity) -> Unit
+) : RecyclerView.Adapter<PreferenceAdapter.FavouriteViewHolder>() {
 
-    private val selectedPrefs = mutableSetOf<ArticlePreference>()
-
-    init {
-        selectedPrefs.addAll(PreferenceManager.getMultiplePreferences(context, articleType))
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PreferenceViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavouriteViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_preference, parent, false)
-        return PreferenceViewHolder(view)
+        return FavouriteViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: PreferenceViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: FavouriteViewHolder, position: Int) {
         val article = articles[position]
-        val pref = ArticlePreference(article.brand, article.unitSize)
-        holder.bind(article, selectedPrefs.contains(pref))
-
-        holder.checkBox.setOnCheckedChangeListener(null)
-        holder.checkBox.isChecked = selectedPrefs.contains(pref)
-
-        holder.checkBox.setOnCheckedChangeListener { _, isChecked ->
-            if (isChecked) selectedPrefs.add(pref) else selectedPrefs.remove(pref)
-        }
-
-        holder.itemView.setOnClickListener {
-            holder.checkBox.isChecked = !holder.checkBox.isChecked
-        }
+        holder.bind(article)
     }
 
     override fun getItemCount(): Int = articles.size
 
-    fun getSelectedPreferences(): List<ArticlePreference> {
-        return selectedPrefs.toList()
-    }
+    inner class FavouriteViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        private val brandText: TextView = itemView.findViewById(R.id.brandText)
+        private val sizeText: TextView = itemView.findViewById(R.id.sizeText)
+        private val checkBox: CheckBox = itemView.findViewById(R.id.prefCheckBox)
 
-    override fun onViewDetachedFromWindow(holder: PreferenceViewHolder) {
-        super.onViewDetachedFromWindow(holder)
-        onSave(selectedPrefs.toList())
-    }
-
-    inner class PreferenceViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val brandText: TextView = itemView.findViewById(R.id.brandText)
-        val sizeText: TextView = itemView.findViewById(R.id.sizeText)
-        val checkBox: CheckBox = itemView.findViewById(R.id.prefCheckBox)
-
-        fun bind(article: Article, isSelected: Boolean) {
+        fun bind(article: ArticleEntity) {
             brandText.text = article.brand
-            sizeText.text = article.unitSize
-            checkBox.isChecked = isSelected
+            sizeText.text = article.quantity
+            checkBox.setOnCheckedChangeListener(null)
+            checkBox.isChecked = article.isFavourite
+
+            checkBox.setOnCheckedChangeListener { _, isChecked ->
+                article.isFavourite = isChecked
+                onFavouriteChanged(article)
+            }
+
+            itemView.setOnClickListener {
+                checkBox.isChecked = !checkBox.isChecked
+            }
         }
     }
 
-
+    private fun getCurrentFavourites(): List<ArticleDisplay> {
+        return articles
+            .filter { it.isFavourite }
+            .map { article ->
+                ArticleDisplay(
+                    brand = article.brand,
+                    quantity = article.quantity,
+                    subcategory = article.subcategory,
+                    isFavourite = true
+                )
+            }
+    }
 }
+
+

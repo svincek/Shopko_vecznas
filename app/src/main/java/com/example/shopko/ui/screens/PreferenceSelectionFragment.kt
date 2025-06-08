@@ -11,19 +11,21 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.preference.PreferenceManager
-import com.example.shopko.data.preference.ArticlePreference
-import com.example.shopko.data.repository.getStores
+import com.example.shopko.data.model.ArticleEntity
+import com.example.shopko.data.repository.AppDatabase
 import kotlinx.coroutines.launch
 
 class PreferenceSelectionFragment : Fragment() {
 
-    private lateinit var articleType: String
+    private lateinit var subcategory: String
+    private lateinit var quantity: String
     private lateinit var adapter: PreferenceAdapter
+    private lateinit var db: AppDatabase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        articleType = arguments?.getString("article_type") ?: ""
+        subcategory = arguments?.getString("subcategory") ?: ""
+        quantity = arguments?.getString("quantity") ?: ""
     }
 
     override fun onCreateView(
@@ -32,29 +34,24 @@ class PreferenceSelectionFragment : Fragment() {
     ): View {
         val root = inflater.inflate(R.layout.fragment_preference_selection, container, false)
         val recyclerView = root.findViewById<RecyclerView>(R.id.preferenceRecyclerView)
-
         val backButton = root.findViewById<ImageButton>(R.id.backButton)
+
         backButton.isEnabled = false
-
-
-
+        db = AppDatabase.getDatabase(requireContext())
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
         lifecycleScope.launch {
-            val storeList = getStores()
-            val articleOptions = storeList
-                .flatMap { it.articles }
-                .filter { it.type == articleType }
-                .distinctBy { "${it.brand}-${it.unitSize}" }
-
-            adapter = PreferenceAdapter(articleOptions, requireContext(), articleType) {
-                if (it.isEmpty()) {
-                    PreferenceManager.clearPreference(requireContext(), articleType)
-                } else {
-                    PreferenceManager.setMultiplePreferences(requireContext(), articleType, it)
+            val filtered: List<ArticleEntity> = db.articleDao().getArticlesBySubcategoryContains(subcategory)
+                .distinctBy { it.brand to it.quantity }
+            adapter = PreferenceAdapter(filtered) { updatedArticle ->
+                lifecycleScope.launch {
+                    db.articleDao().updateFavouriteStatus(
+                        brand = updatedArticle.brand.toString(),
+                        subcategory = updatedArticle.subcategory.toString(),
+                        quantity = updatedArticle.quantity.toString(),
+                        isFavourite = updatedArticle.isFavourite
+                    )
                 }
-                Toast.makeText(requireContext(), "Preferenca spremljena", Toast.LENGTH_SHORT).show()
-                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
 
             recyclerView.adapter = adapter
@@ -62,19 +59,9 @@ class PreferenceSelectionFragment : Fragment() {
         }
 
         backButton.setOnClickListener {
-            if (::adapter.isInitialized) {
-                val selected = adapter.getSelectedPreferences()
-                if (selected.isEmpty()) {
-                    PreferenceManager.clearPreference(requireContext(), articleType)
-                } else {
-                    PreferenceManager.setMultiplePreferences(requireContext(), articleType, selected)
-                }
-                requireActivity().onBackPressedDispatcher.onBackPressed()
-            } else {
-                Toast.makeText(requireContext(), "Pričekaj!", Toast.LENGTH_SHORT).show()
-            }
+            Toast.makeText(requireContext(), "Favoriti spremljeni", Toast.LENGTH_SHORT).show()
+            requireActivity().onBackPressedDispatcher.onBackPressed()
         }
-
 
         return root
     }
