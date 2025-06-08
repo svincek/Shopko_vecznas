@@ -2,7 +2,6 @@ package com.example.shopko.utils.camera
 import android.net.Uri
 import android.util.Log
 import com.example.shopko.data.model.ShopkoApp
-import com.example.shopko.data.repository.getArticles
 import com.example.shopko.utils.general.levenshtein
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
@@ -11,7 +10,7 @@ import java.io.File
 import java.io.IOException
 import java.util.Locale
 
-fun runTextRecognitionOnImage(imageFile: File, onResult: (List<String>) -> Unit) {
+fun runTextRecognitionOnImage(products: List<String>, imageFile: File, onResult: (List<String>) -> Unit) {
     val context = ShopkoApp.getAppContext()
     try {
         val inputImage = InputImage.fromFilePath(context, Uri.fromFile(imageFile))
@@ -25,8 +24,6 @@ fun runTextRecognitionOnImage(imageFile: File, onResult: (List<String>) -> Unit)
                     .map { it.uppercase(Locale.getDefault()) }
                     .filter { it.isNotBlank() }
                 Log.d("CapturedText", "Recognized text: $textList")
-
-                val products: List<String> = getArticles().map { it.type }
 
                 val cleanedTextList = mutableListOf<String>()
 

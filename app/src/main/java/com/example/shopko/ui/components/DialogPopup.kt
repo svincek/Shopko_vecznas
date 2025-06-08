@@ -49,17 +49,20 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
-            val file = FileUtils.getFileFromUri(requireContext(), it)
-            runTextRecognitionOnImage(file) { scannedArticlesList ->
-                for (text in scannedArticlesList) {
-                    Log.d("TextRecognition", "Recognized text from gallery: $text")
-                }
+            lifecycleScope.launch {
+                val products: List<String> = AppDatabase.getDatabase(context).articleDao().getAllSubcategories()
+                val file = FileUtils.getFileFromUri(requireContext(), it)
+                runTextRecognitionOnImage(products, file) { scannedArticlesList ->
+                    for (text in scannedArticlesList) {
+                        Log.d("TextRecognition", "Recognized text from gallery: $text")
+                    }
 
-                if (scannedArticlesList.isNotEmpty()) {
-                    onArticlesAdded()
-                    dialog?.dismiss()
-                } else {
-                    Toast.makeText(requireContext(), "No store results found", Toast.LENGTH_SHORT).show()
+                    if (scannedArticlesList.isNotEmpty()) {
+                        onArticlesAdded()
+                        dialog?.dismiss()
+                    } else {
+                        Toast.makeText(requireContext(), "No store results found", Toast.LENGTH_SHORT).show()
+                    }
                 }
             }
         }
@@ -158,30 +161,34 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
                     Toast.makeText(context, "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
                     Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
 
-                    runTextRecognitionOnImage(photoFile) { scannedArticlesList ->
-                        for (text in scannedArticlesList) {
-                            Log.d("TextRecognition", "Recognized text: $text")
-                        }
+                    lifecycleScope.launch {
+                        val products: List<String> = AppDatabase.getDatabase(context).articleDao().getAllSubcategories()
+                        runTextRecognitionOnImage(products, photoFile) { scannedArticlesList ->
+                            for (text in scannedArticlesList) {
+                                Log.d("TextRecognition", "Recognized text: $text")
+                            }
 
-                        lifecycleScope.launch {
-                            if (scannedArticlesList.isNotEmpty()) {
-                                val scannedArticles = mutableListOf<ArticleDisplay>()
-                                scannedArticlesList.forEach{ scannedArticle ->
-                                    scannedArticles.addAll(AppDatabase.getDatabase(requireContext()).articleDao().getArticlesBySubcategoryContains(scannedArticle).map{
-                                        ArticleDisplay(
-                                            brand = it.brand,
-                                            quantity = it.quantity,
-                                            subcategory = it.subcategory
-                                        )
-                                    }.distinctBy { it.brand })
+                            lifecycleScope.launch {
+                                if (scannedArticlesList.isNotEmpty()) {
+                                    val scannedArticles = mutableListOf<ArticleDisplay>()
+                                    scannedArticlesList.forEach{ scannedArticle ->
+                                        scannedArticles.addAll(AppDatabase.getDatabase(requireContext()).articleDao().getArticlesBySubcategoryContains(scannedArticle).map{
+                                            ArticleDisplay(
+                                                brand = it.brand,
+                                                quantity = it.quantity,
+                                                subcategory = it.subcategory
+                                            )
+                                        }.distinctBy { it.brand })
+                                    }
+                                    articleList.addAll(scannedArticles)
+                                    onArticlesAdded()
+                                } else {
+                                    Toast.makeText(context, "No store results found", Toast.LENGTH_SHORT).show()
                                 }
-                                articleList.addAll(scannedArticles)
-                                onArticlesAdded()
-                            } else {
-                                Toast.makeText(context, "No store results found", Toast.LENGTH_SHORT).show()
                             }
                         }
                     }
+
                     dialog?.dismiss()
                 }
 

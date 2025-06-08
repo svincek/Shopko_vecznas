@@ -131,7 +131,7 @@ class StoresFragment : Fragment() {
             loadingSpinner.visibility = View.VISIBLE
             val filteredArticles = articleList.filter { it.isChecked }
             storeCombo = withContext(Dispatchers.IO) {
-                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter, selectedStore, workTime)
             }
             applyFiltersAndUpdateUI("")
             loadingSpinner.visibility = View.GONE
@@ -163,11 +163,11 @@ class StoresFragment : Fragment() {
             val filteredArticles = articleList.filter { it.isChecked }
 
             storeCombo = withContext(Dispatchers.IO) {
-                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter, selectedStore, workTime)
             }
 
             storeCombo = withContext(Dispatchers.IO) {
-                val allCombos = sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                val allCombos = sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter, selectedStore, workTime)
                 allCombos.filter { it.distance <= selectedDistance*1000 }
             }
 

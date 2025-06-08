@@ -35,6 +35,7 @@ class StartLoginFragment : Fragment() {
 
         btnLogin.setOnClickListener {
             AuthManager.login(fieldEMail.text.toString(), fieldPassword.text.toString()) { success, message ->
+                Toast.makeText(context, "Uspješno ste ulogirani!", Toast.LENGTH_SHORT).show()
                 if (success){
                     startActivity(Intent(activity, MainActivity::class.java))
                     activity?.finish()

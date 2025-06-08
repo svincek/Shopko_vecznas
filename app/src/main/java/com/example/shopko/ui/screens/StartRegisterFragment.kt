@@ -11,6 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.shopko.R
+import com.example.shopko.data.model.AuthManager
 import com.example.shopko.ui.MainActivity
 
 class StartRegisterFragment : Fragment() {
@@ -35,22 +36,22 @@ class StartRegisterFragment : Fragment() {
         val btnRegister = view.findViewById<ImageButton>(R.id.btnRegister)
 
         btnRegister.setOnClickListener {
-//            if(fieldPassword.text.toString() == fieldRepPassword.text.toString()){
-//                AuthManager.register(fieldEMail.text.toString(), fieldPassword.text.toString(),
-//                    fieldName.text.toString(), fieldSurname.text.toString()) { success, message ->
-//                    if (success){
-                        Toast.makeText(context, "uspjeh", Toast.LENGTH_SHORT).show()
+            if(fieldPassword.text.toString() == fieldRepPassword.text.toString()){
+                AuthManager.register(fieldEMail.text.toString(), fieldPassword.text.toString(),
+                    fieldName.text.toString(), fieldSurname.text.toString()) { success, message ->
+                    if (success){
+                        Toast.makeText(context, "Uspješno ste registrirani!", Toast.LENGTH_SHORT).show()
                         startActivity(Intent(activity, MainActivity::class.java))
                         activity?.finish()
-//                    }
-//                    else{
-//                        Toast.makeText(context, "Error: $message", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }
-//            else{
-//                Toast.makeText(context, "Lozinke se ne podudaraju!", Toast.LENGTH_SHORT).show()
-//            }
+                    }
+                    else{
+                        Toast.makeText(context, "Error: $message", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }
+            else{
+                Toast.makeText(context, "Lozinke se ne podudaraju!", Toast.LENGTH_SHORT).show()
+            }
         }
         btnLogin.setOnClickListener {
             findNavController().navigate(R.id.action_login)
