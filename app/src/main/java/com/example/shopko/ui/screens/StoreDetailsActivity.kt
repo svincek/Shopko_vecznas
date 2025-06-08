@@ -28,18 +28,18 @@ class StoreDetailActivity : AppCompatActivity() {
         insetsController?.systemBarsBehavior =
             WindowInsetsController.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewArticles)
+        val recyclerView = findViewById<RecyclerView>(R.id.store1Recycler)
         recyclerView.isNestedScrollingEnabled = false
 
         val storeCombo = intent.getParcelableExtra<StoreComboResultParcelable>("storeCombo")
 
         if (storeCombo != null) {
-            findViewById<TextView>(R.id.storeNameText).text = storeCombo.storeName
-            findViewById<TextView>(R.id.storeLocationText).text = storeCombo.storeLocation
-            findViewById<TextView>(R.id.storeHoursText).text = storeCombo.storeHours
-            findViewById<TextView>(R.id.totalPriceText).text = "€%.2f".format(storeCombo.totalPrice)
+            findViewById<TextView>(R.id.store1NameText).text = storeCombo.storeName
+            findViewById<TextView>(R.id.store1LocationText).text = storeCombo.storeLocation
+            findViewById<TextView>(R.id.store1HoursText).text = storeCombo.storeHours
+            findViewById<TextView>(R.id.store1TotalPriceText).text = "€%.2f".format(storeCombo.totalPrice)
 
-            val recyclerView = findViewById<RecyclerView>(R.id.recyclerViewArticles)
+            val recyclerView = findViewById<RecyclerView>(R.id.store1Recycler)
             recyclerView.layoutManager = LinearLayoutManager(this)
             recyclerView.adapter = ArticleStoreAdapter(storeCombo.articles)
         }

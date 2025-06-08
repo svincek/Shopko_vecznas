@@ -18,11 +18,8 @@
         <item name="postSplashScreenTheme">@style/Theme.Shopko</item>
     </style>
     <style name="CustomTextInputLayout" parent="Widget.Material3.TextInputLayout.FilledBox">
-        <!-- Postavi prozirnu boju za liniju okvira -->
         <item name="boxStrokeColor">@android:color/transparent</item>
-        <!-- Debljina linije kada NIJE u fokusu -->
         <item name="boxStrokeWidth">0dp</item>
-        <!-- Debljina linije kada JE u fokusu -->
         <item name="boxStrokeWidthFocused">0dp</item>
     </style>
 </resources>

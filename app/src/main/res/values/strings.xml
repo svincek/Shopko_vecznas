@@ -94,4 +94,12 @@
         libero vel nunc consequat, quis tincidunt nisl eleifend. Cras bibendum enim a justo luctus
         vestibulum. Fusce dictum libero quis erat maximus, vitae volutpat diam dignissim.
     </string>
+    <string name="otvoreno">Otvoreno</string>
+    <string name="kilometra_a">Kilometraža</string>
+    <string name="description">description</string>
+    <string name="jogurt">Jogurt</string>
+    <string name="_100g">100g</string>
+    <string name="zbregov">Zbregov</string>
+    <string name="veli_ina">Veličina</string>
+    <string name="brand">Brand</string>
 </resources>

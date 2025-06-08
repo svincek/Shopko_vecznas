@@ -26,7 +26,9 @@ import com.example.shopko.ui.adapters.StoresAdapter
 import com.example.shopko.ui.components.FilterBottomSheetDialog
 import com.example.shopko.ui.components.SortBottomSheetDialog
 import com.example.shopko.utils.enums.Filters
+import com.example.shopko.utils.enums.HourFilter
 import com.example.shopko.utils.enums.SortOption
+import com.example.shopko.utils.enums.StoreFilter
 import com.example.shopko.utils.sorting.sortStoreCombo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -42,9 +44,12 @@ class StoresFragment : Fragment() {
     private lateinit var resultStoreCount: TextView
 
     private var selectedFilter: Filters = Filters.BYPRICE
+    private var selectedStore: StoreFilter = StoreFilter.Sve
+    private var workTime: HourFilter = HourFilter.Sve
     private var selectedStoreCount: Int = 1
     private var currentSortOption: SortOption? = null
-    private var selectedDistance: Float = 20f
+    private var selectedDistance: Float = 5f
+
 
 
     override fun onCreateView(
@@ -89,13 +94,22 @@ class StoresFragment : Fragment() {
         })
 
         view.findViewById<LinearLayout>(R.id.btnOpenFilter).setOnClickListener {
-            FilterBottomSheetDialog(selectedStoreCount, selectedDistance) { newCount, newDistance ->
+            FilterBottomSheetDialog(
+                selectedStoreCount,
+                selectedDistance,
+                selectedStore,
+                workTime
+            ) { newCount, newDistance, newStore, newWorkTime ->
                 selectedStoreCount = newCount
                 selectedDistance = newDistance
+                selectedStore = newStore
+                workTime = newWorkTime
                 reloadData(requireView())
             }.show(childFragmentManager, "BottomSheetDialog")
-
         }
+
+
+
 
         view.findViewById<LinearLayout>(R.id.btnOpenSort).setOnClickListener {
             SortBottomSheetDialog(currentSortOption) { newSortOption ->
@@ -117,7 +131,7 @@ class StoresFragment : Fragment() {
             loadingSpinner.visibility = View.VISIBLE
             val filteredArticles = articleList.filter { it.isChecked }
             originalList = withContext(Dispatchers.IO) {
-                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter, selectedStore, workTime )
             }
             applyFiltersAndUpdateUI("")
             loadingSpinner.visibility = View.GONE
@@ -149,11 +163,11 @@ class StoresFragment : Fragment() {
             val filteredArticles = articleList.filter { it.isChecked }
 
             originalList = withContext(Dispatchers.IO) {
-                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter, selectedStore, workTime)
             }
 
             originalList = withContext(Dispatchers.IO) {
-                val allCombos = sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter)
+                val allCombos = sortStoreCombo(requireContext(), filteredArticles, selectedStoreCount, selectedFilter, selectedStore, workTime)
                 allCombos.filter { it.distance <= selectedDistance*1000 }
             }
 

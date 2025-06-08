@@ -35,22 +35,22 @@
         android:paddingHorizontal="16dp"
         android:paddingVertical="14dp"
         android:textColor="@color/gray"
-        android:textSize="16sp"
         android:textCursorDrawable="@null"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/btnOpenSort"
         app:layout_constraintStart_toStartOf="@+id/btnBack"
-        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewStores"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:clipToPadding="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/btnOpenSort"
         app:layout_constraintStart_toStartOf="@+id/resultCount"
-        app:layout_constraintTop_toBottomOf="@+id/resultCount" />
+        app:layout_constraintTop_toBottomOf="@+id/btnOpenFilter" />
 
     <LinearLayout
         android:id="@+id/btnOpenFilter"
@@ -91,24 +91,24 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:fontFamily="@font/satoshi_bold"
-        android:text="@string/rezultati"
+        android:text="Trgovine"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="@+id/btnOpenSort"
         app:layout_constraintStart_toStartOf="@+id/btnBack"
-        app:layout_constraintTop_toTopOf="@+id/btnOpenSort" />
+        app:layout_constraintTop_toBottomOf="@+id/btnBack" />
 
     <TextView
         android:id="@+id/resultCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
         android:fontFamily="@font/satoshi_regular"
         android:text=""
         android:textColor="@color/gray"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@+id/btnOpenFilter"
         app:layout_constraintStart_toStartOf="@+id/textView3"
-        app:layout_constraintTop_toBottomOf="@+id/textView3" />
+        app:layout_constraintTop_toTopOf="@+id/btnOpenFilter" />
 
     <ProgressBar
         android:id="@+id/loadingSpinner"

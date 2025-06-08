@@ -28,7 +28,7 @@ abstract class AppDatabase : RoomDatabase() {
                     context.applicationContext,
                     AppDatabase::class.java,
                     "shopko_database"
-                ).fallbackToDestructiveMigration(false)
+                ).addMigrations(MIGRATION_5_6)
                     .build()
                 INSTANCE = instance
                 instance
