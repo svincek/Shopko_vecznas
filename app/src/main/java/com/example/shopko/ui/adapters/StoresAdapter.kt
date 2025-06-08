@@ -41,19 +41,12 @@ class StoresAdapter() :
         holder.price.text = "€%.2f".format(storeCombo.totalPrice)
         holder.distance.text = "${"%.1f".format(storeCombo.distance / 1000f)} km"
 
+        val imageUrl = storeCombo.store.first().logoUrl.orEmpty()
 
-        val storeName = storeCombo.store.first().name.lowercase()
-        val logoUrl = when {
-            "konzum" in storeName -> "https://logo.clearbit.com/www.tommy.hr/"
-            "lidl" in storeName -> "https://upload.wikimedia.org/wikipedia/hr/thumb/1/1e/Lidl_brand.svg/300px-Lidl_brand.svg.png"
-            "spar" in storeName -> "https://upload.wikimedia.org/wikipedia/commons/thumb/7/7c/Spar-logo.svg/500px-Spar-logo.svg.png"
-
-            else -> "https://upload.wikimedia.org/wikipedia/commons/6/65/No-Image-Placeholder.svg"
-        }
         Glide.with(context)
-            .load(logoUrl)
+            .load(imageUrl)
             .placeholder(R.drawable.placeholder_store1)
-            .error(R.drawable.custom_visibility)
+            .error(R.drawable.placeholder_store1)
             .into(holder.logo)
 
         holder.itemView.setOnClickListener {

@@ -1,45 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/white"
     android:layout_marginBottom="16dp">
-
-    <ImageView
-        android:id="@+id/imageView10"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:src="@drawable/placeholder_article1"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
 
     <TextView
         android:id="@+id/typeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="12dp"
+        android:layout_marginStart="24dp"
         android:layout_marginTop="8dp"
-        android:text="Jogurt"
+        android:fontFamily="@font/satoshi_medium"
+        android:text="@string/jogurt"
         android:textColor="@color/black"
         android:textSize="16sp"
         android:textStyle="bold"
-        android:fontFamily="@font/satoshi_medium"
-        app:layout_constraintStart_toEndOf="@+id/imageView10"
-        app:layout_constraintTop_toTopOf="@+id/imageView10" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/brandTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
         android:fontFamily="@font/satoshi_regular"
-        android:text="Zbregov"
+        android:text="@string/zbregov"
         android:textColor="@color/black"
         android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="@+id/typeTextView"
         app:layout_constraintTop_toBottomOf="@+id/typeTextView" />
 
@@ -48,7 +41,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:text="100g"
+        android:text="@string/_100g"
         android:textSize="14sp"
         android:fontFamily="@font/satoshi_regular"
         android:textColor="@color/gray"
@@ -63,6 +56,8 @@
         android:src="@drawable/icon_forwardarrow"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/description"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
