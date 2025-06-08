@@ -7,10 +7,13 @@ import com.example.shopko.data.model.StoreComboResult
 import com.example.shopko.data.model.StoreEntity
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.utils.enums.Filters
+import com.example.shopko.utils.enums.HourFilter
+import com.example.shopko.utils.enums.StoreFilter
 import com.example.shopko.utils.general.combinations
 import com.example.shopko.utils.location.DistanceUtil
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.gms.maps.model.LatLng
+import isStoreOpenNow
 
 /**
  * Vraća sortiranu listu kombinacija trgovina koje najbolje odgovaraju korisnikovom popisu artikala,
@@ -33,7 +36,9 @@ suspend fun sortStoreCombo(
     context: Context,
     articleList: List<ArticleDisplay>,
     maxCombos: Int,
-    filter: Filters
+    filter: Filters,
+    filterStore: StoreFilter,
+    workingHours: HourFilter
 ): List<StoreComboResult> {
     val db = AppDatabase.getDatabase(context)
     val stores = db.storeDao().getAllStores()
@@ -44,7 +49,10 @@ suspend fun sortStoreCombo(
 
     val sortedStores = userLatLng?.let { userLatLng ->
         stores.sortedBy { store ->
-            DistanceUtil.calculateDistance(userLatLng, LatLng(store.latitude ?: 0.0, store.longitude ?: 0.0))
+            DistanceUtil.calculateDistance(
+                userLatLng,
+                LatLng(store.latitude ?: 0.0, store.longitude ?: 0.0)
+            )
         }
     } ?: stores
 
@@ -59,7 +67,8 @@ suspend fun sortStoreCombo(
     }
 
     val validCombos = allStoreCombos.map { storeCombo ->
-        val allArticles = storeCombo.flatMap { db.articleDao().getArticlesByStore(it.name.toString()) }
+        val allArticles =
+            storeCombo.flatMap { db.articleDao().getArticlesByStore(it.name.toString()) }
 
         val typeToArticle: Map<String?, ArticleEntity?> = allArticles
             .groupBy { it.subcategory }
@@ -68,7 +77,8 @@ suspend fun sortStoreCombo(
             }
 
         val matchedArticles = articleList.mapNotNull { userArticle ->
-            val article = typeToArticle[userArticle.subcategory]?.copy(buyQuantity = userArticle.buyQuantity)
+            val article =
+                typeToArticle[userArticle.subcategory]?.copy(buyQuantity = userArticle.buyQuantity)
             article
         }
 
@@ -93,32 +103,51 @@ suspend fun sortStoreCombo(
         )
     }
 
+    val filteredCombos = validCombos
+        .filter { combo ->
+            when (filterStore) {
+                StoreFilter.Kaufland -> combo.store.any { it.name == "Kaufland" }
+                StoreFilter.Lidl -> combo.store.any { it.name == "Lidl" }
+                StoreFilter.Plodine -> combo.store.any { it.name == "Plodine" }
+                StoreFilter.Konzum -> combo.store.any { it.name == "Konzum" }
+                StoreFilter.Eurospin -> combo.store.any { it.name == "Eurospin" }
+                StoreFilter.Spar -> combo.store.any { it.name == "Spar" }
+                StoreFilter.Tommy -> combo.store.any { it.name == "Tommy" }
+                StoreFilter.Studenac -> combo.store.any { it.name == "Studenac" }
+                StoreFilter.Sve -> true
+            }
+        }
+        .filter { combo ->
+            if (workingHours == HourFilter.OtvorenoSada) {
+                combo.store.all { store -> isStoreOpenNow(store.workTime ?: "") }
+            } else true
+        }
+
+
     return when (filter) {
-        Filters.BYPRICE -> validCombos.sortedWith(
+        Filters.BYPRICE -> filteredCombos.sortedWith(
             compareByDescending<StoreComboResult> { it.matchedArticles.size }
                 .thenBy { it.missingTypes.size }
                 .thenBy { it.totalPrice }
                 .thenBy { it.distance }
         )
 
-        Filters.BYDISTANCE -> validCombos.sortedWith(
+        Filters.BYDISTANCE -> filteredCombos.sortedWith(
             compareByDescending<StoreComboResult> { it.matchedArticles.size }
                 .thenBy { it.missingTypes.size }
                 .thenBy { it.distance }
                 .thenBy { it.totalPrice }
         )
 
-        Filters.BYPRICE_DESC -> validCombos.sortedWith(
+        Filters.BYPRICE_DESC -> filteredCombos.sortedWith(
             compareByDescending<StoreComboResult> { it.matchedArticles.size }
                 .thenBy { it.missingTypes.size }
                 .thenByDescending { it.totalPrice }
         )
 
-        Filters.DEFAULT -> validCombos.sortedByDescending { it.matchedArticles.size }
+        Filters.DEFAULT -> filteredCombos.sortedByDescending { it.matchedArticles.size }
     }
 }
-
-
 fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
     val validStores = stores.filter { it.latitude != null && it.longitude != null }
 
@@ -131,7 +160,10 @@ fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
             DistanceUtil.calculateDistance(current, LatLng(store.latitude!!, store.longitude!!))
         }!!
 
-        totalDistance += DistanceUtil.calculateDistance(current, LatLng(next.latitude!!, next.longitude!!))
+        totalDistance += DistanceUtil.calculateDistance(
+            current,
+            LatLng(next.latitude!!, next.longitude!!)
+        )
         current = LatLng(next.latitude, next.longitude)
         remaining.remove(next)
     }

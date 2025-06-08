@@ -24,6 +24,7 @@
         android:name="com.example.shopko.ui.screens.ArticleAddFragment"
         android:label="Add Article" />
 
+
     <action
         android:id="@+id/action_storesFragment"
         app:destination="@id/storesFragment" />
