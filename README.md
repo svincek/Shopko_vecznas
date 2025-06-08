@@ -25,34 +25,35 @@
 1. Kloniraj repozitorij:
    ```bash
    git clone https://github.com/svincek/Shopko_vecznas.git
-Otvori projekt u Android Studio.
+2. Otvori projekt u Android Studio.
 
-Dodaj local.properties datoteku:
+3. Dodaj local.properties datoteku:
+   ```bash
+   properties
+   Copy
+   Edit
+   sdk.dir=/Users/korisnik/Library/Android/sdk
+   API_KEY= # kontaktirati na: simon.vincek@gmail.com za api ključ
 
-properties
-Copy
-Edit
-sdk.dir=/Users/korisnik/Library/Android/sdk
-API_KEY= # kontaktirati na: simon.vincek@gmail.com za api ključ
-Pokreni:
-
-Build > Make Project
-
-ili preko CLI: ./gradlew build
+4. Pokreni:
+   ```bash
+   Build > Make Project
+   
+   ili preko CLI: ./gradlew build
 
 Komunikacija s backendom
-Aplikacija se spaja na Spring Boot REST API (hostiran posebno), preko sljedećih ruta:
 
-GET /articles?page=X&size=Y – artikli
-
-GET /stores – trgovine s geolokacijama
-
+   Aplikacija se spaja na Spring Boot REST API (hostiran posebno), preko sljedećih ruta:
+   ```bash
+   GET /articles?page=X&size=Y – artikli
+   
+   GET /stores – trgovine s geolokacijama
+```
 Primjeri commit poruka
-bash
-Copy
-Edit
+```bash
 feat: Implementiran prikaz trgovina na mapi
 fix: Ispravljen crash prilikom skeniranja praznog bar koda
+```
 
 👤 Autori
 Simon Vincek – simon.vincek@gmail.com
