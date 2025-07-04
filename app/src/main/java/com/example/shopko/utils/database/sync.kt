@@ -1,8 +1,8 @@
 
 import android.content.Context
 import android.util.Log
-import com.example.shopko.data.model.ArticleEntity
-import com.example.shopko.data.model.StoreEntity
+import com.example.shopko.data.model.entitys.ArticleEntity
+import com.example.shopko.data.model.entitys.StoreEntity
 import com.example.shopko.data.remote.ApiService
 import com.example.shopko.data.repository.AppDatabase
 import kotlinx.coroutines.Dispatchers

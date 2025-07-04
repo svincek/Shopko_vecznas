@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleEntity
+import com.example.shopko.data.model.entitys.ArticleEntity
 
 class ArticleStoreAdapter(private val articles: List<ArticleEntity>) :
     RecyclerView.Adapter<ArticleStoreAdapter.ArticleViewHolder>() {

@@ -1,4 +1,4 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.objects
 
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser

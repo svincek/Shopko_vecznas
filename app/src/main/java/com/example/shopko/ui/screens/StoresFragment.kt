@@ -20,9 +20,9 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.CurrentStoreComboResult.storeCombo
-import com.example.shopko.data.model.StoreComboResult
-import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.model.objects.CurrentStoreComboResult.storeCombo
+import com.example.shopko.data.model.entitys.StoreComboResult
+import com.example.shopko.data.model.objects.UserArticleList.articleList
 import com.example.shopko.ui.adapters.StoresAdapter
 import com.example.shopko.ui.components.FilterBottomSheetDialog
 import com.example.shopko.ui.components.SortBottomSheetDialog

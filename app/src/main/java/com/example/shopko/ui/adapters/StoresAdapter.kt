@@ -10,9 +10,9 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.shopko.R
-import com.example.shopko.data.model.CurrentStoreComboResult.storeCombo
-import com.example.shopko.data.model.StoreComboResult
-import com.example.shopko.data.model.StoreComboResultParcelable
+import com.example.shopko.data.model.objects.CurrentStoreComboResult.storeCombo
+import com.example.shopko.data.model.entitys.StoreComboResult
+import com.example.shopko.data.model.entitys.StoreComboResultParcelable
 import com.example.shopko.ui.screens.StoreDetailsActivity
 
 

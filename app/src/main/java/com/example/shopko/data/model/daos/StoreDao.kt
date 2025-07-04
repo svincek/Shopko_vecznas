@@ -1,13 +1,14 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.shopko.data.model.entitys.StoreEntity
 
 @Dao
 interface StoreDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertStores(stores: List<StoreEntity>): List<Long>
 
     @Query("SELECT name FROM stores")

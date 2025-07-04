@@ -8,7 +8,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleDisplay
+import com.example.shopko.data.model.entitys.ArticleDisplay
 
 class ArticleSelectAdapter(
     private var articles: List<ArticleDisplay>,

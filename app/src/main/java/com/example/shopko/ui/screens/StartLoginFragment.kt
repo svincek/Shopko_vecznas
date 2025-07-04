@@ -11,7 +11,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.shopko.R
-import com.example.shopko.data.model.AuthManager
+import com.example.shopko.data.model.objects.AuthManager
 import com.example.shopko.ui.MainActivity
 
 class StartLoginFragment : Fragment() {
@@ -32,6 +32,8 @@ class StartLoginFragment : Fragment() {
 
         val btnLogin = view.findViewById<ImageButton>(R.id.btnLogin)
         val btnRegister = view.findViewById<TextView>(R.id.btnRegister)
+
+        startActivity(Intent(activity, MainActivity::class.java))
 
         btnLogin.setOnClickListener {
             AuthManager.login(fieldEMail.text.toString(), fieldPassword.text.toString()) { success, message ->

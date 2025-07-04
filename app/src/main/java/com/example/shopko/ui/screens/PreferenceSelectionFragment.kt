@@ -11,7 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleEntity
+import com.example.shopko.data.model.entitys.ArticleEntity
 import com.example.shopko.data.repository.AppDatabase
 import kotlinx.coroutines.launch
 

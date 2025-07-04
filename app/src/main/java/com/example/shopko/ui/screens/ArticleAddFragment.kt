@@ -18,8 +18,8 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleDisplay
-import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.model.entitys.ArticleDisplay
+import com.example.shopko.data.model.objects.UserArticleList.articleList
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.ui.adapters.ArticleSelectAdapter
 import kotlinx.coroutines.launch

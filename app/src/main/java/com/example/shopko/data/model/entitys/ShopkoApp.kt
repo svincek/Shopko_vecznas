@@ -1,4 +1,4 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.entitys
 
 import android.app.Application
 import android.content.Context

@@ -1,14 +1,13 @@
 package com.example.shopko.utils.camera
 import android.net.Uri
 import android.util.Log
-import com.example.shopko.data.model.ShopkoApp
+import com.example.shopko.data.model.entitys.ShopkoApp
 import com.example.shopko.utils.general.levenshtein
 import com.google.mlkit.vision.common.InputImage
 import com.google.mlkit.vision.text.TextRecognition
 import com.google.mlkit.vision.text.latin.TextRecognizerOptions
 import java.io.File
 import java.io.IOException
-import java.util.Locale
 
 fun runTextRecognitionOnImage(products: List<String>, imageFile: File, onResult: (List<String>) -> Unit) {
     val context = ShopkoApp.getAppContext()
@@ -21,7 +20,7 @@ fun runTextRecognitionOnImage(products: List<String>, imageFile: File, onResult:
                 val textList = visionText.textBlocks
                     .map { it.text }
                     .map {it.replace("\\s+".toRegex(), "")}
-                    .map { it.uppercase(Locale.getDefault()) }
+                    .map { it.uppercase() }
                     .filter { it.isNotBlank() }
                 Log.d("CapturedText", "Recognized text: $textList")
 
@@ -29,8 +28,7 @@ fun runTextRecognitionOnImage(products: List<String>, imageFile: File, onResult:
 
                 for(text in textList) {
                     for(product in products) {
-                        val distance = levenshtein(text, product.replace("\\s+".toRegex(), ""))
-
+                        val distance = levenshtein(text, product.replace("\\s+".toRegex(), "").uppercase())
                         if (distance <= 3) {
                             cleanedTextList.add(product)
                         }

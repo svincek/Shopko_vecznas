@@ -1,4 +1,4 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.entitys
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

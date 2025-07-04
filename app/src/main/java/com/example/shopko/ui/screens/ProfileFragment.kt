@@ -11,7 +11,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.shopko.R
-import com.example.shopko.data.model.AuthManager
+import com.example.shopko.data.model.objects.AuthManager
 
 
 class ProfileFragment : Fragment() {
