@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.StoreComboResultParcelable
+import com.example.shopko.data.model.entitys.StoreComboResultParcelable
 import com.example.shopko.ui.adapters.ArticleStoreAdapter
 
 class StoreDetailsActivity : AppCompatActivity() {

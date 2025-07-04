@@ -6,18 +6,18 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.migration.Migration
 import androidx.sqlite.db.SupportSQLiteDatabase
-import com.example.shopko.data.model.ArticleDao
-import com.example.shopko.data.model.ArticleEntity
-import com.example.shopko.data.model.StoreDao
-import com.example.shopko.data.model.StoreEntity
-import com.example.shopko.data.model.UserArticlesDao
-import com.example.shopko.data.model.UserArticlesEntity
+import com.example.shopko.data.model.daos.ArticleDao
+import com.example.shopko.data.model.entitys.ArticleEntity
+import com.example.shopko.data.model.daos.StoreDao
+import com.example.shopko.data.model.entitys.StoreEntity
+import com.example.shopko.data.model.daos.UserArticlesDao
+import com.example.shopko.data.model.entitys.UserArticlesEntity
 
 @Database(
     entities = [
         StoreEntity::class,
         ArticleEntity::class,
-        UserArticlesEntity::class
+        UserArticlesEntity::class,
        ],
     version = 7)
 abstract class AppDatabase : RoomDatabase() {

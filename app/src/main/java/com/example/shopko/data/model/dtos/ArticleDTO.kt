@@ -1,4 +1,4 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.dtos
 
 import SafeDoubleSerializer
 import androidx.room.PrimaryKey

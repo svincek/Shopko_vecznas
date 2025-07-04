@@ -33,7 +33,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.model.objects.UserArticleList.articleList
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.ui.adapters.ArticleAdapter
 import com.example.shopko.ui.components.MyCustomDialog
@@ -147,10 +147,8 @@ class ArticleListFragment : Fragment() {
             val favouriteArticles = db.articleDao().getFavouriteArticles()
 
             articleAdapter = ArticleAdapter(articleList, favouriteArticles)
-            listRecyclerView.layoutManager = LinearLayoutManager(requireContext())
             listRecyclerView.adapter = articleAdapter
         }
-        articleAdapter = ArticleAdapter(articleList)
 
         val itemTouchHelper = ItemTouchHelper(object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
             override fun onMove(
@@ -395,6 +393,7 @@ class ArticleListFragment : Fragment() {
         MyCustomDialog {
             articleAdapter.notifyDataSetChanged()
             refreshListView()
+            listRecyclerView.adapter = articleAdapter
         }.show(childFragmentManager, "MyCustomDialog")
     }
     private fun animateCardHeight(fromHeight: Int, toHeight: Int) {

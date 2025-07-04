@@ -11,9 +11,9 @@ import android.widget.TextView
 import androidx.navigation.Navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleDisplay
-import com.example.shopko.data.model.ArticleEntity
-import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.model.entitys.ArticleDisplay
+import com.example.shopko.data.model.entitys.ArticleEntity
+import com.example.shopko.data.model.objects.UserArticleList.articleList
 
 class ArticleAdapter(
     private val fullList: MutableList<ArticleDisplay>,
@@ -62,7 +62,7 @@ class ArticleAdapter(
             }
             1 -> {
                 holder.starIcon.setImageResource(R.drawable.icon_starbox_true)
-                holder.starCount.text = favoritesForSubcategory[0].brand ?: "1 favorita"
+                holder.starCount.text = favoritesForSubcategory[0].brand ?: "1 favorit"
             }
             else -> {
                 holder.starIcon.setImageResource(R.drawable.icon_starbox_true)

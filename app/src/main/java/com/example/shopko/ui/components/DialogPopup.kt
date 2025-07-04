@@ -27,12 +27,12 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.lifecycleScope
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleDisplay
-import com.example.shopko.data.model.ShopkoApp
-import com.example.shopko.data.model.UserArticleList.articleList
+import com.example.shopko.data.model.entitys.ArticleDisplay
+import com.example.shopko.data.model.objects.UserArticleList.articleList
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.utils.FileUtils
 import com.example.shopko.utils.camera.runTextRecognitionOnImage
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.io.File
 
@@ -43,14 +43,13 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
     private lateinit var takePhotoButton: ImageButton
     private lateinit var backButton: ImageButton
     private lateinit var openGalleryButton: ImageButton
-    private val context = ShopkoApp.getAppContext()
 
     private val pickImageLauncher = registerForActivityResult(
         ActivityResultContracts.GetContent()
     ) { uri: Uri? ->
         uri?.let {
             lifecycleScope.launch {
-                val products: List<String> = AppDatabase.getDatabase(context).articleDao().getAllSubcategories()
+                val products: List<String> = AppDatabase.getDatabase(requireContext()).articleDao().getAllSubcategories()
                 val file = FileUtils.getFileFromUri(requireContext(), it)
                 runTextRecognitionOnImage(products, file) { scannedArticlesList ->
                     for (text in scannedArticlesList) {
@@ -152,44 +151,39 @@ class MyCustomDialog(private val onArticlesAdded: () -> Unit) : DialogFragment()
         )
 
         val outputOptions = ImageCapture.OutputFileOptions.Builder(photoFile).build()
+        val ctx = requireContext().applicationContext
 
         imageCapture.takePicture(
             outputOptions,
             ContextCompat.getMainExecutor(requireContext()),
             object : ImageCapture.OnImageSavedCallback {
                 override fun onImageSaved(outputFileResults: ImageCapture.OutputFileResults) {
-                    Toast.makeText(context, "Photo saved: ${photoFile.absolutePath}", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(
+                        context,
+                        "Photo saved: ${photoFile.absolutePath}",
+                        Toast.LENGTH_SHORT
+                    ).show()
                     Log.d("CameraX", "Photo saved: ${photoFile.absolutePath}")
 
-                    lifecycleScope.launch {
-                        val products: List<String> = AppDatabase.getDatabase(context).articleDao().getAllSubcategories()
-                        runTextRecognitionOnImage(products, photoFile) { scannedArticlesList ->
-                            for (text in scannedArticlesList) {
-                                Log.d("TextRecognition", "Recognized text: $text")
-                            }
+                    lifecycleScope.launch(Dispatchers.IO) {
 
-                            lifecycleScope.launch {
-                                if (scannedArticlesList.isNotEmpty()) {
-                                    val scannedArticles = mutableListOf<ArticleDisplay>()
-                                    scannedArticlesList.forEach{ scannedArticle ->
-                                        scannedArticles.addAll(AppDatabase.getDatabase(requireContext()).articleDao().getArticlesBySubcategoryContains(scannedArticle).map{
-                                            ArticleDisplay(
-                                                brand = it.brand,
-                                                quantity = it.quantity,
-                                                subcategory = it.subcategory
-                                            )
-                                        }.distinctBy { it.brand })
-                                    }
-                                    articleList.addAll(scannedArticles)
-                                    onArticlesAdded()
-                                } else {
-                                    Toast.makeText(context, "No store results found", Toast.LENGTH_SHORT).show()
-                                }
+                        val dao = AppDatabase.getDatabase(ctx).articleDao()
+                        val products = dao.getAllSubcategories()
+
+                        runTextRecognitionOnImage(products, photoFile) { scanned ->
+
+                        Log.d("Recognized Articles", "$scanned")
+                            if (scanned.isNotEmpty()) {
+                                val displays =
+                                    scanned.map { subcat -> ArticleDisplay(subcategory = subcat) }
+                                articleList.addAll(displays)
+                                onArticlesAdded()
+                            } else {
+                                Toast.makeText(ctx, "No store results found", Toast.LENGTH_SHORT).show()
                             }
+                            dialog?.dismiss()
                         }
                     }
-
-                    dialog?.dismiss()
                 }
 
                 override fun onError(exception: ImageCaptureException) {

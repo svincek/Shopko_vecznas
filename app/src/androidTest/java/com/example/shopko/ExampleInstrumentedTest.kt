@@ -1,9 +1,9 @@
 package com.example.shopko
 
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.example.shopko.data.model.ArticleDTO
-import com.example.shopko.data.model.PaginatedResponse
-import com.example.shopko.data.model.StoreDTO
+import com.example.shopko.data.model.dtos.ArticleDTO
+import com.example.shopko.data.model.entitys.PaginatedResponse
+import com.example.shopko.data.model.dtos.StoreDTO
 import com.example.shopko.data.remote.KtorClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get

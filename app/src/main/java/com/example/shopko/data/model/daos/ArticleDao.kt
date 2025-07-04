@@ -1,13 +1,14 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.daos
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.example.shopko.data.model.entitys.ArticleEntity
 
 @Dao
 interface ArticleDao {
-    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
     suspend fun insertArticles(articles: List<ArticleEntity>): List<Long>
 
     @Query("""
@@ -31,7 +32,7 @@ interface ArticleDao {
     @Query("SELECT * FROM articles WHERE isFavourite = 1")
     suspend fun getFavouriteArticles(): List<ArticleEntity>
 
-    @Query("SELECT DISTINCT subcategory FROM articles")
+    @Query("SELECT DISTINCT subcategory FROM articles WHERE subcategory IS NOT NULL")
     suspend fun getAllSubcategories(): List<String>
 
     @Query("UPDATE articles SET isFavourite = :isFavourite WHERE brand = :brand " +

@@ -1,15 +1,15 @@
-package com.example.shopko.data.model
+package com.example.shopko.data.model.entitys
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
 
 
 
 data class StoreComboResult (
-val store: List<StoreEntity>,
-val matchedArticles: List<ArticleEntity>,
-val missingTypes: List<String>,
-val totalPrice: Double,
-val distance: Float,
+    val store: List<StoreEntity>,
+    val matchedArticles: List<ArticleEntity>,
+    val missingTypes: List<String>,
+    val totalPrice: Double,
+    val distance: Float,
 )
 
 

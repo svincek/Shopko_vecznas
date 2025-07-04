@@ -7,7 +7,7 @@ import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.shopko.R
-import com.example.shopko.data.model.ArticleEntity
+import com.example.shopko.data.model.entitys.ArticleEntity
 
 class PreferenceAdapter(
     private val articles: List<ArticleEntity>,

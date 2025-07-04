@@ -1,10 +1,10 @@
 package com.example.shopko.utils.sorting
 
 import android.content.Context
-import com.example.shopko.data.model.ArticleDisplay
-import com.example.shopko.data.model.ArticleEntity
-import com.example.shopko.data.model.StoreComboResult
-import com.example.shopko.data.model.StoreEntity
+import com.example.shopko.data.model.entitys.ArticleDisplay
+import com.example.shopko.data.model.entitys.ArticleEntity
+import com.example.shopko.data.model.entitys.StoreComboResult
+import com.example.shopko.data.model.entitys.StoreEntity
 import com.example.shopko.data.repository.AppDatabase
 import com.example.shopko.utils.enums.Filters
 import com.example.shopko.utils.enums.HourFilter
@@ -14,6 +14,7 @@ import com.example.shopko.utils.location.DistanceUtil
 import com.example.shopko.utils.location.LocationHelper
 import com.google.android.gms.maps.model.LatLng
 import isStoreOpenNow
+import kotlinx.coroutines.runBlocking
 
 /**
  * Vraća sortiranu listu kombinacija trgovina koje najbolje odgovaraju korisnikovom popisu artikala,
@@ -42,6 +43,7 @@ suspend fun sortStoreCombo(
 ): List<StoreComboResult> {
     val db = AppDatabase.getDatabase(context)
     val stores = db.storeDao().getAllStores()
+    //val distanceDao = db.storeDistanceDao()
 
     val locationHelper = LocationHelper(context)
     val userLocation = locationHelper.getLastLocationSuspend()
@@ -108,21 +110,16 @@ suspend fun sortStoreCombo(
 
     val filteredCombos = validCombos
         .filter { combo ->
-            when (filterStore) {
-                StoreFilter.Kaufland -> combo.store.any { it.name == "Kaufland" }
-                StoreFilter.Lidl -> combo.store.any { it.name == "Lidl" }
-                StoreFilter.Plodine -> combo.store.any { it.name == "Plodine" }
-                StoreFilter.Konzum -> combo.store.any { it.name == "Konzum" }
-                StoreFilter.Eurospin -> combo.store.any { it.name == "Eurospin" }
-                StoreFilter.Spar -> combo.store.any { it.name == "Spar" }
-                StoreFilter.Tommy -> combo.store.any { it.name == "Tommy" }
-                StoreFilter.Studenac -> combo.store.any { it.name == "Studenac" }
-                StoreFilter.Sve -> true
+            if(filterStore!= StoreFilter.Sve){
+                combo.store.any {it.name == filterStore.toString() }
+            }
+            else{
+                true
             }
         }
         .filter { combo ->
             if (workingHours == HourFilter.OtvorenoSada) {
-                combo.store.all { store -> isStoreOpenNow(store.workTime ?: "") }
+                combo.store.all { store -> isStoreOpenNow(store.workTime) }
             } else true
         }
 
@@ -151,27 +148,58 @@ suspend fun sortStoreCombo(
         Filters.DEFAULT -> filteredCombos.sortedByDescending { it.matchedArticles.size }
     }
 }
-fun calculateComboDistance(start: LatLng, stores: List<StoreEntity>): Float {
+suspend fun calculateComboDistance(
+    start: LatLng,
+    stores: List<StoreEntity>,
+    //distanceDao: StoreDistanceDao
+): Float {
     val validStores = stores.filter { it.latitude != null && it.longitude != null }
 
     val remaining = validStores.toMutableList()
-    var current = start
+    var currentLatLng = start
     var totalDistance = 0f
+    var lastStore: StoreEntity? = null
 
     while (remaining.isNotEmpty()) {
         val next = remaining.minByOrNull { store ->
-            DistanceUtil.calculateDistance(current, LatLng(store.latitude!!, store.longitude!!))
+            if (lastStore == null) {
+                DistanceUtil.calculateDistance(currentLatLng, LatLng(store.latitude!!, store.longitude!!))
+            } else {
+                runBlocking {
+                    getOrCalculateDistance(lastStore, store)
+                }
+            }
         }!!
 
-        totalDistance += DistanceUtil.calculateDistance(
-            current,
-            LatLng(next.latitude!!, next.longitude!!)
-        )
-        current = LatLng(next.latitude, next.longitude)
+        totalDistance += if (lastStore == null) {
+            DistanceUtil.calculateDistance(currentLatLng, LatLng(next.latitude!!, next.longitude!!))
+        } else {
+            getOrCalculateDistance(lastStore, next)
+        }
+
+        lastStore = next
+        currentLatLng = LatLng(next.latitude!!, next.longitude!!)
         remaining.remove(next)
     }
 
     return totalDistance
+}
+
+suspend fun getOrCalculateDistance(
+    a: StoreEntity,
+    b: StoreEntity,
+    //distanceDao: StoreDistanceDao
+): Float {
+    //val cached = distanceDao.getDistance(a.storeId, b.storeId)
+    //if (cached != null) return cached.distance
+
+    val dist = DistanceUtil.calculateDistance(
+        LatLng(a.latitude ?: 0.0, a.longitude ?: 0.0),
+        LatLng(b.latitude ?: 0.0, b.longitude ?: 0.0)
+    )
+
+    //distanceDao.insertDistance(StoreDistanceEntity(a.storeId, b.storeId, dist))
+    return dist
 }
 
 
